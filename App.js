@@ -21,7 +21,7 @@ function HomeScreen({ navigation }) {
 
   const handleLogin = () => {
 
-    if (username === 'admin' && password === 'password') {
+    if (username === 'user' && password === 'password') {
       navigation.navigate('Welcome');
     } else if (username === 'admin' && password === 'password') {
       navigation.navigate('Admin'); // Navigate to the admin page upon successful login
