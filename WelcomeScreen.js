@@ -5,7 +5,10 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity, Modal } from 'reac
 import { AntDesign } from '@expo/vector-icons';
 import axios from 'axios'; // Import axios for making HTTP requests
 import { useNavigation } from '@react-navigation/native'; // Import useNavigation hook
+<<<<<<< HEAD
 import App from './App';
+=======
+>>>>>>> origin/master
 
 const WelcomeScreen = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -47,7 +50,11 @@ const WelcomeScreen = () => {
           <Text style={styles.sidebarText}>Post Item</Text>
         </TouchableOpacity>
 
+<<<<<<< HEAD
         <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Settings')}>
+=======
+        <TouchableOpacity style={styles.sidebarItem}>
+>>>>>>> origin/master
           <AntDesign name="setting" size={20} color="black" />
           <Text style={styles.sidebarText}>Settings</Text>
         </TouchableOpacity>

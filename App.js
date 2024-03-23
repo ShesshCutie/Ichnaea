@@ -1,9 +1,14 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from 'react';
+=======
+import React, { useState } from 'react';
+>>>>>>> origin/master
 import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Ionicons } from '@expo/vector-icons';
 import { styles } from './style'; // Import styles from './style'
+<<<<<<< HEAD
 import mysql from 'mysql'; // Import the mysql package
 
 const Stack = createStackNavigator();
@@ -42,13 +47,31 @@ const DatabaseConnection = () => {
   return null; // No UI component for database connection
 };
 
+=======
+
+import WelcomeScreen from './WelcomeScreen';
+import SignUpPrompt from './signUpPrompt'; 
+import ProfileScreen from './ProfileScreen';
+import PostScreen from './PostScreen';
+
+const Stack = createStackNavigator();
+
+>>>>>>> origin/master
 function HomeScreen({ navigation }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = () => {
+<<<<<<< HEAD
     // Handle login logic here
+=======
+    if (username === 'admin' && password === 'password') {
+      navigation.navigate('Welcome');
+    } else {
+      alert('Invalid username or password.');
+    }
+>>>>>>> origin/master
   };
 
   const handleTogglePassword = () => {
@@ -59,7 +82,10 @@ function HomeScreen({ navigation }) {
     // Navigate to the sign-up prompt screen
     navigation.navigate('SignUpPrompt');
   };
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
   return (
     <View style={styles.container}>
       <Text style={styles.welcomeText}>Mama's Find</Text>
@@ -97,9 +123,17 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Home" component={HomeScreen} />
+<<<<<<< HEAD
         {/* Other screen components */}
       </Stack.Navigator>
       <DatabaseConnection /> {/* Include DatabaseConnection component */}
+=======
+        <Stack.Screen name="Welcome" component={WelcomeScreen} />
+        <Stack.Screen name="Profile" component={ProfileScreen} />
+        <Stack.Screen name="SignUpPrompt" component={SignUpPrompt} />
+        <Stack.Screen name="Post" component={PostScreen} />
+      </Stack.Navigator>
+>>>>>>> origin/master
     </NavigationContainer>
   );
 }
