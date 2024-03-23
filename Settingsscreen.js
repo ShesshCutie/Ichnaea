@@ -5,16 +5,14 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity, Modal } from 'reac
 import { AntDesign } from '@expo/vector-icons';
 import axios from 'axios'; // Import axios for making HTTP requests
 import { useNavigation } from '@react-navigation/native'; // Import useNavigation hook
-import TwoOptionButton from './TwoOptionButton';
 
-const WelcomeScreen = () => { // Rename PostScreen to WelcomeScreen
+const Settingsscreen = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [showSidebar, setShowSidebar] = useState(false);
   const [showFilterOptions, setShowFilterOptions] = useState(false);
   const [sortByItem, setSortByItem] = useState(null);
   const [sortByDate, setSortByDate] = useState(null);
   const [data, setData] = useState([]); // State to store database content
-  
 
   useEffect(() => {
     fetchData(); // Fetch data when component mounts
@@ -43,20 +41,12 @@ const WelcomeScreen = () => { // Rename PostScreen to WelcomeScreen
           <AntDesign name="user" size={20} color="black" />
           <Text style={styles.sidebarText}>Profile</Text>
         </TouchableOpacity>
-<<<<<<< HEAD
         <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Post')}>
           <AntDesign name="plus" size={20} color="black" />
           <Text style={styles.sidebarText}>Post Item</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Settings')}>
-=======
-        <TouchableOpacity style={styles.sidebarItem}>
-          <AntDesign name="plus" size={20} color="black" />
-          <Text style={styles.sidebarText}>Post Item</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.sidebarItem}>
->>>>>>> origin/master
           <AntDesign name="setting" size={20} color="black" />
           <Text style={styles.sidebarText}>Settings</Text>
         </TouchableOpacity>
@@ -65,11 +55,6 @@ const WelcomeScreen = () => { // Rename PostScreen to WelcomeScreen
           <Text style={styles.sidebarText}>Logout</Text>
         </TouchableOpacity>
       </View>
-<<<<<<< HEAD
-=======
-      
-
->>>>>>> origin/master
       {/* Content */}
 
       {/* Sidebar Toggle Button */}
@@ -95,11 +80,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     flexDirection: 'row', // Display sidebar and content side by side
-  },
-  welcomeText: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
   },
   sidebar: {
     width: 200,
@@ -187,4 +167,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default WelcomeScreen;
+export default settingsscreen;

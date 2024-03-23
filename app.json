@@ -4,10 +4,17 @@
     "slug": "lalala",
     "version": "1.0.0",
     "orientation": "portrait",
+<<<<<<< HEAD
+    "icon": "./assets/logo.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/logo.png",
+=======
     "icon": "./assets/try.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
+>>>>>>> origin/master
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -19,12 +26,20 @@
     },
     "android": {
       "adaptiveIcon": {
+<<<<<<< HEAD
+        "foregroundImage": "./assets/logo.png",
+=======
         "foregroundImage": "./assets/try.png",
+>>>>>>> origin/master
         "backgroundColor": "#ffffff"
       }
     },
     "web": {
+<<<<<<< HEAD
+      "favicon": "./assets/logo.png"
+=======
       "favicon": "./assets/favicon.png"
+>>>>>>> origin/master
     }
   }
 }

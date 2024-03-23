@@ -20,7 +20,8 @@ function HomeScreen({ navigation }) {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = () => {
-    if (username === 'username' && password === 'password') {
+
+    if (username === 'admin' && password === 'password') {
       navigation.navigate('Welcome');
     } else if (username === 'admin' && password === 'password') {
       navigation.navigate('Admin'); // Navigate to the admin page upon successful login
@@ -37,6 +38,8 @@ function HomeScreen({ navigation }) {
     // Navigate to the sign-up prompt screen
     navigation.navigate('SignUpPrompt');
   };
+
+
   return (
     <View style={styles.container}>
       <Text style={styles.welcomeText}>Mama's Find</Text>
@@ -84,3 +87,4 @@ export default function App() {
     </NavigationContainer>
   );
 }
+

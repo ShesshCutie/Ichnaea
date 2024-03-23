@@ -6,6 +6,10 @@ import { AntDesign } from '@expo/vector-icons';
 import axios from 'axios'; // Import axios for making HTTP requests
 import { useNavigation } from '@react-navigation/native'; // Import useNavigation hook
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> origin/master
 const ProfileScreen = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [showSidebar, setShowSidebar] = useState(false);
@@ -41,11 +45,20 @@ const ProfileScreen = () => {
           <AntDesign name="user" size={20} color="black" />
           <Text style={styles.sidebarText}>Profile</Text>
         </TouchableOpacity>
+<<<<<<< HEAD
+        <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Post')}>
+          <AntDesign name="plus" size={20} color="black" />
+          <Text style={styles.sidebarText}>Post Item</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Settings')}>
+=======
         <TouchableOpacity style={styles.sidebarItem}>
           <AntDesign name="plus" size={20} color="black" />
           <Text style={styles.sidebarText}>Post Item</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.sidebarItem}>
+>>>>>>> origin/master
           <AntDesign name="setting" size={20} color="black" />
           <Text style={styles.sidebarText}>Settings</Text>
         </TouchableOpacity>
