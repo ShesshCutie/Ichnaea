@@ -9,6 +9,8 @@ import WelcomeScreen from './WelcomeScreen';
 import SignUpPrompt from './signUpPrompt'; 
 import ProfileScreen from './ProfileScreen';
 import PostScreen from './PostScreen';
+import AdminScreen from './AdminScreen';
+import Archives from './Archives';
 
 const Stack = createStackNavigator();
 
@@ -18,13 +20,15 @@ function HomeScreen({ navigation }) {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = () => {
-    if (username === 'admin' && password === 'password') {
+    if (username === 'username' && password === 'password') {
       navigation.navigate('Welcome');
+    } else if (username === 'admin' && password === 'password') {
+      navigation.navigate('Admin'); // Navigate to the admin page upon successful login
     } else {
       alert('Invalid username or password.');
     }
   };
-
+  
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
   };
@@ -74,6 +78,8 @@ export default function App() {
         <Stack.Screen name="Profile" component={ProfileScreen} />
         <Stack.Screen name="SignUpPrompt" component={SignUpPrompt} />
         <Stack.Screen name="Post" component={PostScreen} />
+        <Stack.Screen name="Admin" component={AdminScreen} />
+        <Stack.Screen name="Archives" component={Archives} />
       </Stack.Navigator>
     </NavigationContainer>
   );

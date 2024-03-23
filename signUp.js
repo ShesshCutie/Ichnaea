@@ -4,7 +4,7 @@
 const signUp = async (username, email, password) => {
     try {
       // Perform sign-up logic, e.g., sending a request to an API
-      const response = await fetch('https://example.com/signup', {
+      const response = await fetch('http://localhost:3001/api/data', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
