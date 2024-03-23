@@ -1,12 +1,9 @@
-// WelcomeScreen.js
-
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Modal } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import axios from 'axios'; // Import axios for making HTTP requests
-import { useNavigation } from '@react-navigation/native'; // Import useNavigation hook
 
-const WelcomeScreen = () => {
+const HomeFounderScreen = ({ navigation }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [showSidebar, setShowSidebar] = useState(false);
   const [showFilterOptions, setShowFilterOptions] = useState(false);
@@ -27,7 +24,23 @@ const WelcomeScreen = () => {
     }
   };
 
-  const navigation = useNavigation(); // Initialize navigation
+  const handleOption1Press = () => {
+    // Logic for option 1 press
+  };
+
+  const handleOption2Press = () => {
+    // Logic for option 2 press
+  };
+
+  const handleSortByItem = (item) => {
+    setSortByItem(item);
+    setShowFilterOptions(false);
+  };
+
+  const handleSortByDate = (date) => {
+    setSortByDate(date);
+    setShowFilterOptions(false);
+  };
 
   return (
     <View style={styles.container}>
@@ -37,15 +50,14 @@ const WelcomeScreen = () => {
           <AntDesign name="home" size={20} color="black" />
           <Text style={styles.sidebarText}>Home</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Profile')}>
+        <TouchableOpacity style={styles.sidebarItem}>
           <AntDesign name="user" size={20} color="black" />
           <Text style={styles.sidebarText}>Profile</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Post')}>
+        <TouchableOpacity style={styles.sidebarItem}>
           <AntDesign name="plus" size={20} color="black" />
           <Text style={styles.sidebarText}>Post Item</Text>
         </TouchableOpacity>
-
         <TouchableOpacity style={styles.sidebarItem}>
           <AntDesign name="setting" size={20} color="black" />
           <Text style={styles.sidebarText}>Settings</Text>
@@ -220,4 +232,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default WelcomeScreen;
+export default HomeFounderScreen;

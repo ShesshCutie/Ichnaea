@@ -6,7 +6,7 @@ import { AntDesign } from '@expo/vector-icons';
 import axios from 'axios'; // Import axios for making HTTP requests
 import { useNavigation } from '@react-navigation/native'; // Import useNavigation hook
 
-const WelcomeScreen = () => {
+const ProfileScreen = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [showSidebar, setShowSidebar] = useState(false);
   const [showFilterOptions, setShowFilterOptions] = useState(false);
@@ -41,11 +41,10 @@ const WelcomeScreen = () => {
           <AntDesign name="user" size={20} color="black" />
           <Text style={styles.sidebarText}>Profile</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Post')}>
+        <TouchableOpacity style={styles.sidebarItem}>
           <AntDesign name="plus" size={20} color="black" />
           <Text style={styles.sidebarText}>Post Item</Text>
         </TouchableOpacity>
-
         <TouchableOpacity style={styles.sidebarItem}>
           <AntDesign name="setting" size={20} color="black" />
           <Text style={styles.sidebarText}>Settings</Text>
@@ -55,31 +54,14 @@ const WelcomeScreen = () => {
           <Text style={styles.sidebarText}>Logout</Text>
         </TouchableOpacity>
       </View>
+      <View style={styles.content}>
+        <View style={styles.userInfo}>
+          <Text style={styles.name}>John Doe</Text>
+          <Text style={styles.email}>john.doe@example.com</Text>
+        </View>
+      </View>
 
       {/* Content */}
-      <View style={styles.content}>
-        {/* Search Bar */}
-        <View style={styles.searchBarContainer}>
-          <TextInput
-            style={styles.searchInput}
-            placeholder="Search..."
-            value={searchQuery}
-            onChangeText={(text) => setSearchQuery(text)}
-          />
-          <TouchableOpacity onPress={() => setShowFilterOptions(true)}>
-            <AntDesign name="filter" size={24} color="black" />
-          </TouchableOpacity>
-        </View>
-        
-        {/* Display fetched data */}
-        <View>
-          {data.map(item => (
-            <Text key={item.idfounder}>{item.firstname}</Text> // Assuming you have a 'name' field in your database
-          ))}
-        </View>
-
-        {/* Other components and logic */}
-      </View>
 
       {/* Sidebar Toggle Button */}
       <TouchableOpacity style={styles.sidebarToggle} onPress={() => setShowSidebar(!showSidebar)}>
@@ -93,35 +75,6 @@ const WelcomeScreen = () => {
         visible={showFilterOptions}
         onRequestClose={() => setShowFilterOptions(false)}
       >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            {/* Sort by Item */}
-            <Text style={styles.modalHeading}>Sort by Item:</Text>
-            <TouchableOpacity onPress={() => handleSortByItem('phone')} style={styles.modalButton}>
-              <Text>Phone</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => handleSortByItem('jewelry')} style={styles.modalButton}>
-              <Text>Jewelry</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => handleSortByItem('money')} style={styles.modalButton}>
-              <Text>Money</Text>
-            </TouchableOpacity>
-
-            {/* Sort by Date */}
-            <Text style={styles.modalHeading}>Sort by Date:</Text>
-            <TouchableOpacity onPress={() => handleSortByDate('week')} style={styles.modalButton}>
-              <Text>This Week</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => handleSortByDate('month')} style={styles.modalButton}>
-              <Text>This Month</Text>
-            </TouchableOpacity>
-
-            {/* Close Button */}
-            <TouchableOpacity onPress={() => setShowFilterOptions(false)} style={[styles.modalButton, styles.modalButtonClose]}>
-              <Text style={styles.textStyle}>Close</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
       </Modal>
 
     </View>
@@ -220,4 +173,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default WelcomeScreen;
+export default ProfileScreen;

@@ -6,7 +6,9 @@ import { Ionicons } from '@expo/vector-icons';
 import { styles } from './style'; // Import styles from './style'
 
 import WelcomeScreen from './WelcomeScreen';
-import SignUpPrompt from './signUpPrompt'; // Import the SignUpPrompt component
+import SignUpPrompt from './signUpPrompt'; 
+import ProfileScreen from './ProfileScreen';
+import PostScreen from './PostScreen';
 
 const Stack = createStackNavigator();
 
@@ -31,7 +33,6 @@ function HomeScreen({ navigation }) {
     // Navigate to the sign-up prompt screen
     navigation.navigate('SignUpPrompt');
   };
-
   return (
     <View style={styles.container}>
       <Text style={styles.welcomeText}>Mama's Find</Text>
@@ -70,8 +71,9 @@ export default function App() {
       <Stack.Navigator>
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Welcome" component={WelcomeScreen} />
-        {/* Add a new screen for the sign-up prompt */}
+        <Stack.Screen name="Profile" component={ProfileScreen} />
         <Stack.Screen name="SignUpPrompt" component={SignUpPrompt} />
+        <Stack.Screen name="Post" component={PostScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
