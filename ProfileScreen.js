@@ -33,7 +33,7 @@ const ProfileScreen = () => {
     <View style={styles.container}>
       {/* Sidebar */}
       <View style={[styles.sidebar, { left: showSidebar ? 0 : -200 }]}>
-        <TouchableOpacity style={styles.sidebarItem}>
+        <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Home')}>
           <AntDesign name="home" size={20} color="black" />
           <Text style={styles.sidebarText}>Home</Text>
         </TouchableOpacity>
@@ -41,7 +41,7 @@ const ProfileScreen = () => {
           <AntDesign name="user" size={20} color="black" />
           <Text style={styles.sidebarText}>Profile</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.sidebarItem}>
+        <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Post')}>
           <AntDesign name="plus" size={20} color="black" />
           <Text style={styles.sidebarText}>Post Item</Text>
         </TouchableOpacity>
@@ -49,16 +49,10 @@ const ProfileScreen = () => {
           <AntDesign name="setting" size={20} color="black" />
           <Text style={styles.sidebarText}>Settings</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.sidebarItem}>
+        <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Welcome')}>
           <AntDesign name="logout" size={20} color="black" />
           <Text style={styles.sidebarText}>Logout</Text>
         </TouchableOpacity>
-      </View>
-      <View style={styles.content}>
-        <View style={styles.userInfo}>
-          <Text style={styles.name}>John Doe</Text>
-          <Text style={styles.email}>john.doe@example.com</Text>
-        </View>
       </View>
 
       {/* Content */}

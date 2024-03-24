@@ -11,6 +11,8 @@ import ProfileScreen from './ProfileScreen';
 import PostScreen from './PostScreen';
 import AdminScreen from './AdminScreen';
 import Archives from './Archives';
+import FinderScreen from './FinderScreen';
+import FounderScreen from './FounderScreen';
 
 const Stack = createStackNavigator();
 
@@ -22,7 +24,7 @@ function HomeScreen({ navigation }) {
   const handleLogin = () => {
 
     if (username === 'user' && password === 'password') {
-      navigation.navigate('Welcome');
+      navigation.navigate('Home');
     } else if (username === 'admin' && password === 'password') {
       navigation.navigate('Admin'); // Navigate to the admin page upon successful login
     } else {
@@ -76,13 +78,15 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Welcome" component={WelcomeScreen} />
+        <Stack.Screen name="Welcome" component={HomeScreen} />
+        <Stack.Screen name="Home" component={WelcomeScreen} />
         <Stack.Screen name="Profile" component={ProfileScreen} />
         <Stack.Screen name="SignUpPrompt" component={SignUpPrompt} />
         <Stack.Screen name="Post" component={PostScreen} />
         <Stack.Screen name="Admin" component={AdminScreen} />
         <Stack.Screen name="Archives" component={Archives} />
+        <Stack.Screen name="Finder" component={FinderScreen} />
+        <Stack.Screen name="Founder" component={FounderScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

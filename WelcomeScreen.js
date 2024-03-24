@@ -33,7 +33,7 @@ const WelcomeScreen = () => {
     <View style={styles.container}>
       {/* Sidebar */}
       <View style={[styles.sidebar, { left: showSidebar ? 0 : -200 }]}>
-        <TouchableOpacity style={styles.sidebarItem}>
+        <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Home')}>
           <AntDesign name="home" size={20} color="black" />
           <Text style={styles.sidebarText}>Home</Text>
         </TouchableOpacity>
@@ -46,11 +46,11 @@ const WelcomeScreen = () => {
           <Text style={styles.sidebarText}>Post Item</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.sidebarItem}>
+        <TouchableOpacity style={styles.sidebarItem} >
           <AntDesign name="setting" size={20} color="black" />
           <Text style={styles.sidebarText}>Settings</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.sidebarItem}>
+        <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Welcome')}>
           <AntDesign name="logout" size={20} color="black" />
           <Text style={styles.sidebarText}>Logout</Text>
         </TouchableOpacity>

@@ -6,14 +6,24 @@ import { AntDesign } from '@expo/vector-icons';
 import axios from 'axios'; // Import axios for making HTTP requests
 import { useNavigation } from '@react-navigation/native'; // Import useNavigation hook
 import TwoOptionButton from './TwoOptionButton';
+import { FontAwesome } from '@expo/vector-icons';
 
-const WelcomeScreen = () => { // Rename PostScreen to WelcomeScreen
+const PostScreen = () => { // Rename PostScreen to WelcomeScreen
   const [searchQuery, setSearchQuery] = useState('');
   const [showSidebar, setShowSidebar] = useState(false);
   const [showFilterOptions, setShowFilterOptions] = useState(false);
   const [sortByItem, setSortByItem] = useState(null);
   const [sortByDate, setSortByDate] = useState(null);
   const [data, setData] = useState([]); // State to store database content
+  const handlefinder = () => {
+    // Navigate to user management screen
+    navigation.navigate('Finder');
+  };
+
+  const handlefounder = () => {
+    // Navigate to content management screen
+    navigation.navigate('Founder');
+  };
   
 
   useEffect(() => {
@@ -35,7 +45,7 @@ const WelcomeScreen = () => { // Rename PostScreen to WelcomeScreen
     <View style={styles.container}>
       {/* Sidebar */}
       <View style={[styles.sidebar, { left: showSidebar ? 0 : -200 }]}>
-        <TouchableOpacity style={styles.sidebarItem}>
+        <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Home')}>
           <AntDesign name="home" size={20} color="black" />
           <Text style={styles.sidebarText}>Home</Text>
         </TouchableOpacity>
@@ -43,23 +53,35 @@ const WelcomeScreen = () => { // Rename PostScreen to WelcomeScreen
           <AntDesign name="user" size={20} color="black" />
           <Text style={styles.sidebarText}>Profile</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.sidebarItem}>
+        <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Post')}>
           <AntDesign name="plus" size={20} color="black" />
           <Text style={styles.sidebarText}>Post Item</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.sidebarItem}>
+
+        <TouchableOpacity style={styles.sidebarItem} >
           <AntDesign name="setting" size={20} color="black" />
           <Text style={styles.sidebarText}>Settings</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.sidebarItem}>
+        <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Welcome')}>
           <AntDesign name="logout" size={20} color="black" />
           <Text style={styles.sidebarText}>Logout</Text>
         </TouchableOpacity>
       </View>
-      
 
       {/* Content */}
-
+      <View style={styles.content}>
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+          <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center', padding: 10, backgroundColor: 'blue', borderRadius: 5, marginBottom: 10 }} onPress={handlefinder}>
+            <AntDesign name="search1" size={52} color="black" style={{ marginRight: 10 }} />   
+            <Text style={styles.post}>Finder</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center', padding: 10, backgroundColor: 'blue', borderRadius: 5, marginBottom: 10 }} onPress={handlefounder}>
+            <AntDesign name="search1" size={52} color="black" style={{ marginRight: 10 }} />  
+            <Text style={styles.post}>Founder</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+      
       {/* Sidebar Toggle Button */}
       <TouchableOpacity style={styles.sidebarToggle} onPress={() => setShowSidebar(!showSidebar)}>
         <AntDesign name={showSidebar ? "close" : "menu-fold"} size={24} color="black" />
@@ -73,7 +95,6 @@ const WelcomeScreen = () => { // Rename PostScreen to WelcomeScreen
         onRequestClose={() => setShowFilterOptions(false)}
       >
       </Modal>
-
     </View>
   );
 };
@@ -173,6 +194,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
+  post: {
+    color: 'Black',
+    fontSize: 52 
+  }
 });
 
-export default WelcomeScreen;
+export default PostScreen;
