@@ -8,29 +8,55 @@ function SignUpPrompt({ navigation }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleSignUp = () => {
-      fetch('http://localhost:3000/signup', {
+
+    const handleSignUp = (e) => {
+        // e.preventDefault(); // Remove this line
+      
+        fetch('http://localhost:3000/signup', {
           method: 'POST',
           headers: {
-              'Content-Type': 'application/json',
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-              firstname: firstname,
-              lastname: lastname,
-              email: email,
-              password: password,
+            firstname,
+            lastname,
+            email,
+            password,
           }),
-          mode: 'no-cors', // Set no-cors mode
-      })
-      .then(response => {
-          // Handle response
-      })
-      .catch(error => {
-          console.error('Sign-up error:', error);
-          alert('Sign-up failed. Please try again.');
-      });
-  };
-  
+          mode: 'cors',
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(`Received non-ok status: ${response.status}`);
+            }
+            return response.text();
+          })
+          .then((responseText) => {
+            if (responseText.startsWith('<!DOCTYPE')) {
+              // Handle error message in the response HTML
+              const errorStart = responseText.indexOf('<body>');
+              const errorEnd = responseText.indexOf('</body>', errorStart);
+              const errorMessage = responseText.slice(errorStart + 6, errorEnd);
+              const jsonError = JSON.parse(`{"message": "${errorMessage}"}`);
+              throw new Error(jsonError.message);
+            }
+      
+            // Parse JSON with additional tweaks to remove invalid control characters
+            const cleanResponseText = responseText.replace(/[\u0000-\u001F\u007F-\u009F]/g, '');
+            return JSON.parse(cleanResponseText);
+          })
+          .then((responseData) => {
+            // Store the token in the local storage or use it to make authenticated requests
+            console.log(JSON.stringify(responseData));
+            // Navigate the user to the next page
+            navigation.navigate('welcome');
+          })
+          .catch((error) => {
+            console.error('Sign-up error:', error);
+            alert('Sign-up failed. Please try again. (Error: ' + error.message + ')');
+          });
+      };
+
     return (
         <View style={styles.container}>
             <Text style={styles.heading}>Sign Up</Text>

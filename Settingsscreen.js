@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    flexDirection: 'row', // Display sidebar and content side by side
+    flexDirection: 'row', 
   },
   sidebar: {
     width: 200,
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    marginLeft: 200, // Adjust content to make space for sidebar
+    marginLeft: 200, 
     paddingHorizontal: 20,
   },
   sidebarItem: {

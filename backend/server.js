@@ -19,14 +19,16 @@ connection.connect((err) => {
 });
 
 app.use(express.json());
-app.use(cors()); // Enable CORS
+app.use(cors());
+
+
 
 app.post('/signup', (req, res) => {
     const { firstname, lastname, email, password } = req.body;
     connection.query('INSERT INTO users (firstname, lastname, email, password) VALUES (?, ?, ?, ?)', [firstname, lastname, email, password], (error, results, fields) => {
         if (error) {
             console.error('Error signing up:', error);
-            res.status(500).json({ message: 'Sign-up failed. Please try again.' });
+            res.status(500).json({ message: 'Please try again.' });
             return;
         }
         console.log('User signed up successfully');
