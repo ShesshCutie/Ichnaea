@@ -13,29 +13,15 @@ import AdminScreen from './AdminScreen';
 import Archives from './Archives';
 import FinderScreen from './FinderScreen';
 import FounderScreen from './FounderScreen';
+import Login from './Login';
 
 const Stack = createStackNavigator();
 
 function HomeScreen({ navigation }) {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
-
   const handleLogin = () => {
-
-    if (username === 'user' && password === 'password') {
-      navigation.navigate('Home');
-    } else if (username === 'admin' && password === 'password') {
-      navigation.navigate('Admin'); // Navigate to the admin page upon successful login
-    } else {
-      alert('Invalid username or password.');
-    }
+    navigation.navigate('Login');
   };
   
-  const handleTogglePassword = () => {
-    setShowPassword(!showPassword);
-  };
-
   const handleSignUp = () => {
     // Navigate to the sign-up prompt screen
     navigation.navigate('SignUpPrompt');
@@ -44,25 +30,6 @@ function HomeScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.welcomeText}>Mama's Find</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Username"
-        value={username}
-        onChangeText={text => setUsername(text)}
-      />
-      <View style={styles.passwordContainer}>
-        <TextInput
-          style={styles.passwordInput}
-          placeholder="Password"
-          secureTextEntry={!showPassword}
-          value={password}
-          onChangeText={text => setPassword(text)}
-        />
-        <TouchableOpacity style={styles.toggleButton} onPress={handleTogglePassword}>
-          <Ionicons name={showPassword ? 'eye-off' : 'eye'} size={24} color="black" />
-        </TouchableOpacity>
-      </View>
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
@@ -87,6 +54,8 @@ export default function App() {
         <Stack.Screen name="Archives" component={Archives} />
         <Stack.Screen name="Finder" component={FinderScreen} />
         <Stack.Screen name="Founder" component={FounderScreen} />
+        <Stack.Screen name="Login" component={Login} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );

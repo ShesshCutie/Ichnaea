@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { styles } from './style';
 
+
 function SignUpPrompt({ navigation }) {
     const [firstname, setFirstname] = useState('');
     const [lastname, setLastname] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [Username, setUsername] = useState('');
 
 
     const handleSignUp = (e) => {
@@ -22,6 +24,7 @@ function SignUpPrompt({ navigation }) {
             lastname,
             email,
             password,
+            Username,
           }),
           mode: 'cors',
         })
@@ -49,7 +52,7 @@ function SignUpPrompt({ navigation }) {
             // Store the token in the local storage or use it to make authenticated requests
             console.log(JSON.stringify(responseData));
             // Navigate the user to the next page
-            navigation.navigate('welcome');
+            navigation.navigate('Login');
           })
           .catch((error) => {
             console.error('Sign-up error:', error);
@@ -71,6 +74,12 @@ function SignUpPrompt({ navigation }) {
                 placeholder="Last Name"
                 value={lastname}
                 onChangeText={text => setLastname(text)}
+            />
+            <TextInput
+                style={styles.input}
+                placeholder="Username"
+                value={Username}
+                onChangeText={text => setUsername(text)}
             />
             <TextInput
                 style={styles.input}

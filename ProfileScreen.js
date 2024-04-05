@@ -1,169 +1,150 @@
-// WelcomeScreen.js
-
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Modal } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Modal, Image } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
-import axios from 'axios'; // Import axios for making HTTP requests
-import { useNavigation } from '@react-navigation/native'; // Import useNavigation hook
+import axios from 'axios';
+import { useNavigation } from '@react-navigation/native';
 
-const ProfileScreen = () => {
-  const [searchQuery, setSearchQuery] = useState('');
+function ProfileScreen({ route, navigation }) {
+  const { user } = route.params;
   const [showSidebar, setShowSidebar] = useState(false);
   const [showFilterOptions, setShowFilterOptions] = useState(false);
-  const [sortByItem, setSortByItem] = useState(null);
-  const [sortByDate, setSortByDate] = useState(null);
-  const [data, setData] = useState([]); // State to store database content
 
-  useEffect(() => {
-    fetchData(); // Fetch data when component mounts
-  }, []);
-
-  const fetchData = async () => {
-    try {
-      const response = await axios.get('http://localhost:3001/api/data');
-      setData(response.data); // Set the data received from the server
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
-
-  const navigation = useNavigation(); // Initialize navigation
+  if (!user) {
+    return <View><Text>No user data found!</Text></View>;
+  }
 
   return (
     <View style={styles.container}>
-      {/* Sidebar */}
-      <View style={[styles.sidebar, { left: showSidebar ? 0 : -200 }]}>
-        <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Home')}>
-          <AntDesign name="home" size={20} color="black" />
-          <Text style={styles.sidebarText}>Home</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Profile')}>
-          <AntDesign name="user" size={20} color="black" />
-          <Text style={styles.sidebarText}>Profile</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Post')}>
-          <AntDesign name="plus" size={20} color="black" />
-          <Text style={styles.sidebarText}>Post Item</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.sidebarItem}>
-          <AntDesign name="setting" size={20} color="black" />
-          <Text style={styles.sidebarText}>Settings</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Welcome')}>
-          <AntDesign name="logout" size={20} color="black" />
-          <Text style={styles.sidebarText}>Logout</Text>
-        </TouchableOpacity>
+      <View style={styles.navigation}>
+        <View style={[styles.sidebar, { left: showSidebar ? 0 : -200 }]}>
+          <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Home')}>
+            <AntDesign name="home" size={20} color="black" />
+            <Text style={styles.sidebarText}>Home</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Profile')}>
+            <AntDesign name="user" size={20} color="black" />
+            <Text style={styles.sidebarText}>Profile</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Post')}>
+            <AntDesign name="plus" size={20} color="black" />
+            <Text style={styles.sidebarText}>Post Item</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.sidebarItem} >
+            <AntDesign name="setting" size={20} color="black" />
+            <Text style={styles.sidebarText}>Settings</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Welcome')}>
+            <AntDesign name="logout" size={20} color="black" />
+            <Text style={styles.sidebarText}>Logout</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.content}>
+          <TouchableOpacity style={styles.sidebarToggle} onPress={() => setShowSidebar(!showSidebar)}>
+            <AntDesign name={showSidebar ? "close" : "menu-fold"} size={24} color="black" />
+          </TouchableOpacity>
+
+          <View style={styles.cardContainer}>
+            <View style={styles.card}>
+              <Image source={{ uri: user.avatar }} style={styles.avatar} />
+              <View style={styles.info}>
+                <Text style={styles.name}>{user.firstname} {user.lastname}</Text>
+                <Text style={styles.email}>{user.email}</Text>
+                <Text style={styles.Username}>@{user.Username}</Text>
+              </View>
+            </View>
+          </View>
+
+          {/* Filter Options Modal */}
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={showFilterOptions}
+            onRequestClose={() => setShowFilterOptions(false)}
+          >
+            {/* Your modal content here */}
+          </Modal>
+        </View>
       </View>
-
-      {/* Content */}
-
-      {/* Sidebar Toggle Button */}
-      <TouchableOpacity style={styles.sidebarToggle} onPress={() => setShowSidebar(!showSidebar)}>
-        <AntDesign name={showSidebar ? "close" : "menu-fold"} size={24} color="black" />
-      </TouchableOpacity>
-
-      {/* Filter Options Modal */}
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={showFilterOptions}
-        onRequestClose={() => setShowFilterOptions(false)}
-      >
-      </Modal>
-
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    flexDirection: 'row', // Display sidebar and content side by side
+  },
+  navigation: {
+    flex: 1,
+    flexDirection: 'row',
   },
   sidebar: {
     width: 200,
     backgroundColor: '#f0f0f0',
-    paddingTop: 20,
-    alignItems: 'center',
+    paddingTop: 40,
     position: 'absolute',
     top: 0,
     bottom: 0,
-  },
-  content: {
-    flex: 1,
-    marginLeft: 200, // Adjust content to make space for sidebar
-    paddingHorizontal: 20,
+    zIndex: 2,
   },
   sidebarItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 10,
+    padding: 10,
   },
   sidebarText: {
     marginLeft: 10,
   },
-  welcomeText: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
-  searchBarContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 10,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
-    marginTop: 20,
-    marginBottom: 20,
-  },
-  searchInput: {
+  content: {
     flex: 1,
-    height: 40,
-    paddingHorizontal: 10,
+    padding: 20,
   },
   sidebarToggle: {
     position: 'absolute',
     top: 20,
     left: 20,
+    zIndex: 3,
   },
-  centeredView: {
-    flex: 1,
-    justifyContent: 'center',
+  cardContainer: {
     alignItems: 'center',
-    marginTop: 22,
+    marginBottom: 20,
   },
-  modalView: {
-    margin: 20,
-    backgroundColor: 'white',
-    borderRadius: 20,
-    padding: 35,
+  card: {
+    flexDirection: 'row',
     alignItems: 'center',
+    padding: 20,
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    elevation: 3,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 2
+      height: 2,
     },
     shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
+    shadowRadius: 3.84,
   },
-  modalButton: {
-    marginBottom: 10,
-    borderRadius: 5,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    elevation: 2,
-    backgroundColor: '#f0f0f0',
+  avatar: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
   },
-  modalButtonClose: {
-    backgroundColor: 'red',
+  info: {
+    marginLeft: 20,
   },
-  textStyle: {
-    color: 'white',
+  name: {
+    fontSize: 18,
     fontWeight: 'bold',
-    textAlign: 'center',
+  },
+  email: {
+    fontSize: 16,
+    color: '#666',
+  },
+  Username: {
+    fontSize: 16,
+    color: '#666',
   },
 });
 
