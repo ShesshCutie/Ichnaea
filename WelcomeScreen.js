@@ -3,8 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Modal } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
-import axios from 'axios'; // Import axios for making HTTP requests
-import { useNavigation } from '@react-navigation/native'; // Import useNavigation hook
+import axios from 'axios'; 
+import { useNavigation } from '@react-navigation/native'; 
 
 const WelcomeScreen = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -12,22 +12,22 @@ const WelcomeScreen = () => {
   const [showFilterOptions, setShowFilterOptions] = useState(false);
   const [sortByItem, setSortByItem] = useState(null);
   const [sortByDate, setSortByDate] = useState(null);
-  const [data, setData] = useState([]); // State to store database content
+  const [data, setData] = useState([]); 
 
   useEffect(() => {
-    fetchData(); // Fetch data when component mounts
+    fetchData(); 
   }, []);
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:3001/api/data');
-      setData(response.data); // Set the data received from the server
+      const response = await axios.get('http://localhost:3000/api/data');
+      setData(response.data); 
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   };
 
-  const navigation = useNavigation(); // Initialize navigation
+  const navigation = useNavigation(); 
 
   return (
     <View style={styles.container}>
@@ -72,9 +72,18 @@ const WelcomeScreen = () => {
         </View>
         
         {/* Display fetched data */}
-        <View>
-          {data.map(item => (
-            <Text key={item.idfounder}>{item.firstname}</Text> // Assuming you have a 'name' field in your database
+        <View style={styles.cardsContainer}>
+          {data.map((item) => (
+            <TouchableOpacity key={item.id} style={styles.cardContainer} onPress={() => {/* Handle card press */}}>
+              <Text style={styles.cardTitle}>{item.found_item}</Text>
+              <View style={styles.cardDetails}>
+                <Text style={styles.cardText}>{`Name: ${item.firstname} ${item.lastname}`}</Text>
+                <Text style={styles.cardText}>{`Location: ${item.location}`}</Text>
+                <Text style={styles.cardText}>{`Email: ${item.email}`}</Text>
+                <Text style={styles.cardText}>{`Description: ${item.description}`}</Text>
+                {/* Additional details */}
+              </View>
+            </TouchableOpacity>
           ))}
         </View>
 
@@ -217,6 +226,26 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',
+  },
+
+  cardsContainer: {
+    marginBottom: 20,
+  },
+  cardContainer: {
+    backgroundColor: '#f9f9f9',
+    borderRadius: 2,
+    padding: 5,
+    marginBottom: 5,
+    elevation: 3,
+  },
+  cardTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  cardDetails: {},
+  cardText: {
+    marginBottom: 5,
   },
 });
 

@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Modal, Image } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
-import axios from 'axios';
-import { useNavigation } from '@react-navigation/native';
 
 function ProfileScreen({ route, navigation }) {
-  const { user } = route.params;
+  const { user } = route.params || {};
   const [showSidebar, setShowSidebar] = useState(false);
   const [showFilterOptions, setShowFilterOptions] = useState(false);
 
@@ -21,7 +19,7 @@ function ProfileScreen({ route, navigation }) {
             <AntDesign name="home" size={20} color="black" />
             <Text style={styles.sidebarText}>Home</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Profile')}>
+          <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Profile', { user: userData })}>
             <AntDesign name="user" size={20} color="black" />
             <Text style={styles.sidebarText}>Profile</Text>
           </TouchableOpacity>
@@ -63,7 +61,6 @@ function ProfileScreen({ route, navigation }) {
             visible={showFilterOptions}
             onRequestClose={() => setShowFilterOptions(false)}
           >
-            {/* Your modal content here */}
           </Modal>
         </View>
       </View>

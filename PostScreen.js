@@ -1,38 +1,32 @@
 // WelcomeScreen.js
-
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Modal } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import axios from 'axios'; // Import axios for making HTTP requests
 import { useNavigation } from '@react-navigation/native'; // Import useNavigation hook
-import TwoOptionButton from './TwoOptionButton';
-import { FontAwesome } from '@expo/vector-icons';
 
 const PostScreen = () => { // Rename PostScreen to WelcomeScreen
-  const [searchQuery, setSearchQuery] = useState('');
   const [showSidebar, setShowSidebar] = useState(false);
   const [showFilterOptions, setShowFilterOptions] = useState(false);
-  const [sortByItem, setSortByItem] = useState(null);
-  const [sortByDate, setSortByDate] = useState(null);
-  const [data, setData] = useState([]); // State to store database content
+  
   const handlefinder = () => {
-    // Navigate to user management screen
+
     navigation.navigate('Finder');
   };
 
   const handlefounder = () => {
-    // Navigate to content management screen
+
     navigation.navigate('Founder');
   };
   
 
   useEffect(() => {
-    fetchData(); // Fetch data when component mounts
+    fetchData(); 
   }, []);
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:3001/api/data');
+      const response = await axios.get('http://localhost:3000/api/data');
       setData(response.data); // Set the data received from the server
     } catch (error) {
       console.error('Error fetching data:', error);

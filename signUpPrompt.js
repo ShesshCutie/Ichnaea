@@ -11,9 +11,7 @@ function SignUpPrompt({ navigation }) {
     const [Username, setUsername] = useState('');
 
 
-    const handleSignUp = (e) => {
-        // e.preventDefault(); // Remove this line
-      
+    const handleSignUp = (e) => {    
         fetch('http://localhost:3000/signup', {
           method: 'POST',
           headers: {
@@ -36,7 +34,6 @@ function SignUpPrompt({ navigation }) {
           })
           .then((responseText) => {
             if (responseText.startsWith('<!DOCTYPE')) {
-              // Handle error message in the response HTML
               const errorStart = responseText.indexOf('<body>');
               const errorEnd = responseText.indexOf('</body>', errorStart);
               const errorMessage = responseText.slice(errorStart + 6, errorEnd);
@@ -44,14 +41,11 @@ function SignUpPrompt({ navigation }) {
               throw new Error(jsonError.message);
             }
       
-            // Parse JSON with additional tweaks to remove invalid control characters
             const cleanResponseText = responseText.replace(/[\u0000-\u001F\u007F-\u009F]/g, '');
             return JSON.parse(cleanResponseText);
           })
           .then((responseData) => {
-            // Store the token in the local storage or use it to make authenticated requests
             console.log(JSON.stringify(responseData));
-            // Navigate the user to the next page
             navigation.navigate('Login');
           })
           .catch((error) => {

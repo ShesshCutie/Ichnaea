@@ -1,6 +1,7 @@
 const express = require('express');
 const mysql = require('mysql');
 const app = express();
+const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const connection = mysql.createConnection({
@@ -53,7 +54,21 @@ app.post('/login', (req, res) => {
   });
 });
 
+// app.post('/founder', (req, res) => {
+//   const { firstname, lastname, email, location, description, found_item } = req.body;
+//   connection.query('INSERT INTO founders (firstname, lastname, email, location, description, found_item) VALUES (?, ?, ?, ?, ?, ?)', [firstname, lastname, email, location, description, found_item], (error, results, fields) => {
+//     if (error) {
+//       console.error('Error Uploading:', error);
+//       res.status(500).json({ message: 'Please try again.' });
+//       return;
+//     }
+//     console.log('Uploading successfully');
+//     res.status(200).json({ message: 'Upload successful' });
+//   });
+// });
+
 app.post('/founder', (req, res) => {
+  console.log('Received data:', req.body); // Log the request body
   const { firstname, lastname, email, location, description, found_item } = req.body;
   connection.query('INSERT INTO founders (firstname, lastname, email, location, description, found_item) VALUES (?, ?, ?, ?, ?, ?)', [firstname, lastname, email, location, description, found_item], (error, results, fields) => {
     if (error) {
@@ -61,11 +76,37 @@ app.post('/founder', (req, res) => {
       res.status(500).json({ message: 'Please try again.' });
       return;
     }
-    console.log('Uploading successfully');
+    console.log('Values inserted:', results); // Log the inserted values
     res.status(200).json({ message: 'Upload successful' });
   });
 });
 
+app.post('/finder', (req, res) => {
+  console.log('Received data:', req.body); // Log the request body
+  const { firstname, lastname, email, location, description, lost_item } = req.body;
+  connection.query('INSERT INTO founders (firstname, lastname, email, location, description, lost_item) VALUES (?, ?, ?, ?, ?, ?)', [firstname, lastname, email, location, description, lost_item], (error, results, fields) => {
+    if (error) {
+      console.error('Error Uploading:', error);
+      res.status(500).json({ message: 'Please try again.' });
+      return;
+    }
+    console.log('Values inserted:', results); // Log the inserted values
+    res.status(200).json({ message: 'Upload successful' });
+  });
+});
+
+app.get('/api/data', (req, res) => {
+
+  connection.query('SELECT * FROM founders', (error, results, fields) => {
+    if (error) {
+      console.error('Error fetching data:', error);
+      res.status(500).json({ message: 'Please try again.' });
+      return;
+    }
+    console.log('Data fetched successfully');
+    res.status(200).json(results);
+  });
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

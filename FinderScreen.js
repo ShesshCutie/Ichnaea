@@ -1,85 +1,71 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
+import { Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { styles } from './style';
 
-const FinderScreen = () => {
-  const [name, setName] = useState('');
-  const [itemName, setItemName] = useState('');
-  const [description, setDescription] = useState('');
-  const [photo, setPhoto] = useState(null);
+function FinderScreen({ navigation, route }) {
+    const [description, setDescription] = useState('');
+    const [lost_item, setFindItem] = useState('');
+    const [location, setLocation] = useState('');
 
-  const handleSubmit = () => {
-    // Implement logic to submit form data (name, itemName, description, photo)
-    console.log('Form submitted:', { name, itemName, description, photo });
-  };
+    const handleFinderUpload = async () => {
+        try {
+            const response = await fetch('http://localhost:3000/finder', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    firstname: route.params.user.firstname,
+                    lastname: route.params.user.lastname,
+                    email: route.params.user.email,
+                    description,
+                    lost_item,
+                    location,
+                    // id: route.params.users.id, 
+                }),
+                mode: 'cors',
+            });
 
-  return (
-    <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        placeholder="Name"
-        value={name}
-        onChangeText={setName}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Item Name"
-        value={itemName}
-        onChangeText={setItemName}
-      />
-      <TextInput
-        style={[styles.input, { height: 100 }]}
-        placeholder="Description"
-        multiline
-        value={description}
-        onChangeText={setDescription}
-      />
-      <TouchableOpacity style={styles.uploadButton}>
-        <AntDesign name="upload" size={24} color="black" />
-        <Text style={styles.uploadButtonText}>Upload Photo</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
-        <Text style={styles.submitButtonText}>Post Find Item</Text>
-      </TouchableOpacity>
-    </View>
-  );
-};
+            if (!response.ok) {
+                throw new Error(`Received non-ok status: ${response.status}`);
+            }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
-    padding: 10,
-    marginBottom: 10,
-  },
-  uploadButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#3498db',
-    padding: 10,
-    borderRadius: 5,
-    marginBottom: 10,
-  },
-  uploadButtonText: {
-    marginLeft: 10,
-    color: 'white',
-    fontSize: 16,
-  },
-  submitButton: {
-    backgroundColor: 'blue',
-    padding: 15,
-    borderRadius: 5,
-    alignItems: 'center',
-  },
-  submitButtonText: {
-    color: 'white',
-    fontSize: 18,
-  },
-});
+            const responseData = await response.json();
+            console.log(JSON.stringify(responseData));
+            // Navigate the user to the next page and pass some identifier
+            navigation.navigate('Home', { user: responseData.user });
+        } catch (error) {
+            console.error('Upload error:', error);
+            alert('Upload failed. Please try again. (Error: ' + error.message + ')');
+        }
+    };
+
+    return (
+        <View style={styles.container}>
+            <Text style={styles.heading}>Upload Find Item</Text>
+            <TextInput
+                style={styles.input}
+                placeholder="Description"
+                value={description}
+                onChangeText={text => setDescription(text)}
+            />
+            <TextInput
+                style={styles.input}
+                placeholder="Find Item"
+                value={lost_item}
+                onChangeText={text => setFindItem(text)}
+            />
+            <TextInput
+                style={styles.input}
+                placeholder="Location"
+                value={location}
+                onChangeText={text => setLocation(text)}
+            />
+            <TouchableOpacity style={styles.button} onPress={handleFinderUpload}>
+                <Text style={styles.buttonText}>Upload</Text>
+            </TouchableOpacity>
+        </View>
+    );
+}
 
 export default FinderScreen;

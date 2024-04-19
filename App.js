@@ -3,7 +3,7 @@ import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Ionicons } from '@expo/vector-icons';
-import { styles } from './style'; // Import styles from './style'
+import { styles } from './style'; 
 
 import WelcomeScreen from './WelcomeScreen';
 import SignUpPrompt from './signUpPrompt'; 
@@ -55,7 +55,6 @@ export default function App() {
         <Stack.Screen name="Finder" component={FinderScreen} />
         <Stack.Screen name="Founder" component={FounderScreen} />
         <Stack.Screen name="Login" component={Login} />
-
       </Stack.Navigator>
     </NavigationContainer>
   );
