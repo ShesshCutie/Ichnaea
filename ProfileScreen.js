@@ -1,11 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Modal, Image } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
+import axios from 'axios'; 
 
 function ProfileScreen({ route, navigation }) {
   const { user } = route.params || {};
   const [showSidebar, setShowSidebar] = useState(false);
   const [showFilterOptions, setShowFilterOptions] = useState(false);
+  const [data, setData] = useState([]); 
+
+  useEffect(() => {
+    fetchData(); 
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get('http://192.168.10.179:3000/api/data');
+      setData(response.data); 
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
 
   if (!user) {
     return <View><Text>No user data found!</Text></View>;
@@ -53,6 +68,23 @@ function ProfileScreen({ route, navigation }) {
               </View>
             </View>
           </View>
+
+               
+        {/* Display fetched data */}
+        <View style={styles.cardsContainer1}>
+          {data.map((item) => (
+            <TouchableOpacity key={item.id} style={styles.cardContainer1} onPress={() => {/* Handle card press */}}>
+              <Text style={styles.cardTitle1}>{item.found_item}</Text>
+              <View style={styles.cardDetails1}>
+                <Text style={styles.cardText1}>{`Name: ${item.firstname} ${item.lastname}`}</Text>
+                <Text style={styles.cardText1}>{`Location: ${item.location}`}</Text>
+                <Text style={styles.cardText1}>{`Email: ${item.email}`}</Text>
+                <Text style={styles.cardText1}>{`Description: ${item.description}`}</Text>
+                {/* Additional details */}
+              </View>
+            </TouchableOpacity>
+          ))}
+        </View>
 
           {/* Filter Options Modal */}
           <Modal
@@ -107,6 +139,7 @@ const styles = StyleSheet.create({
   cardContainer: {
     alignItems: 'center',
     marginBottom: 20,
+    marginTop:33,
   },
   card: {
     flexDirection: 'row',
@@ -142,6 +175,28 @@ const styles = StyleSheet.create({
   Username: {
     fontSize: 16,
     color: '#666',
+  },
+  cardsContainer1: {
+    marginBottom: 20,
+  },
+  cardContainer1: {
+    backgroundColor: '#f9f9f9',
+    borderRadius: 2,
+    padding: 5,
+    marginBottom: 5,
+    elevation: 3,
+    width: 200,
+    marginLeft: 65,
+    
+  },
+  cardTitle1: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  cardDetails1: {},
+  cardText: {
+    marginBottom: 5,
   },
 });
 

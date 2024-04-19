@@ -20,7 +20,7 @@ const WelcomeScreen = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/data');
+      const response = await axios.get('http://192.168.10.179:3000/api/data');
       setData(response.data); 
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -146,11 +146,33 @@ const styles = StyleSheet.create({
   sidebar: {
     width: 200,
     backgroundColor: '#f0f0f0',
-    paddingTop: 20,
-    alignItems: 'center',
+    paddingTop: 40,
     position: 'absolute',
     top: 0,
     bottom: 0,
+    zIndex: 2,
+  },
+  navigation: {
+    flex: 1,
+    flexDirection: 'row',
+  },
+  sidebarItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 10,
+  },
+  sidebarText: {
+    marginLeft: 10,
+  },
+  content: {
+    flex: 1,
+    padding: 20,
+  },
+  sidebarToggle: {
+    position: 'absolute',
+    top: 20,
+    left: 20,
+    zIndex: 3,
   },
   content: {
     flex: 1,
@@ -161,9 +183,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 10,
-  },
-  sidebarText: {
-    marginLeft: 10,
+    marginTop: 10,
+    marginLeft: 50,
   },
   welcomeText: {
     fontSize: 24,
@@ -179,16 +200,13 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginTop: 20,
     marginBottom: 20,
+    width: 270,
+    marginLeft: -150,
   },
   searchInput: {
     flex: 1,
     height: 40,
     paddingHorizontal: 10,
-  },
-  sidebarToggle: {
-    position: 'absolute',
-    top: 20,
-    left: 20,
   },
   centeredView: {
     flex: 1,
@@ -237,6 +255,9 @@ const styles = StyleSheet.create({
     padding: 5,
     marginBottom: 5,
     elevation: 3,
+    width: 270,
+    marginLeft: -150,
+    
   },
   cardTitle: {
     fontSize: 18,

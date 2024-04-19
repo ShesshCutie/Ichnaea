@@ -30,6 +30,7 @@ function HomeScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.welcomeText}>Inchnaea</Text>
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>

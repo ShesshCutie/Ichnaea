@@ -3,6 +3,7 @@ import { View, Text, TextInput, Button, TouchableOpacity, ActivityIndicator } fr
 import { createStackNavigator } from '@react-navigation/stack';
 import { Ionicons } from '@expo/vector-icons'; 
 import { styles } from './style';
+import {AdminScreen} from './AdminScreen';
 
 const Stack = createStackNavigator();
 
@@ -16,8 +17,17 @@ const Login = ({ navigation }) => {
   async function handleLogin() {
     setError(null);
     setLoading(true);
+  
+    // Check if the username and password match the predefined values
+    if (username === 'admin' && password === 'adminPassword') {
+      // Navigate to admin dashboard or perform any other action for admin login
+      navigation.navigate('AdminScreen.js');
+      setLoading(false);
+      return;
+    }
+  
     try {
-      const response = await fetch('http://localhost:3000/login', {
+      const response = await fetch('http://192.168.10.179:3000/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -28,13 +38,13 @@ const Login = ({ navigation }) => {
         }),
         mode: 'cors',
       });
-
+  
       if (!response.ok) {
         throw new Error(`Received non-ok status: ${response.status}`);
       }
-
+  
       const responseData = await response.json();
-
+  
       if (responseData.user) {
         navigation.navigate('Profile', { user: responseData.user });
       } else {
@@ -45,6 +55,7 @@ const Login = ({ navigation }) => {
     }
     setLoading(false);
   }
+  
 
   return (
     <View style={styles.container}>

@@ -65,11 +65,11 @@ const PostScreen = () => { // Rename PostScreen to WelcomeScreen
       {/* Content */}
       <View style={styles.content}>
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center', padding: 10, backgroundColor: 'blue', borderRadius: 5, marginBottom: 10 }} onPress={handlefinder}>
+          <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center', padding: 10, backgroundColor: 'pink', borderRadius: 5, marginBottom: 10 }} onPress={handlefinder}>
             <AntDesign name="search1" size={52} color="black" style={{ marginRight: 10 }} />   
-            <Text style={styles.post}>Finder</Text>
+            <Text style={styles.post}> Seeker </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center', padding: 10, backgroundColor: 'blue', borderRadius: 5, marginBottom: 10 }} onPress={handlefounder}>
+          <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center', padding: 10, backgroundColor: 'rgb(0, 123, 255)', borderRadius: 5, marginBottom: 10 }} onPress={handlefounder}>
             <AntDesign name="search1" size={52} color="black" style={{ marginRight: 10 }} />  
             <Text style={styles.post}>Founder</Text>
           </TouchableOpacity>
@@ -97,92 +97,126 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    flexDirection: 'row', // Display sidebar and content side by side
   },
-  welcomeText: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
+  navigation: {
+    flex: 1,
+    flexDirection: 'row',
   },
   sidebar: {
     width: 200,
     backgroundColor: '#f0f0f0',
-    paddingTop: 20,
-    alignItems: 'center',
+    paddingTop: 40,
     position: 'absolute',
     top: 0,
     bottom: 0,
-  },
-  content: {
-    flex: 1,
-    marginLeft: 200, // Adjust content to make space for sidebar
-    paddingHorizontal: 20,
+    zIndex: 2,
   },
   sidebarItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 10,
+    padding: 10,
   },
   sidebarText: {
     marginLeft: 10,
   },
-  welcomeText: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
-  searchBarContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 10,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
-    marginTop: 20,
-    marginBottom: 20,
-  },
-  searchInput: {
+  content: {
     flex: 1,
-    height: 40,
-    paddingHorizontal: 10,
+    padding: 20,
   },
   sidebarToggle: {
     position: 'absolute',
     top: 20,
     left: 20,
+    zIndex: 3,
   },
-  centeredView: {
+//   container: {
+//     flex: 1,
+//     backgroundColor: '#fff',
+//     flexDirection: 'row', // Display sidebar and content side by side
+//   },
+//   welcomeText: {
+//     fontSize: 24,
+//     fontWeight: 'bold',
+//     marginBottom: 20,
+//   },
+//   sidebar: {
+//     width: 200,
+//     backgroundColor: '#f0f0f0',
+//     paddingTop: 20,
+//     alignItems: 'center',
+//     position: 'absolute',
+//     top: 0,
+//     bottom: 0,
+//   },
+  content: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 22,
-  },
-  modalView: {
-    margin: 20,
-    backgroundColor: 'white',
-    borderRadius: 20,
-    padding: 35,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  modalButton: {
-    marginBottom: 10,
-    borderRadius: 5,
-    paddingVertical: 10,
     paddingHorizontal: 20,
-    elevation: 2,
-    backgroundColor: '#f0f0f0',
   },
-  modalButtonClose: {
-    backgroundColor: 'red',
-  },
+//   sidebarItem: {
+//     flexDirection: 'row',
+//     alignItems: 'center',
+//     marginBottom: 10,
+//   },
+//   sidebarText: {
+//     marginLeft: 10,
+//   },
+//   welcomeText: {
+//     fontSize: 24,
+//     fontWeight: 'bold',
+//     marginBottom: 20,
+//   },
+//   searchBarContainer: {
+//     flexDirection: 'row',
+//     alignItems: 'center',
+//     paddingHorizontal: 10,
+//     borderWidth: 1,
+//     borderColor: '#ccc',
+//     borderRadius: 5,
+//     marginTop: 20,
+//     marginBottom: 20,
+//   },
+//   searchInput: {
+//     flex: 1,
+//     height: 40,
+//     paddingHorizontal: 10,
+//   },
+//   sidebarToggle: {
+//     position: 'absolute',
+//     top: 20,
+//     left: 20,
+//   },
+//   centeredView: {
+//     flex: 1,
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//     marginTop: 22,
+//   },
+//   modalView: {
+//     margin: 20,
+//     backgroundColor: 'white',
+//     borderRadius: 20,
+//     padding: 35,
+//     alignItems: 'center',
+//     shadowColor: '#000',
+//     shadowOffset: {
+//       width: 0,
+//       height: 2
+//     },
+//     shadowOpacity: 0.25,
+//     shadowRadius: 4,
+//     elevation: 5,
+//   },
+//   modalButton: {
+//     marginBottom: 10,
+//     borderRadius: 5,
+//     paddingVertical: 10,
+//     paddingHorizontal: 20,
+//     elevation: 2,
+//     backgroundColor: '#f0f0f0',
+//   },
+//   modalButtonClose: {
+//     backgroundColor: 'red',
+//   },
   textStyle: {
     color: 'white',
     fontWeight: 'bold',
@@ -191,7 +225,11 @@ const styles = StyleSheet.create({
   post: {
     color: 'Black',
     fontSize: 52 
-  }
+  },
+//   centerContent: {
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
 });
 
 export default PostScreen;

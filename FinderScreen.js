@@ -9,7 +9,7 @@ function FinderScreen({ navigation, route }) {
 
     const handleFinderUpload = async () => {
         try {
-            const response = await fetch('http://localhost:3000/finder', {
+            const response = await fetch('http://192.168.10.179:3000/finder', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

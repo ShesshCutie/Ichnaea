@@ -9,7 +9,7 @@ function FounderScreen({ navigation, route }) {
 
     const handleFounderUpload = async () => {
         try {
-            const response = await fetch('http://localhost:3000/founder', {
+            const response = await fetch('http://192.168.10.179:3000/founder', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
