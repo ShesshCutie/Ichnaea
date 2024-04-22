@@ -19,9 +19,9 @@ const Login = ({ navigation }) => {
     setLoading(true);
   
     // Check if the username and password match the predefined values
-    if (username === 'admin' && password === 'adminPassword') {
+    if (username === 'admin' && password === 'admin') {
       // Navigate to admin dashboard or perform any other action for admin login
-      navigation.navigate('AdminScreen.js');
+      navigation.navigate('Admin');
       setLoading(false);
       return;
     }

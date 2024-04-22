@@ -14,6 +14,7 @@ import Archives from './Archives';
 import FinderScreen from './FinderScreen';
 import FounderScreen from './FounderScreen';
 import Login from './Login';
+import MatchingResults from './MatchingResults';
 
 const Stack = createStackNavigator();
 
@@ -52,6 +53,7 @@ export default function App() {
         <Stack.Screen name="SignUpPrompt" component={SignUpPrompt} />
         <Stack.Screen name="Post" component={PostScreen} />
         <Stack.Screen name="Admin" component={AdminScreen} />
+        <Stack.Screen name="MatchingResults" component={MatchingResults} />
         <Stack.Screen name="Archives" component={Archives} />
         <Stack.Screen name="Finder" component={FinderScreen} />
         <Stack.Screen name="Founder" component={FounderScreen} />
