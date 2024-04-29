@@ -1,71 +1,103 @@
-import React, { useState } from 'react';
-import { Text, TextInput, TouchableOpacity, View } from 'react-native';
+
+import React, { useState, useEffect } from 'react';
+import { Text, View, TouchableOpacity, TextInput } from 'react-native';
 import { styles } from './style';
+import * as ImagePicker from 'expo-image-picker';
+import { useNavigation } from '@react-navigation/native';
 
-function FounderScreen({ navigation, route }) {
-    const [description, setDescription] = useState('');
-    const [found_item, setFoundItem] = useState('');
-    const [location, setLocation] = useState('');
+function FounderScreen({ route }) {
+  // const { user } = route.params;
+  const [UploadStatus, SetUploadStatus] = useState('');
+  const [image, SetImage] = useState(null);
+  const [SelectedFile, SetSelectedFile] = useState(null);
+  const [location, setLocation] = useState('');
+  const [description, setDescription] = useState('');
+  const [found_item, setFound_item] = useState('');
+  const navigation = useNavigation();
 
-    const handleFounderUpload = async () => {
-        try {
-            const response = await fetch('http://192.168.10.179:3000/founder', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    firstname: route.params.user.firstname,
-                    lastname: route.params.user.lastname,
-                    email: route.params.user.email,
-                    description,
-                    found_item,
-                    location,
-                    // id: route.params.users.id, 
-                }),
-                mode: 'cors',
-            });
+  useEffect(() => {
+    (async () => {
+      const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      if (status !== 'granted') {
+        alert('Sorry, we need camera roll permissions to make this work!');
+      }
+    })();
+  },[]);
 
-            if (!response.ok) {
-                throw new Error(`Received non-ok status: ${response.status}`);
-            }
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
 
-            const responseData = await response.json();
-            console.log(JSON.stringify(responseData));
-            // Navigate the user to the next page and pass some identifier
-            navigation.navigate('Home', { user: responseData.user });
-        } catch (error) {
-            console.error('Upload error:', error);
-            alert('Upload failed. Please try again. (Error: ' + error.message + ')');
-        }
+    if (!result.canceled) {
+      SetSelectedFile(result.assets[0].uri);
+    }
+  };
+
+  const UploadHandler = () => {
+    if (!SelectedFile) return;
+  
+    const formData = new FormData();
+    formData.append('image', {
+      uri: SelectedFile,
+      type: 'image/jpeg',
+      name: 'image.jpg',
+    });
+    formData.append('location', location);
+    formData.append('description', description);
+    formData.append('found_item', found_item);
+    formData.append('id', route.params.user.id);
+    formData.append('firstname', route.params.user.firstname);
+    formData.append('lastname', route.params.user.lastname);
+    formData.append('email', route.params.user.email);
+  
+    fetch(`http://192.168.1.119:3000/api/founder`, {
+        method: 'POST',
+        body: formData,
+        credentials: 'include',
+      })
+      .then(res => res.json())
+      .then(res => {
+        SetUploadStatus(res.msg);
+        SetImage(res.image);
+        navigation.navigate('Home');
+      })
+      .catch(error => {
+        console.error('Error during API request:', error);
+      });
     };
 
-    return (
-        <View style={styles.container}>
-            <Text style={styles.heading}>Upload Found Item</Text>
-            <TextInput
-                style={styles.input}
-                placeholder="Description"
-                value={description}
-                onChangeText={text => setDescription(text)}
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Found Item"
-                value={found_item}
-                onChangeText={text => setFoundItem(text)}
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Location"
-                value={location}
-                onChangeText={text => setLocation(text)}
-            />
-            <TouchableOpacity style={styles.button} onPress={handleFounderUpload}>
-                <Text style={styles.buttonText}>Upload</Text>
-            </TouchableOpacity>
-        </View>
-    );
+  return (
+    <View style={styles.container}>
+      <TextInput
+        style={styles.input}
+        placeholder="Location"
+        value={location}
+        onChangeText={setLocation}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Description"
+        value={description}
+        onChangeText={setDescription}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Found Item"
+        value={found_item}
+        onChangeText={setFound_item}
+      />
+      <TouchableOpacity style={styles.button} onPress={pickImage}>
+        <Text style={styles.buttonText}>Choose a photo</Text>
+      </TouchableOpacity>
+      <Text style={{ fontSize: 24 }}>{UploadStatus}</Text>
+      <TouchableOpacity style={styles.button} onPress={UploadHandler}>
+          <Text style={styles.buttonText}>Publish</Text>
+      </TouchableOpacity>
+      </View>   );
 }
 
 export default FounderScreen;

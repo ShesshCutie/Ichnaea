@@ -10,13 +10,13 @@ function ProfileScreen({ route, navigation }) {
   const [data, setData] = useState([]); 
 
   useEffect(() => {
-    fetchData(); 
-  }, []);
+    fetchData(user.id); // Pass the user's ID as a parameter
+  }, [user]);
 
-  const fetchData = async () => {
+  const fetchData = async (id) => {
     try {
-      const response = await axios.get('http://192.168.10.179:3000/api/data');
-      setData(response.data); 
+      const response = await axios.get(`http://192.168.1.119:3000/api/data/${id}`);
+      setData(response.data);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -72,8 +72,8 @@ function ProfileScreen({ route, navigation }) {
                
         {/* Display fetched data */}
         <View style={styles.cardsContainer1}>
-          {data.map((item) => (
-            <TouchableOpacity key={item.id} style={styles.cardContainer1} onPress={() => {/* Handle card press */}}>
+          {data.map((item, index) => (
+            <TouchableOpacity key={index} style={styles.cardContainer1} onPress={() => {/* Handle card press */}}>
               <Text style={styles.cardTitle1}>{item.found_item}</Text>
               <View style={styles.cardDetails1}>
                 <Text style={styles.cardText1}>{`Name: ${item.firstname} ${item.lastname}`}</Text>
@@ -85,6 +85,7 @@ function ProfileScreen({ route, navigation }) {
             </TouchableOpacity>
           ))}
         </View>
+
 
           {/* Filter Options Modal */}
           <Modal
@@ -142,10 +143,10 @@ const styles = StyleSheet.create({
     marginTop:33,
   },
   card: {
-    flexDirection: 'row',
+    // flexDirection: 'row',
     alignItems: 'center',
     padding: 20,
-    backgroundColor: '#fff',
+    backgroundColor: 'blue',
     borderRadius: 10,
     elevation: 3,
     shadowColor: '#000',

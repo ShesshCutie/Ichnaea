@@ -15,7 +15,7 @@ const AdminScreen = ({ navigation }) => {
 
   const handleLogout = () => {
     // Navigate to the Home screen or any other screen where you want to redirect after logout
-    navigation.navigate('Home');
+    navigation.navigate('Welcome');
   };
 
   return (

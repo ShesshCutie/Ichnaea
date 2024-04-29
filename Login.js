@@ -3,7 +3,6 @@ import { View, Text, TextInput, Button, TouchableOpacity, ActivityIndicator } fr
 import { createStackNavigator } from '@react-navigation/stack';
 import { Ionicons } from '@expo/vector-icons'; 
 import { styles } from './style';
-import {AdminScreen} from './AdminScreen';
 
 const Stack = createStackNavigator();
 
@@ -14,20 +13,60 @@ const Login = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+//   async function handleLogin() {
+//   setError(null);
+//   setLoading(true);
+
+//   if (username === 'admin' && password === 'admin') {
+//     navigation.navigate('Admin');
+//     setLoading(false);
+//     return;
+//   }
+
+//   try {
+//     const response = await fetch('http://192.168.1.216:3000/api/login', {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//         'Access-Control-Allow-Origin': '*',
+//         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+//         'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+//       },
+//       body: JSON.stringify({
+//         username,
+//         password,
+//       }),
+//       mode: 'cors',
+//     });
+
+//     if (!response.ok) {
+//       throw new Error(`Received non-ok status: ${response.status}`);
+//     }
+//     const responseData = await response.json();
+
+//     if (responseData.user) {
+//       navigation.navigate('Founder', { user: responseData.user });
+//     } else {
+//       setError('Login failed. Please check your username and password and try again.');
+//     }
+//   } catch (error) {
+//     setError(`Login failed. Please try again.`);
+//   }
+//   setLoading(false);
+// }
+
   async function handleLogin() {
     setError(null);
     setLoading(true);
   
-    // Check if the username and password match the predefined values
     if (username === 'admin' && password === 'admin') {
-      // Navigate to admin dashboard or perform any other action for admin login
       navigation.navigate('Admin');
       setLoading(false);
       return;
     }
   
     try {
-      const response = await fetch('http://192.168.10.179:3000/login', {
+      const response = await fetch('http://192.168.1.119:3000/api/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -42,11 +81,10 @@ const Login = ({ navigation }) => {
       if (!response.ok) {
         throw new Error(`Received non-ok status: ${response.status}`);
       }
-  
       const responseData = await response.json();
   
       if (responseData.user) {
-        navigation.navigate('Profile', { user: responseData.user });
+        navigation.navigate('Finder', { user: responseData.user });
       } else {
         setError('Login failed. Please check your username and password and try again.');
       }
