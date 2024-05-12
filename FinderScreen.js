@@ -12,6 +12,10 @@ function FinderScreen({ route }) {
   const [location, setLocation] = useState('');
   const [description, setDescription] = useState('');
   const [seek_item, setSeek_item] = useState('');
+  const [firstname, setFirstname] = useState('');
+  const [lastname, setLastname] = useState('');
+  const [email, setEmail] = useState('');
+  const [imageURL, setImageURL] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -47,10 +51,13 @@ function FinderScreen({ route }) {
     formData.append('location', location);
     formData.append('description', description);
     formData.append('seek_item', seek_item);
-    formData.append('id', route.params.user.id);
-    formData.append('firstname', route.params.user.firstname);
-    formData.append('lastname', route.params.user.lastname);
-    formData.append('email', route.params.user.email);
+    // formData.append('id', route.params.user.id);
+    // formData.append('firstname', route.params.user.firstname);
+    // formData.append('lastname', route.params.user.lastname);
+    // formData.append('email', route.params.user.email);
+    formData.append('firstname', firstname);
+    formData.append('lastname', lastname);
+    formData.append('email', email);
   
     fetch(`http://192.168.1.119:3000/api/upload`, {
       method: 'POST',
@@ -60,16 +67,31 @@ function FinderScreen({ route }) {
     .then(res => res.json())
     .then(res => {
       SetUploadStatus(res.msg);
-      SetImage(res.image);
+      setImageURL(`http://192.168.205.11:3000${res.image}`);
       navigation.navigate('Home');
-    })
-    .catch(error => {
-      console.error('Error during API request:', error);
-    });
+})
   };
 
   return (
     <View style={styles.container}>
+      <TextInput
+        style={styles.input}
+        placeholder="Firstname"
+        value={firstname}
+        onChangeText={setFirstname}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Lastname"
+        value={lastname}
+        onChangeText={setLastname}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Email"
+        value={email}
+        onChangeText={setEmail}
+      />
       <TextInput
         style={styles.input}
         placeholder="Location"

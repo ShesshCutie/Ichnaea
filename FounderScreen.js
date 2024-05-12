@@ -100,4 +100,5 @@ function FounderScreen({ route }) {
       </View>   );
 }
 
+
 export default FounderScreen;

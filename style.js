@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#ECECEC',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -41,7 +41,7 @@ export const styles = StyleSheet.create({
     right: 10,
   },
   button: {
-    backgroundColor: '#007bff',
+    backgroundColor: '#00072D',
     padding: 10,
     borderRadius: 5,
     width: '60%', // Reduced width
@@ -52,7 +52,7 @@ export const styles = StyleSheet.create({
     color: '#fff',
   },
   signupButton: { // Style for the sign-up button
-    backgroundColor: '#28a745', // Green color
+    backgroundColor: '#00072D', // Green color
     padding: 10,
     borderRadius: 5,
     width: '60%',

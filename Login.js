@@ -13,48 +13,6 @@ const Login = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-//   async function handleLogin() {
-//   setError(null);
-//   setLoading(true);
-
-//   if (username === 'admin' && password === 'admin') {
-//     navigation.navigate('Admin');
-//     setLoading(false);
-//     return;
-//   }
-
-//   try {
-//     const response = await fetch('http://192.168.1.216:3000/api/login', {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//         'Access-Control-Allow-Origin': '*',
-//         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
-//         'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-//       },
-//       body: JSON.stringify({
-//         username,
-//         password,
-//       }),
-//       mode: 'cors',
-//     });
-
-//     if (!response.ok) {
-//       throw new Error(`Received non-ok status: ${response.status}`);
-//     }
-//     const responseData = await response.json();
-
-//     if (responseData.user) {
-//       navigation.navigate('Founder', { user: responseData.user });
-//     } else {
-//       setError('Login failed. Please check your username and password and try again.');
-//     }
-//   } catch (error) {
-//     setError(`Login failed. Please try again.`);
-//   }
-//   setLoading(false);
-// }
-
   async function handleLogin() {
     setError(null);
     setLoading(true);
@@ -84,7 +42,7 @@ const Login = ({ navigation }) => {
       const responseData = await response.json();
   
       if (responseData.user) {
-        navigation.navigate('Finder', { user: responseData.user });
+        navigation.navigate('Profile', { user: responseData.user });
       } else {
         setError('Login failed. Please check your username and password and try again.');
       }

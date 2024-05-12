@@ -430,14 +430,26 @@ app.post('/api/founder', upload.single('image'), (req, res) => {
       console.log(err);
       res.status(500).send('Error saving image to database');
     } else {
-      res.status(200).send({ msg: 'Found Item uploaded successfully', image: imagePath });
+      res.status(200).send({ msg: 'Found Item uploaded successfully', image: imageUrl });
     }
   });
 });
 
-//welcomescreen Upload
-app.get('/api/data', (req, res) => {
+
+app.get('/api/home', (req, res) => {
   connection.query('SELECT * FROM finder', (error, results, fields) => {
+    if (error) {
+      console.error('Error fetching data:', error);
+      res.status(500).json({ message: 'Please try again.' });
+      return;
+    }
+    console.log('Data fetched successfully');
+    res.status(200).json(results);
+  });
+});
+
+app.get('/api/datas', (req, res) => {
+  connection.query('SELECT * FROM founders', (error, results, fields) => {
     if (error) {
       console.error('Error fetching data:', error);
       res.status(500).json({ message: 'Please try again.' });
@@ -451,7 +463,7 @@ app.get('/api/data', (req, res) => {
 //profilescreen Upload
 app.get('/api/data/:userId', (req, res) => {
   const userId = req.params.userId;
-  connection.query('SELECT * FROM founders WHERE id =?', [userId], (error, results, fields) => {
+  connection.query('SELECT * FROM finder WHERE id =?', [userId], (error, results, fields) => {
     if (error) {
       console.error('Error fetching data:', error);
       res.status(500).json({ message: 'Please try again.' });
@@ -466,6 +478,7 @@ app.get('/api/data/:userId', (req, res) => {
     res.status(200).json(results);
   });
 });
+
 
 //signup
 app.post('/signup', (req, res) => {
@@ -483,4 +496,24 @@ app.post('/signup', (req, res) => {
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000');
+});
+
+
+
+app.get('/api/users/:userId', (req, res) => {
+  const userId = req.params.userId;
+  connection.query('SELECT * FROM users WHERE id = ?', [userId], (error, results, fields) => {
+    if (error) {
+      console.error('Error fetching user data:', error);
+      res.status(500).json({ message: 'Please try again.' });
+      return;
+    }
+    if (results.length === 0) {
+      console.log('No user found with ID:', userId);
+      res.status(404).json({ message: 'No user found with this ID.' });
+      return;
+    }
+    console.log('User data fetched successfully');
+    res.status(200).json(results[0]); // Return only the first user data (assuming user ID is unique)
+  });
 });
