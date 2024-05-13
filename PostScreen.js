@@ -2,9 +2,9 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Modal } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native'; // Import useNavigation hook
+import { useNavigation } from '@react-navigation/native'; 
 
-const PostScreen = () => { // Rename PostScreen to WelcomeScreen
+const PostScreen = () => { 
   const [showSidebar, setShowSidebar] = useState(false);
   const [showFilterOptions, setShowFilterOptions] = useState(false);
   
@@ -18,7 +18,7 @@ const PostScreen = () => { // Rename PostScreen to WelcomeScreen
     navigation.navigate('Founder');
   };
 
-  const navigation = useNavigation(); // Initialize navigation
+  const navigation = useNavigation(); 
 
   return (
     <View style={styles.container}>
@@ -37,7 +37,7 @@ const PostScreen = () => { // Rename PostScreen to WelcomeScreen
           <Text style={styles.sidebarText}>Post Item</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.sidebarItem} >
+        <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Settingscreen')}>
           <AntDesign name="setting" size={20} color="black" />
           <Text style={styles.sidebarText}>Settings</Text>
         </TouchableOpacity>

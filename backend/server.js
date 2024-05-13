@@ -304,12 +304,6 @@
 
 
 
-
-
-
-
-
-
 const express = require('express');
 const multer = require('multer');
 const cors = require('cors');
@@ -318,7 +312,7 @@ const path = require('path');
 const app = express();
 
 app.use(cors({
-  origin: ['http://192.168.1.119:3000', 'http://192.168.1.119:19006', '*'],
+  origin: ['http://192.168.125.11:3000', 'http://192.168.125.11:19006', '*'],
   methods: ["GET", "POST"],
   credentials: true,
 }));
@@ -332,7 +326,7 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
-// Configure multer storage settings
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, 'uploads/');
@@ -342,7 +336,6 @@ const storage = multer.diskStorage({
   },
 });
 
-// Filter for image files only
 const fileFilter = (req, file, cb) => {
   if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/gif') {
     cb(null, true);
@@ -351,7 +344,6 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-// Get file extension from mimetype
 const GetExtension = (mimetype) => {
   switch (mimetype) {
     case 'image/jpeg':
@@ -365,10 +357,10 @@ const GetExtension = (mimetype) => {
   }
 };
 
-// Initialize multer middleware
+
 const upload = multer({ storage, fileFilter });
 
-// Connect to MySQL database
+
 const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',

@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { Ionicons } from '@expo/vector-icons'; 
 import { styles } from './style';
 
+
 const Stack = createStackNavigator();
 
 const Login = ({ navigation }) => {
@@ -24,7 +25,7 @@ const Login = ({ navigation }) => {
     }
   
     try {
-      const response = await fetch('http://192.168.1.119:3000/api/login', {
+      const response = await fetch('http://192.168.125.11:3000/api/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
