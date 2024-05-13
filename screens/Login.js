@@ -164,7 +164,7 @@ const Login = ({ navigation }) => {
                         }}
                     >
                         <Image
-                            source={require("../assets/try.png")}
+                            source={require("../assets/facebook.png")}
                             style={{
                                 height: 36,
                                 width: 36,
@@ -191,7 +191,7 @@ const Login = ({ navigation }) => {
                         }}
                     >
                         <Image
-                            source={require("../assets/try.png")}
+                            source={require("../assets/google.png")}
                             style={{
                                 height: 36,
                                 width: 36,

@@ -16,7 +16,7 @@ const front = ({ navigation }) => {
             <View style={{ flex: 1 }}>
                 <View>
                     <Image
-                        source={require("../assets/try.png")}
+                        source={require("../assets/hero1.jpg")}
                         style={{
                             height: 100,
                             width: 100,
@@ -32,7 +32,7 @@ const front = ({ navigation }) => {
                     />
 
                     <Image
-                        source={require("../assets/try.png")}
+                        source={require("../assets/hero3.jpg")}
                         style={{
                             height: 100,
                             width: 100,
@@ -49,7 +49,7 @@ const front = ({ navigation }) => {
                     />
 
                     <Image
-                        source={require("../assets/try.png")}
+                        source={require("../assets/hero3.jpg")}
                         style={{
                             width: 100,
                             height: 100,
@@ -66,7 +66,7 @@ const front = ({ navigation }) => {
                     />
 
                     <Image
-                        source={require("../assets/try.png")}
+                        source={require("../assets/hero2.jpg")}
                         style={{
                             height: 200,
                             width: 200,
