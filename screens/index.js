@@ -1,9 +1,9 @@
-import Login from "./Login";
+import Login1 from "./Login1";
 import front from "./front";
 import Signup from "./Signup";
 
 export {
-    Login,
+    Login1,
     front,
     Signup
 }

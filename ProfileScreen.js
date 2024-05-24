@@ -220,6 +220,8 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Modal } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import axios from 'axios'; 
+import { FontAwesome } from '@expo/vector-icons'; 
+
 
 function ProfileScreen({ route, navigation }) {
   const { user } = route.params || {};
@@ -234,11 +236,15 @@ function ProfileScreen({ route, navigation }) {
 
   const fetchUserData = async () => {
     try {
-      const response = await axios.get(`http://192.168.1.119:3000/api/users/${user.id}`);
+      const response = await axios.get(`http://192.168.43.245:3000/api/users/${user.id}`);
       setUserData(response.data);
     } catch (error) {
       console.error('Error fetching user data:', error);
     }
+  };
+  const handlefinder = () => {
+
+    navigation.navigate('Finder');
   };
 
   return (
@@ -258,11 +264,11 @@ function ProfileScreen({ route, navigation }) {
             <Text style={styles.sidebarText}>Post Item</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.sidebarItem} >
+          <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Settingscreen')}>
             <AntDesign name="setting" size={20} color="black" />
             <Text style={styles.sidebarText}>Settings</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Welcome')}>
+          <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('front')}>
             <AntDesign name="logout" size={20} color="black" />
             <Text style={styles.sidebarText}>Logout</Text>
           </TouchableOpacity>
@@ -284,6 +290,23 @@ function ProfileScreen({ route, navigation }) {
               </View>
             </View>
           )}
+          <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', marginTop: -100, }}>
+          <TouchableOpacity style={styles.buton} onPress={handlefinder}>
+              <FontAwesome name="bell" size={28} color="#00072D" style={{ marginRight: 10 }} /> 
+              <View style={{ flex: 1 }}>
+                <Text style={styles.post1}>Feedback</Text>
+                <View style={{ }} />
+              </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.buton} onPress={handlefinder}>
+              <FontAwesome name="cloud-upload" size={28} color="#00072D" style={{ marginRight: 10 }} /> 
+              <View style={{ flex: 1 }}>
+                <Text style={styles.post1}>Privacy & Security</Text>
+                <View style={{ }} />
+              </View>
+            </TouchableOpacity>
+          </View>
 
           {/* Other content and modals */}
         </View>
@@ -363,6 +386,7 @@ const styles = StyleSheet.create({
   },
   card: {
     // flexDirection: 'row',
+    height: 250,
     alignItems: 'center',
     padding: 20,
     backgroundColor: '#00072D',
@@ -371,7 +395,7 @@ const styles = StyleSheet.create({
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 20,
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
@@ -385,6 +409,7 @@ const styles = StyleSheet.create({
     marginLeft: 20,
   },
   name: {
+    marginTop: 150,
     fontSize: 18,
     fontWeight: 'bold',
     color: '#fff',
@@ -419,8 +444,18 @@ const styles = StyleSheet.create({
   cardText: {
     marginBottom: 5,
   },
+  buton: {
+    flexDirection: 'row', 
+    alignItems: 'center', 
+    padding: 10, 
+    backgroundColor: '#F7FCFE', 
+    borderRadius: 8, 
+    marginBottom: 15, 
+    width: 330,
+    borderBottomWidth: 2,
+    marginLeft: -4,
+    borderBottomColor: 'black',
+  }
 });
 
 export default ProfileScreen;
-
-

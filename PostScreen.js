@@ -36,12 +36,11 @@ const PostScreen = () => { // Rename PostScreen to WelcomeScreen
           <AntDesign name="plus" size={20} color="black" />
           <Text style={styles.sidebarText}>Post Item</Text>
         </TouchableOpacity>
-
-        <TouchableOpacity style={styles.sidebarItem} >
-          <AntDesign name="setting" size={20} color="black" />
-          <Text style={styles.sidebarText}>Settings</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Welcome')}>
+        <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Settingscreen')}>
+            <AntDesign name="setting" size={20} color="black" />
+            <Text style={styles.sidebarText}>Settings</Text>
+          </TouchableOpacity>
+        <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('front')}>
           <AntDesign name="logout" size={20} color="black" />
           <Text style={styles.sidebarText}>Logout</Text>
         </TouchableOpacity>

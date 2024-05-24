@@ -14,8 +14,8 @@ import FinderScreen from './FinderScreen';
 import FounderScreen from './FounderScreen';
 import Login from './Login';
 import MatchingResults from './MatchingResults';
-import { front } from "./screens";
-
+import { Login1, Signup, front } from "./screens";
+import Settingscreen from './Settingscreen';
 const Stack = createStackNavigator();
 
 
@@ -32,6 +32,13 @@ export default function App() {
             headerShown: false
           }}
         />
+          <Stack.Screen
+          name="Signup" 
+          component={Signup}
+          options={{
+            headerShown: false
+          }}
+        />
         <Stack.Screen name="Home" component={WelcomeScreen} />
         <Stack.Screen name="Profile" component={ProfileScreen} />
         <Stack.Screen name="SignUpPrompt" component={SignUpPrompt} />
@@ -42,6 +49,8 @@ export default function App() {
         <Stack.Screen name="Finder" component={FinderScreen} />
         <Stack.Screen name="Founder" component={FounderScreen} />
         <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Settingscreen" component={Settingscreen} />
+        <Stack.Screen name="Login1" component={Login1} options={{headerShown: false}} />
       </Stack.Navigator>
     </NavigationContainer>
   );

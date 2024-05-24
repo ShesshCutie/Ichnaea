@@ -59,7 +59,7 @@ function FinderScreen({ route }) {
     formData.append('lastname', lastname);
     formData.append('email', email);
   
-    fetch(`http://192.168.1.119:3000/api/upload`, {
+    fetch(`http://192.168.43.245:3000/api/upload`, {
       method: 'POST',
       body: formData,
       credentials: 'include',
@@ -67,7 +67,7 @@ function FinderScreen({ route }) {
     .then(res => res.json())
     .then(res => {
       SetUploadStatus(res.msg);
-      setImageURL(`http://192.168.205.11:3000${res.image}`);
+      setImageURL(`http://192.168.43.245:3000${res.image}`);
       navigation.navigate('Home');
 })
   };
@@ -100,15 +100,15 @@ function FinderScreen({ route }) {
       />
       <TextInput
         style={styles.input}
-        placeholder="Description"
-        value={description}
-        onChangeText={setDescription}
-      />
-      <TextInput
-        style={styles.input}
         placeholder="Lost Item"
         value={seek_item}
         onChangeText={setSeek_item}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Description"
+        value={description}
+        onChangeText={setDescription}
       />
       <TouchableOpacity style={styles.button} onPress={pickImage}>
         <Text style={styles.buttonText}>Choose a photo</Text>

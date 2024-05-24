@@ -318,7 +318,7 @@ const path = require('path');
 const app = express();
 
 app.use(cors({
-  origin: ['http://192.168.1.119:3000', 'http://192.168.1.119:19006', '*'],
+  origin: ['http://192.168.43.245:3000', 'http://192.168.43.245:19006', '*'],
   methods: ["GET", "POST"],
   credentials: true,
 }));
@@ -372,8 +372,8 @@ const upload = multer({ storage, fileFilter });
 const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: 'renz',
-  database: 'ichnea',
+  password: 'root1',
+  database: 'inchnaea',
 });
 
 connection.connect((err) => {

@@ -4,19 +4,19 @@ import { LinearGradient } from "expo-linear-gradient";
 import COLORS from '../constants/colors';
 import Button from '../components/Button';
 
-const front = ({ navigation }) => {
+const Front = ({ navigation }) => {
 
     return (
         <LinearGradient
             style={{
                 flex: 1
             }}
-            colors={['#F4FDE4', '#000000']}
+            colors={['#00A36C', '#000000']}
         >
             <View style={{ flex: 1 }}>
                 <View>
                     <Image
-                        source={require("../assets/hero1.jpg")}
+                        source={require("../assets/nana.jpg")}
                         style={{
                             height: 100,
                             width: 100,
@@ -32,13 +32,13 @@ const front = ({ navigation }) => {
                     />
 
                     <Image
-                        source={require("../assets/hero3.jpg")}
+                        source={require("../assets/images.jpg")}
                         style={{
                             height: 100,
                             width: 100,
                             borderRadius: 20,
                             position: "absolute",
-                            top: -30,
+                            top: -10,
                             left: 100,
                             transform: [
                                 { translateX: 50 },
@@ -49,7 +49,7 @@ const front = ({ navigation }) => {
                     />
 
                     <Image
-                        source={require("../assets/hero3.jpg")}
+                        source={require("../assets/nana1.jpg")}
                         style={{
                             width: 100,
                             height: 100,
@@ -66,14 +66,14 @@ const front = ({ navigation }) => {
                     />
 
                     <Image
-                        source={require("../assets/hero2.jpg")}
+                        source={require("../assets/nana3.png")}
                         style={{
                             height: 200,
                             width: 200,
                             borderRadius: 20,
                             position: "absolute",
                             top: 110,
-                            left: 100,
+                            left: 90,
                             transform: [
                                 { translateX: 50 },
                                 { translateY: 50 },
@@ -95,23 +95,23 @@ const front = ({ navigation }) => {
                         fontSize: 50,
                         fontWeight: 800,
                         color: COLORS.white
-                    }}>Let's Get</Text>
+                    }}>Ichnaea</Text>
                     <Text style={{
-                        fontSize: 46,
-                        fontWeight: 800,
+                        fontSize: 35,
+                        fontWeight: 700,
                         color: COLORS.white
-                    }}>Started</Text>
+                    }}>Lost and Found App</Text>
 
                     <View style={{ marginVertical: 22 }}>
                         <Text style={{
                             fontSize: 16,
                             color: COLORS.white,
                             marginVertical: 4
-                        }}>Connect with each other with chatting</Text>
+                        }}>Lost is just an opportunity for something to be found</Text>
                         <Text style={{
                             fontSize: 16,
                             color: COLORS.white,
-                        }}>Calling, Enjoy Safe and private texting</Text>
+                        }}>Let our app be your guide in turning loss into rediscovery</Text>
                     </View>
 
                     <Button
@@ -133,7 +133,7 @@ const front = ({ navigation }) => {
                             color: COLORS.white
                         }}>Already have an account ?</Text>
                         <Pressable
-                            onPress={() => navigation.navigate("Login")}
+                            onPress={() => navigation.navigate("Login1")}
                         >
                             <Text style={{
                                 fontSize: 16,
@@ -150,4 +150,4 @@ const front = ({ navigation }) => {
     )
 }
 
-export default front
+export default Front

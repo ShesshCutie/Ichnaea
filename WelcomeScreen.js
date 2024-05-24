@@ -25,7 +25,7 @@ const WelcomeScreen = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://192.168.1.119:3000/api/home');
+      const response = await axios.get('http://192.168.43.245:3000/api/home');
       setData(response.data);
       setFilteredData(response.data);
     } catch (error) {
@@ -84,12 +84,11 @@ const WelcomeScreen = () => {
           <AntDesign name="plus" size={20} color="black" />
           <Text style={styles.sidebarText}>Post Item</Text>
         </TouchableOpacity>
-
-        <TouchableOpacity style={styles.sidebarItem} >
-          <AntDesign name="setting" size={20} color="black" />
-          <Text style={styles.sidebarText}>Settings</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Welcome')}>
+        <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Settingscreen')}>
+            <AntDesign name="setting" size={20} color="black" />
+            <Text style={styles.sidebarText}>Settings</Text>
+          </TouchableOpacity>
+        <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('front')}>
           <AntDesign name="logout" size={20} color="black" />
           <Text style={styles.sidebarText}>Logout</Text>
         </TouchableOpacity>
