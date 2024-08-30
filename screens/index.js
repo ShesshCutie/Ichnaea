@@ -4,6 +4,6 @@ import Signup from "./Signup";
 
 export {
     Login,
-    front,
-    Signup
+    Signup,
+    front
 }

@@ -37,11 +37,11 @@ const PostScreen = () => {
           <Text style={styles.sidebarText}>Post Item</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Settingscreen')}>
+        <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Settings')}>
           <AntDesign name="setting" size={20} color="black" />
           <Text style={styles.sidebarText}>Settings</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Welcome')}>
+        <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Login')}>
           <AntDesign name="logout" size={20} color="black" />
           <Text style={styles.sidebarText}>Logout</Text>
         </TouchableOpacity>
@@ -121,11 +121,11 @@ const styles = StyleSheet.create({
   },
   post: {
     color: 'white',
-    fontSize: 42,
+    fontSize: 28,
   },
   post1: {
     color: 'black',
-    fontSize: 42,
+    fontSize: 28,
   },
 });
 

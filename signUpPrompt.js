@@ -12,7 +12,7 @@ function SignUpPrompt({ navigation }) {
 
 
     const handleSignUp = (e) => {    
-        fetch('http://192.168.205.11:3000/signup', {
+        fetch('http://192.168.11.188:3000/signup', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

@@ -364,8 +364,8 @@ const upload = multer({ storage, fileFilter });
 const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: 'renz',
-  database: 'ichnea',
+  password: 'root',
+  database: 'ichnaea',
 });
 
 connection.connect((err) => {

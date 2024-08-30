@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { View, Text, TextInput, Button, TouchableOpacity, ActivityIndicator, Image } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Ionicons } from '@expo/vector-icons'; 
 import { styles } from './style';
@@ -25,7 +25,7 @@ const Login = ({ navigation }) => {
     }
   
     try {
-      const response = await fetch('http://192.168.125.11:3000/api/login', {
+      const response = await fetch('http://192.168.11.188:3000/api/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -56,6 +56,19 @@ const Login = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      <View style={{ marginVertical: 22 }}>
+        <Text style={{
+            fontSize: 22,
+            fontWeight: 'bold',
+            marginVertical: 12,
+        }}>
+            Hi Welcome Back ! 👋
+        </Text>
+
+        <Text style={{
+            fontSize: 16,
+        }}>Hello again you have been missed!</Text>
+    </View>
       <Text style={styles.heading}>Login</Text>
       <TextInput
         style={styles.input}

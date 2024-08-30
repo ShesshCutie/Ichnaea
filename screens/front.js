@@ -4,7 +4,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import COLORS from '../constants/colors';
 import Button from '../components/Button';
 
-const front = ({ navigation }) => {
+const Front = ({ navigation }) => {
 
     return (
         <LinearGradient
@@ -150,4 +150,4 @@ const front = ({ navigation }) => {
     )
 }
 
-export default front
+export default Front

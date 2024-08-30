@@ -206,16 +206,6 @@
 // export default ProfileScreen;
 
 
-
-
-
-
-
-
-
-
-
-
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Modal } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
@@ -236,7 +226,7 @@ function ProfileScreen({ route, navigation }) {
 
   const fetchUserData = async () => {
     try {
-      const response = await axios.get(`http://192.168.125.11:3000/api/users/${user.id}`);
+      const response = await axios.get(`http://192.168.11.188:3000/api/users/${user.id}`);
       setUserData(response.data);
     } catch (error) {
       console.error('Error fetching user data:', error);
@@ -264,11 +254,11 @@ function ProfileScreen({ route, navigation }) {
             <Text style={styles.sidebarText}>Post Item</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Settingscreen')}>
+          <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Settings')}>
             <AntDesign name="setting" size={20} color="black" />
             <Text style={styles.sidebarText}>Settings</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Welcome')}>
+          <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Login')}>
             <AntDesign name="logout" size={20} color="black" />
             <Text style={styles.sidebarText}>Logout</Text>
           </TouchableOpacity>
