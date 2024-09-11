@@ -1,0 +1,28 @@
+{
+  "name": "react-native-image-placeholder",
+  "version": "1.0.14",
+  "description": "react native image placeholder",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TuNguyenThanh/react-native-image-placeholder.git"
+  },
+  "dependencies": {
+    "prop-types": "^15.5.10"
+  },
+  "keywords": [
+    "react native image placeholder",
+    "ios image placeholder",
+    "android image placeholder",
+    "image placeholder network"
+  ],
+  "author": "TuNguyenThanh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TuNguyenThanh/react-native-image-placeholder/issues"
+  },
+  "homepage": "https://github.com/TuNguyenThanh/react-native-image-placeholder#readme"
+}
