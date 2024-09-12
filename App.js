@@ -16,6 +16,12 @@ import Login from './Login';
 import MatchingResults from './MatchingResults';
 import { Login1, Signup, front } from "./screens";
 import Settingscreen from './Settingscreen';
+import FeedbackScreen from './settings/FeedbackScreen';
+import PrivacySecurity from './settings/PrivacySecurity';
+import AccountSettings from './settings/AccountSettings';
+import HelpSupport from './settings/HelpSupport';
+import AboutScreen from './settings/AboutScreen';
+import TermsService from './settings/TermsService';
 const Stack = createStackNavigator();
 
 
@@ -51,6 +57,12 @@ export default function App() {
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Settingscreen" component={Settingscreen} />
         <Stack.Screen name="Login1" component={Login1} options={{headerShown: false}} />
+        <Stack.Screen name="Feedback" component={FeedbackScreen} />
+        <Stack.Screen name="Privacy" component={PrivacySecurity} />
+        <Stack.Screen name="Account" component={AccountSettings} />
+        <Stack.Screen name="HelpSupport" component={HelpSupport} />
+        <Stack.Screen name="About" component={AboutScreen} />
+        <Stack.Screen name="Terms" component={TermsService} />
       </Stack.Navigator>
     </NavigationContainer>
   );

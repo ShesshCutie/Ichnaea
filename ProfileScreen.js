@@ -236,7 +236,7 @@ function ProfileScreen({ route, navigation }) {
 
   const fetchUserData = async () => {
     try {
-      const response = await axios.get(`http://192.168.43.245:3000/api/users/${user.id}`);
+      const response = await axios.get(`http://192.168.11.188:3000/api/users/${user.id}`);
       setUserData(response.data);
     } catch (error) {
       console.error('Error fetching user data:', error);

@@ -59,7 +59,7 @@ function FinderScreen({ route }) {
     formData.append('lastname', lastname);
     formData.append('email', email);
   
-    fetch(`http://192.168.43.245:3000/api/upload`, {
+    fetch(`http://192.168.11.188:3000/api/upload`, {
       method: 'POST',
       body: formData,
       credentials: 'include',
@@ -67,7 +67,7 @@ function FinderScreen({ route }) {
     .then(res => res.json())
     .then(res => {
       SetUploadStatus(res.msg);
-      setImageURL(`http://192.168.43.245:3000${res.image}`);
+      setImageURL(`http://192.168.11.188:3000${res.image}`);
       navigation.navigate('Home');
 })
   };

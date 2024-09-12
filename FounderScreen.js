@@ -61,7 +61,7 @@ function FounderScreen({ route }) {
     formData.append('email', email);
   
   
-    fetch(`http://192.168.43.245:3000/api/founder`, {
+    fetch(`http://192.168.11.188:3000/api/founder`, {
         method: 'POST',
         body: formData,
         credentials: 'include',
