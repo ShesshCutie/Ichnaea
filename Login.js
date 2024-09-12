@@ -24,7 +24,7 @@ const Login = ({ navigation }) => {
     }
   
     try {
-      const response = await fetch('http://192.168.43.245:3000/api/login', {
+      const response = await fetch('http://192.168.11.188:3000/api/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

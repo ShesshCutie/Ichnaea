@@ -12,9 +12,24 @@ function Settingscreen({ navigation }) {
     setSelectedContent(content);
     setShowFilterOptions(true);
   };
-  const handlefinder = () => {
+  const handlefeedback = () => {
+    navigation.navigate('Feedback');
+  };
+  const handleaccount = () => {
+    navigation.navigate('Account');
+  };
+  const handleprivacy = () => {
+    navigation.navigate('Privacy');
+  };
+  const handleHelpSupport = () => {
+    navigation.navigate('HelpSupport');
+  };
+  const handleAbout = () => {
+    navigation.navigate('About');
+  };
 
-    navigation.navigate('Finder');
+  const handleTermsService = () => {
+    navigation.navigate('Terms');
   };
 
   return (
@@ -33,11 +48,11 @@ function Settingscreen({ navigation }) {
           <AntDesign name="plus" size={20} color="black" />
           <Text style={styles.sidebarText}>Post Item</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Settingscreen')}>
+        <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Settings')}>
           <AntDesign name="setting" size={20} color="black" />
           <Text style={styles.sidebarText}>Settings</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Welcome')}>
+        <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Login')}>
           <AntDesign name="logout" size={20} color="black" />
           <Text style={styles.sidebarText}>Logout</Text>
         </TouchableOpacity>
@@ -50,14 +65,14 @@ function Settingscreen({ navigation }) {
 
           <View style={styles.content}>
           <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <TouchableOpacity style={styles.buton} onPress={handlefinder}>
+            <TouchableOpacity style={styles.buton} onPress={handleaccount}>
               <FontAwesome name="user" size={32} color="#00072D" style={{ marginRight: 10 }} /> 
               <View style={{ flex: 1 }}>
                 <Text style={styles.post1}>Account</Text>
                 <View style={{ }} />
               </View>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.buton} onPress={handlefinder}>
+            <TouchableOpacity style={styles.buton} onPress={handlefeedback}>
               <FontAwesome name="comment" size={32} color="#00072D" style={{ marginRight: 10 }} /> 
               <View style={{ flex: 1 }}>
                 <Text style={styles.post1}>Feedback</Text>
@@ -65,7 +80,7 @@ function Settingscreen({ navigation }) {
               </View>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.buton} onPress={handlefinder}>
+            <TouchableOpacity style={styles.buton} onPress={handleprivacy}>
               <FontAwesome name="lock" size={32} color="#00072D" style={{ marginRight: 10 }} /> 
               <View style={{ flex: 1 }}>
                 <Text style={styles.post1}>Privacy & Security</Text>
@@ -73,15 +88,23 @@ function Settingscreen({ navigation }) {
               </View>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.buton} onPress={handlefinder}>
+            <TouchableOpacity style={styles.buton} onPress={handleHelpSupport}>
               <FontAwesome name="question-circle" size={32} color="#00072D" style={{ marginRight: 10 }} /> 
               <View style={{ flex: 1 }}>
                 <Text style={styles.post1}>Help and Support</Text>
                 <View style={{ }} />
               </View>
             </TouchableOpacity>
+
+            <TouchableOpacity style={styles.buton} onPress={handleTermsService}>
+              <FontAwesome name="file-text-o" size={32} color="#00072D" style={{ marginRight: 10 }} /> 
+              <View style={{ flex: 1 }}>
+                <Text style={styles.post1}>Terms of Service</Text>
+                <View style={{ }} />
+              </View>
+            </TouchableOpacity>
             
-            <TouchableOpacity style={styles.buton} onPress={handlefinder}>
+            <TouchableOpacity style={styles.buton} onPress={handleAbout}>
               <FontAwesome name="info-circle" size={32} color="#00072D" style={{ marginRight: 10 }} /> 
               <View style={{ flex: 1 }}>
                 <Text style={styles.post1}>About</Text>
@@ -95,8 +118,6 @@ function Settingscreen({ navigation }) {
     </View>
   );
 };
-
-// Function to determine icon name based on the item
 const iconNameForItem = (item) => {
   switch (item) {
     case 'Notifications':
@@ -118,13 +139,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    flexDirection: 'row',
   },
   sidebar: {
     width: 200,
     backgroundColor: '#f0f0f0',
     paddingTop: 40,
-    alignItems: 'center',
     position: 'absolute',
     top: 0,
     bottom: 0,
@@ -141,8 +160,10 @@ const styles = StyleSheet.create({
   },
   sidebarItem: {
     flexDirection: 'row',
-    alignItems: 'left',
+    alignItems: 'center',
     marginBottom: 10,
+    marginLeft: 10,
+    marginTop: 10,
   },
   sidebarText: {
     marginLeft: 10,
@@ -157,11 +178,10 @@ const styles = StyleSheet.create({
     marginLeft: -150,
     alignItems: 'center',
     flexDirection: 'row',
-     // Align icon and text horizontally
   },
   settingButtonText: {
     fontSize: 16,
-    marginLeft: 10, // Space between icon and text
+    marginLeft: 10, 
   },
   sidebarToggle: {
     position: 'absolute',

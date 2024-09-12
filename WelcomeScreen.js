@@ -25,7 +25,7 @@ const WelcomeScreen = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://192.168.43.245:3000/api/home');
+      const response = await axios.get('http://192.168.11.188:3000/api/home');
       setData(response.data);
       setFilteredData(response.data);
     } catch (error) {
