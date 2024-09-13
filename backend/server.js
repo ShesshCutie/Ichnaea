@@ -317,6 +317,7 @@ const mysql = require('mysql');
 const path = require('path');
 const app = express();
 
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(cors({
   origin: ['http://192.168.11.188:3000', 'http://192.168.11.188:19006', '*'],
   methods: ["GET", "POST"],
@@ -406,7 +407,8 @@ app.post('/api/login', (req, res) => {
 //finder
 app.post('/api/upload', upload.single('image'), (req, res) => {
   const { id, firstname, lastname, email, location, description, seek_item } = req.body;
-  const imagePath = `/uploads/${req.file.filename}${GetExtension(req.file.mimetype)}`;
+  // const imagePath = `/uploads/${req.file.filename}${GetExtension(req.file.mimetype)}`;
+  const imagePath = `/uploads/${req.file.filename}`; // Corrected file path for static usage
   const sql = 'INSERT INTO finder (id, firstname, lastname, email, image, location, description, seek_item) VALUES (?,?,?,?,?,?,?,?)';
   const imageUrl = req.protocol + '://' + req.get('host') + imagePath;
   connection.query(sql, [id, firstname, lastname, email, imagePath, location, description, seek_item], (err, result) => {
