@@ -315,9 +315,11 @@ const multer = require('multer');
 const cors = require('cors');
 const mysql = require('mysql');
 const path = require('path');
+const nodemailer = require('nodemailer');
 const app = express();
 
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+// app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/uploads', express.static('uploads'));
 app.use(cors({
   origin: ['http://192.168.11.188:3000', 'http://192.168.11.188:19006', '*'],
   methods: ["GET", "POST"],
@@ -416,7 +418,7 @@ app.post('/api/upload', upload.single('image'), (req, res) => {
       console.log(err);
       res.status(500).send('Error saving image to database');
     } else {
-      res.status(200).send({ msg: 'Lost Item uploaded successfully', image: imagePath });
+      res.status(200).send({ msg: 'Lost Item uploaded successfully', image: imageUrl });
     }
   });
 });
@@ -438,6 +440,18 @@ app.post('/api/founder', upload.single('image'), (req, res) => {
 });
 
 
+// app.get('/api/home', (req, res) => {
+//   connection.query('SELECT * FROM finder', (error, results, fields) => {
+//     if (error) {
+//       console.error('Error fetching data:', error);
+//       res.status(500).json({ message: 'Please try again.' });
+//       return;
+//     }
+//     console.log('Data fetched successfully');
+//     res.status(200).json(results);
+//   });
+// });
+
 app.get('/api/home', (req, res) => {
   connection.query('SELECT * FROM finder', (error, results, fields) => {
     if (error) {
@@ -446,9 +460,19 @@ app.get('/api/home', (req, res) => {
       return;
     }
     console.log('Data fetched successfully');
-    res.status(200).json(results);
+    
+    // Modify each result to include the full image URL
+    const resultsWithImageUrl = results.map(result => {
+      return {
+        ...result,
+        imageUrl: req.protocol + '://' + req.get('host') + result.image
+      };
+    });
+
+    res.status(200).json(resultsWithImageUrl);
   });
 });
+
 
 app.get('/api/datas', (req, res) => {
   connection.query('SELECT * FROM founders', (error, results, fields) => {
@@ -495,6 +519,90 @@ app.post('/signup', (req, res) => {
     res.status(200).json({ message: 'Sign-up successful' });
   });
 });
+
+
+app.post('/feedback', (req, res) => {
+  const { message } = req.body;
+  connection.query('INSERT INTO feedback (message) VALUES (?)', [message], (error, results, fields) => {
+    if (error) {
+      console.error('Error sending feedback:', error);
+      res.status(500).json({ message: 'Please try again.' });
+      return;
+    }
+    console.log('Feedback sent successfully');
+    res.status(200).json({ msg: 'Feedback sent successfully.' });
+  });
+});
+
+
+
+
+//matching result
+const transporter = nodemailer.createTransport({
+  service: 'Gmail',
+  auth: {
+    user: 'renzyats@gmail.com',
+    pass: '@Renzy123',
+  },
+});
+
+app.post('/api/match-items', async (req, res) => {
+  const { foundItems, lostItems } = req.body;
+
+  if (!Array.isArray(foundItems) || !Array.isArray(lostItems)) {
+    return res.status(400).json({ message: 'Invalid request data' });
+  }
+  try {
+    foundItems.forEach((founders) => {
+      lostItems.forEach((finder) => {
+        if (isMatch(founders, finder)) {
+          sendEmail(founders.email, finder.email, founders, finder);
+        }
+      });
+    });
+
+    res.status(200).send('Matching process completed.');
+  } catch (error) {
+    console.error('Error matching items:', error.message);
+    res.status(500).json({ message: 'Error matching items', error: error.message });
+  }
+});
+
+const isMatch = (founders, finder) => {
+  const foundItem = founders.found_item ? founders.found_item.toLowerCase() : '';
+  const seekItem = finder.seek_item ? finder.seek_item.toLowerCase() : '';
+  const foundLocation = founders.location ? founders.location.toLowerCase() : '';
+  const seekLocation = finder.location ? finder.location.toLowerCase() : '';
+  const foundDescription = founders.description ? founders.description.toLowerCase() : '';
+  const seekDescription = finder.description ? finder.description.toLowerCase() : '';
+
+  console.log('Comparing:', { foundItem, seekItem, foundLocation, seekLocation, foundDescription, seekDescription });
+
+  return (
+    foundItem && // Check if foundItem exists before accessing toLowerCase()
+    seekItem &&  // Check if seekItem exists before accessing toLowerCase()
+    foundLocation === seekLocation &&
+    foundDescription.includes(seekDescription)
+  );
+};
+
+const sendEmail = (foundEmail, lostEmail, foundItem, lostItem) => {
+  const mailOptions = {
+    from: 'renzyats@gmail.com',
+    to: `${founders.email}, ${finder.email}`,
+    subject: 'Item Match Found',
+    text: 'A match has been found between your items!\n\nFound Item:\n' + JSON.stringify(foundItem) + '\n\nLost Item:\n' + JSON.stringify(lostItem)
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.log('Error sending email:', error);
+    } else {
+      console.log('Email sent:', info.response);
+    }
+  });
+};
+
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000');

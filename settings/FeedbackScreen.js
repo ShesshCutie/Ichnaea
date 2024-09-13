@@ -1,73 +1,114 @@
+import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-// import { AntDesign } from '@expo/vector-icons';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import COLORS from '../constants/colors';
+import Button from '../components/Button';
 
-function FeedbackScreen({ navigation }) {
-  const [feedback, setFeedback] = useState('');
+const FeedbackScreen = ({ navigation }) => {
+  const [message, setMessage] = useState('');
 
-  const handleSubmit = () => {
-    // Handle feedback submission (e.g., send to a server or save locally)
-    console.log(feedback);
-    // Reset the feedback input
-    setFeedback('');
-    // Provide user feedback (e.g., a toast notification)
-    alert('Thank you for your feedback!');
+  const handleSendFeedback = () => {
+    if (!message) {
+      alert('Please enter your feedback message.');
+      return;
+    }
+
+    fetch('http://192.168.11.188:3000/feedback', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        message,
+      }),
+      mode: 'cors',
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Received non-ok status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((responseData) => {
+        alert(responseData.msg);
+        setMessage(''); // Clear the input field after successful submission
+      })
+      .catch((error) => {
+        console.error('Feedback error:', error);
+        alert('Feedback failed. Please try again. (Error: ' + error.message + ')');
+      });
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.content}>
-        <Text style={styles.label}>Your Feedback</Text>
-        <TextInput
-          style={styles.input}
-          multiline
-          numberOfLines={4}
-          onChangeText={setFeedback}
-          value={feedback}
-          placeholder="Write your feedback here"
-        />
-        <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-          <Text style={styles.buttonText}>Submit</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
-  );
-}
+    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white }}>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        keyboardVerticalOffset={5}
+      >
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+          <View style={{ flex: 1, marginHorizontal: 22 }}>
+            <View style={{ marginVertical: 18 }}>
+              <Text
+                style={{
+                  fontSize: 22,
+                  fontWeight: 'bold',
+                  marginVertical: 5,
+                  color: COLORS.black,
+                }}
+              >
+                Feedback
+              </Text>
+            </View>
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-  },
-  content: {
-    marginTop: 25,
-    flex: 1,
-  },
-  label: {
-    fontSize: 16,
-    marginBottom: 10,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 8,
-    padding: 10,
-    textAlignVertical: 'top',
-    marginBottom: 20,
-  },
-  button: {
-    backgroundColor: '#007BFF',
-    paddingVertical: 15,
-    paddingHorizontal: 20,
-    borderRadius: 8,
-    alignItems: 'center',
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 16,
-  },
-});
+            <View style={{ marginBottom: 12 }}>
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontWeight: '400',
+                  marginVertical: 8,
+                }}
+              >
+                Your Message
+              </Text>
+
+              <View
+                style={{
+                  width: '100%',
+                  height: 100,
+                  borderColor: COLORS.black,
+                  borderWidth: 1,
+                  borderRadius: 8,
+                  paddingLeft: 12,
+                  paddingTop: 8,
+                }}
+              >
+                <TextInput
+                  placeholder="Enter your feedback here"
+                  placeholderTextColor={COLORS.grey}
+                  multiline={true}
+                  numberOfLines={4}
+                  style={{ width: '100%', height: '100%' }}
+                  value={message}
+                  onChangeText={setMessage}
+                />
+              </View>
+            </View>
+
+            <Button
+              title="Send Feedback"
+              filled
+              style={{
+                marginTop: 18,
+                marginBottom: 4,
+              }}
+              onPress={handleSendFeedback}
+            />
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
+  );
+};
 
 export default FeedbackScreen;
