@@ -1,11 +1,9 @@
-
 import React, { useState, useEffect } from 'react';
-import { Text, View, TouchableOpacity, TextInput } from 'react-native';
+import { Text, View, TouchableOpacity, TextInput, Alert } from 'react-native';
 import { styles } from './style';
 import * as ImagePicker from 'expo-image-picker';
 
-function FinderScreen({ route }) {
-  // const { user } = route.params;
+function FinderScreen({ route, navigation }) {
   const [UploadStatus, SetUploadStatus] = useState('');
   const [image, SetImage] = useState(null);
   const [SelectedFile, SetSelectedFile] = useState(null);
@@ -24,7 +22,7 @@ function FinderScreen({ route }) {
         alert('Sorry, we need camera roll permissions to make this work!');
       }
     })();
-  },[]);
+  }, []);
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -39,6 +37,25 @@ function FinderScreen({ route }) {
     }
   };
 
+  const showConfirmationDialog = () => {
+    Alert.alert(
+      'Confirm Upload',
+      'Please wait for a notification in your app or an email if your lost item is found. We will notify you once there are any updates.',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Upload canceled'),
+          style: 'cancel',
+        },
+        {
+          text: 'OK',
+          onPress: () => UploadHandler(),
+        },
+      ],
+      { cancelable: false }
+    );
+  };
+
   const UploadHandler = () => {
     if (!SelectedFile) return;
   
@@ -51,10 +68,6 @@ function FinderScreen({ route }) {
     formData.append('location', location);
     formData.append('description', description);
     formData.append('seek_item', seek_item);
-    // formData.append('id', route.params.user.id);
-    // formData.append('firstname', route.params.user.firstname);
-    // formData.append('lastname', route.params.user.lastname);
-    // formData.append('email', route.params.user.email);
     formData.append('firstname', firstname);
     formData.append('lastname', lastname);
     formData.append('email', email);
@@ -69,7 +82,10 @@ function FinderScreen({ route }) {
       SetUploadStatus(res.msg);
       setImageURL(`http://192.168.11.188:3000${res.image}`);
       navigation.navigate('Home');
-})
+    })
+    .catch(err => {
+      console.error('Upload failed:', err);
+    });
   };
 
   return (
@@ -114,10 +130,11 @@ function FinderScreen({ route }) {
         <Text style={styles.buttonText}>Choose a photo</Text>
       </TouchableOpacity>
       <Text style={{ fontSize: 24 }}>{UploadStatus}</Text>
-      <TouchableOpacity style={styles.button} onPress={UploadHandler}>
-          <Text style={styles.buttonText}>Upload</Text>
+      <TouchableOpacity style={styles.button} onPress={showConfirmationDialog}>
+        <Text style={styles.buttonText}>Upload</Text>
       </TouchableOpacity>
-      </View>   );
+    </View>
+  );
 }
 
 export default FinderScreen;

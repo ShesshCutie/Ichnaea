@@ -317,6 +317,10 @@ const mysql = require('mysql');
 const path = require('path');
 const nodemailer = require('nodemailer');
 const app = express();
+const cron = require('node-cron');
+const fs = require('fs');
+
+
 
 // app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/uploads', express.static('uploads'));
@@ -334,6 +338,19 @@ app.use((req, res, next) => {
 });
 
 app.use(express.json());
+
+// Configure the email transporter
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'Ichnaea.lostandFound@gmail.com',
+    pass: 'aoli lzpw wezn sowr'
+  },
+  tls: {
+    rejectUnauthorized: false // Allow self-signed certificates
+  }
+});
+
 
 // Configure multer storage settings
 const storage = multer.diskStorage({
@@ -406,10 +423,9 @@ app.post('/api/login', (req, res) => {
   });
 });
 
-//finder
+// Endpoint for finder
 app.post('/api/upload', upload.single('image'), (req, res) => {
   const { id, firstname, lastname, email, location, description, seek_item } = req.body;
-  // const imagePath = `/uploads/${req.file.filename}${GetExtension(req.file.mimetype)}`;
   const imagePath = `/uploads/${req.file.filename}`; // Corrected file path for static usage
   const sql = 'INSERT INTO finder (id, firstname, lastname, email, image, location, description, seek_item) VALUES (?,?,?,?,?,?,?,?)';
   const imageUrl = req.protocol + '://' + req.get('host') + imagePath;
@@ -423,10 +439,10 @@ app.post('/api/upload', upload.single('image'), (req, res) => {
   });
 });
 
-//founder
+// Endpoint for founder
 app.post('/api/founder', upload.single('image'), (req, res) => {
   const { id, firstname, lastname, email, location, description, found_item } = req.body;
-  const imagePath = `/uploads/${req.file.filename}${GetExtension(req.file.mimetype)}`;
+  const imagePath = `/uploads/${req.file.filename}`; // Corrected file path for static usage
   const sql = 'INSERT INTO founders (id, firstname, lastname, email, image, location, description, found_item) VALUES (?,?,?,?,?,?,?,?)';
   const imageUrl = req.protocol + '://' + req.get('host') + imagePath;
   connection.query(sql, [id, firstname, lastname, email, imagePath, location, description, found_item], (err, result) => {
@@ -439,6 +455,136 @@ app.post('/api/founder', upload.single('image'), (req, res) => {
   });
 });
 
+// Matching items
+const matchItems = () => {
+  const sql = `
+    INSERT INTO matches (finder_id, founder_id, finder_name, founder_name, finder_item, founder_item, finder_location, founder_location, finder_description, founder_description, finder_email, founder_email)
+    SELECT 
+        f.finder_id, 
+        fo.founder_id,
+        CONCAT(f.firstname, ' ', f.lastname) AS finder_name,
+        CONCAT(fo.firstname, ' ', fo.lastname) AS founder_name,
+        f.seek_item AS finder_item, 
+        fo.found_item AS founder_item,
+        f.location AS finder_location, 
+        fo.location AS founder_location,
+        f.description AS finder_description,
+        fo.description AS founder_description,
+        f.email AS finder_email,
+        fo.email AS founder_email
+    FROM finder f
+    JOIN founders fo
+    ON (
+        (f.seek_item LIKE CONCAT('%', fo.found_item, '%') 
+        OR fo.found_item LIKE CONCAT('%', f.seek_item, '%')) 
+    AND
+        (f.location LIKE CONCAT('%', fo.location, '%') 
+        OR fo.location LIKE CONCAT('%', f.location, '%')) 
+    AND
+        (f.description LIKE CONCAT('%', fo.description, '%') 
+        OR fo.description LIKE CONCAT('%', f.description, '%')) 
+    )
+    WHERE NOT EXISTS (
+        SELECT 1
+        FROM matches m
+        WHERE m.finder_id = f.finder_id
+        AND m.founder_id = fo.founder_id
+    );`;
+  connection.query(sql, (err, results) => {
+    if (err) {
+      console.error('Error matching items:', err);
+    } else {
+      console.log('Items matched successfully');
+      notifyUsers();
+    }
+  });
+};
+cron.schedule('*/1 * * * *', matchItems);
+
+//send email notifications
+const notifyUsers = () => {
+  const sql = 'SELECT * FROM matches WHERE notified = FALSE';
+  connection.query(sql, (err, results) => {
+    if (err) {
+      console.error('Error fetching matches:', err);
+    } else {
+      results.forEach(match => {
+        // Email to finder
+        const mailOptionsFinder = {
+          from: 'Ichnaea.lostandFound@gmail.com',
+          to: match.finder_email,
+          subject: 'Match Found!',
+          text: `Dear ${match.finder_name},\n\nYour item "${match.finder_item}" has been matched with an item "${match.founder_item}" found by ${match.founder_name}. Location: ${match.finder_location}. Description: ${match.finder_description}.\n\nBest regards,\nYour Matching Service`
+        };
+
+        // Email to founder
+        const mailOptionsFounder = {
+          from: 'Ichnaea.lostandFound@gmail.com',
+          to: match.founder_email,
+          subject: 'Match Found!',
+          text: `Dear ${match.founder_name},\n\nYour item "${match.founder_item}" has been matched with an item "${match.finder_item}" sought by ${match.finder_name}. Location: ${match.founder_location}. Description: ${match.finder_description}.\n\nBest regards,\nYour Matching Service`
+        };
+
+        // Send emails
+        transporter.sendMail(mailOptionsFinder, (error, info) => {
+          if (error) {
+            console.error('Error sending email to finder:', error);
+          } else {
+            console.log('Email sent to finder:', info.response);
+          }
+        });
+
+        transporter.sendMail(mailOptionsFounder, (error, info) => {
+          if (error) {
+            console.error('Error sending email to founder:', error);
+          } else {
+            console.log('Email sent to founder:', info.response);
+          }
+        });
+
+        // Update the match as notified
+        const updateSql = 'UPDATE matches SET notified = TRUE WHERE finder_id = ? AND founder_id = ?';
+        connection.query(updateSql, [match.finder_id, match.founder_id], (updateErr) => {
+          if (updateErr) {
+            console.error('Error updating match as notified:', updateErr);
+          } else {
+            console.log('Match updated as notified');
+          }
+        });
+      });
+    }
+  });
+};
+
+
+//matching result
+app.get('/api/matchingresults', (req, res) => {
+  const sql = 'SELECT * FROM matches';
+  connection.query(sql, (err, results) => {
+    if (err) {
+      console.error('Error fetching matches:', err);
+      res.status(500).json({ message: 'Error fetching matches' });
+    } else {
+      res.status(200).json(results);
+    }
+  });
+});
+
+
+
+
+app.post('/feedback', (req, res) => {
+  const { message } = req.body;
+  connection.query('INSERT INTO feedback (message) VALUES (?)', [message], (error, results, fields) => {
+    if (error) {
+      console.error('Error sending feedback:', error);
+      res.status(500).json({ message: 'Please try again.' });
+      return;
+    }
+    console.log('Feedback sent successfully');
+    res.status(200).json({ msg: 'Feedback sent successfully.' });
+  });
+});  
 
 // app.get('/api/home', (req, res) => {
 //   connection.query('SELECT * FROM finder', (error, results, fields) => {
@@ -461,7 +607,6 @@ app.get('/api/home', (req, res) => {
     }
     console.log('Data fetched successfully');
     
-    // Modify each result to include the full image URL
     const resultsWithImageUrl = results.map(result => {
       return {
         ...result,
@@ -520,7 +665,7 @@ app.post('/signup', (req, res) => {
   });
 });
 
-
+//feedback
 app.post('/feedback', (req, res) => {
   const { message } = req.body;
   connection.query('INSERT INTO feedback (message) VALUES (?)', [message], (error, results, fields) => {
@@ -533,75 +678,6 @@ app.post('/feedback', (req, res) => {
     res.status(200).json({ msg: 'Feedback sent successfully.' });
   });
 });
-
-
-
-
-//matching result
-const transporter = nodemailer.createTransport({
-  service: 'Gmail',
-  auth: {
-    user: 'renzyats@gmail.com',
-    pass: '@Renzy123',
-  },
-});
-
-app.post('/api/match-items', async (req, res) => {
-  const { foundItems, lostItems } = req.body;
-
-  if (!Array.isArray(foundItems) || !Array.isArray(lostItems)) {
-    return res.status(400).json({ message: 'Invalid request data' });
-  }
-  try {
-    foundItems.forEach((founders) => {
-      lostItems.forEach((finder) => {
-        if (isMatch(founders, finder)) {
-          sendEmail(founders.email, finder.email, founders, finder);
-        }
-      });
-    });
-
-    res.status(200).send('Matching process completed.');
-  } catch (error) {
-    console.error('Error matching items:', error.message);
-    res.status(500).json({ message: 'Error matching items', error: error.message });
-  }
-});
-
-const isMatch = (founders, finder) => {
-  const foundItem = founders.found_item ? founders.found_item.toLowerCase() : '';
-  const seekItem = finder.seek_item ? finder.seek_item.toLowerCase() : '';
-  const foundLocation = founders.location ? founders.location.toLowerCase() : '';
-  const seekLocation = finder.location ? finder.location.toLowerCase() : '';
-  const foundDescription = founders.description ? founders.description.toLowerCase() : '';
-  const seekDescription = finder.description ? finder.description.toLowerCase() : '';
-
-  console.log('Comparing:', { foundItem, seekItem, foundLocation, seekLocation, foundDescription, seekDescription });
-
-  return (
-    foundItem && // Check if foundItem exists before accessing toLowerCase()
-    seekItem &&  // Check if seekItem exists before accessing toLowerCase()
-    foundLocation === seekLocation &&
-    foundDescription.includes(seekDescription)
-  );
-};
-
-const sendEmail = (foundEmail, lostEmail, foundItem, lostItem) => {
-  const mailOptions = {
-    from: 'renzyats@gmail.com',
-    to: `${founders.email}, ${finder.email}`,
-    subject: 'Item Match Found',
-    text: 'A match has been found between your items!\n\nFound Item:\n' + JSON.stringify(foundItem) + '\n\nLost Item:\n' + JSON.stringify(lostItem)
-  };
-
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.log('Error sending email:', error);
-    } else {
-      console.log('Email sent:', info.response);
-    }
-  });
-};
 
 
 app.listen(3000, () => {

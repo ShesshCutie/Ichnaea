@@ -28,7 +28,7 @@ function Settingscreen({ navigation }) {
           <AntDesign name="setting" size={20} color="black" />
           <Text style={styles.sidebarText}>Settings</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.sidebarItem} onPress={() => handleNavigate('Login')}>
+        <TouchableOpacity style={styles.sidebarItem} onPress={() => handleNavigate('front')}>
           <AntDesign name="logout" size={20} color="black" />
           <Text style={styles.sidebarText}>Logout</Text>
         </TouchableOpacity>
@@ -50,17 +50,17 @@ function Settingscreen({ navigation }) {
             <Text style={styles.optionText}>Feedback</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.optionButton} onPress={() => handleNavigate('Privacy')}>
+          <TouchableOpacity style={styles.optionButton} onPress={() => handleNavigate('Privacy & Security')}>
             <FontAwesome name="lock" size={24} color="black" />
             <Text style={styles.optionText}>Privacy & Security</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.optionButton} onPress={() => handleNavigate('HelpSupport')}>
+          <TouchableOpacity style={styles.optionButton} onPress={() => handleNavigate('Help and Support')}>
             <FontAwesome name="question-circle" size={24} color="black" />
             <Text style={styles.optionText}>Help and Support</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.optionButton} onPress={() => handleNavigate('Terms')}>
+          <TouchableOpacity style={styles.optionButton} onPress={() => handleNavigate('Terms of Service')}>
             <FontAwesome name="file-text-o" size={24} color="black" />
             <Text style={styles.optionText}>Terms of Service</Text>
           </TouchableOpacity>

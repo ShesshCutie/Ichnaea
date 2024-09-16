@@ -22,6 +22,9 @@ import AccountSettings from './settings/AccountSettings';
 import HelpSupport from './settings/HelpSupport';
 import AboutScreen from './settings/AboutScreen';
 import TermsService from './settings/TermsService';
+import ReportProblem from './settings/reportproblemcontent/ReportProblem';
+import IncludeProblem from './settings/reportproblemcontent/IncludeProblem';
+import SendReport from './settings/reportproblemcontent/SendReport';
 const Stack = createStackNavigator();
 
 
@@ -55,14 +58,17 @@ export default function App() {
         <Stack.Screen name="Finder" component={FinderScreen} />
         <Stack.Screen name="Founder" component={FounderScreen} />
         <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Settingscreen" component={Settingscreen} />
+        <Stack.Screen name="Settings" component={Settingscreen} />
         <Stack.Screen name="Login1" component={Login1} options={{headerShown: false}} />
         <Stack.Screen name="Feedback" component={FeedbackScreen} />
-        <Stack.Screen name="Privacy" component={PrivacySecurity} />
+        <Stack.Screen name="Privacy & Security" component={PrivacySecurity} />
         <Stack.Screen name="Account" component={AccountSettings} />
-        <Stack.Screen name="HelpSupport" component={HelpSupport} />
+        <Stack.Screen name="Help and Support" component={HelpSupport} />
         <Stack.Screen name="About" component={AboutScreen} />
-        <Stack.Screen name="Terms" component={TermsService} />
+        <Stack.Screen name="Terms of Service" component={TermsService} />
+        <Stack.Screen name="Report Problem" component={ReportProblem} />
+        <Stack.Screen name="Include Problem" component={IncludeProblem} />
+        <Stack.Screen name="Send Report" component={SendReport} />
       </Stack.Navigator>
     </NavigationContainer>
   );

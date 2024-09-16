@@ -1,37 +1,40 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { FontAwesome } from '@expo/vector-icons'; // Import FontAwesome icons
+import { FontAwesome } from '@expo/vector-icons';
 
 const AdminScreen = ({ navigation }) => {
   const handleManageUsers = () => {
-    // Navigate to user management screen
     navigation.navigate('Archives');
   };
 
   const handleManageContent = () => {
-    // Navigate to content management screen
     navigation.navigate('MatchingResults');
   };
 
   const handleLogout = () => {
-    // Navigate to the Home screen or any other screen where you want to redirect after logout
-    navigation.navigate('Welcome');
+    navigation.navigate('front');
   };
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.menuItem} onPress={handleManageUsers}>
-        <FontAwesome name="archive" size={18} color="white" style={styles.icon} />
-        <Text style={styles.menuText}>       Archives         </Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.menuItem} onPress={handleManageContent}>
-        <FontAwesome name="list-alt" size={18} color="white" style={styles.icon} />
-        <Text style={styles.menuText}>Matching Results</Text>
-      </TouchableOpacity>
-      {/* Logout button */}
-      <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
-        <Text style={styles.logoutText}>Logout</Text>
-      </TouchableOpacity>
+      <View>
+        <TouchableOpacity style={styles.menuItem} onPress={handleManageUsers}>
+          <FontAwesome name="archive" size={18} color="white" style={styles.icon} />
+          <Text style={styles.menuText}>Archives</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.menuItem} onPress={handleManageContent}>
+          <FontAwesome name="list-alt" size={18} color="white" style={styles.icon} />
+          <Text style={styles.menuText}>Matching Results</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+          <Text style={styles.logoutText}>Logout</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.topLeftIcon}>
+        <TouchableOpacity onPress={handleLogout}>
+          <FontAwesome name="envelope" size={28} color="#FAA500" />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -63,7 +66,7 @@ const styles = StyleSheet.create({
   },
   logoutButton: {
     position: 'absolute',
-    bottom: 20,
+    top: 290,
     right: 20,
     paddingVertical: 15,
     paddingHorizontal: 20,
@@ -73,6 +76,12 @@ const styles = StyleSheet.create({
   logoutText: {
     color: 'white',
     fontSize: 18,
+  },
+  topLeftIcon: {
+    position: 'absolute',
+    top: 10,
+    left: 300,
+    zIndex: 2,
   },
 });
 

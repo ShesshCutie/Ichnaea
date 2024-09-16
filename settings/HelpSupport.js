@@ -3,10 +3,12 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
 function HelpAndSupportScreen({ navigation }) {
+  const handleNavigate = (screen) => {
+    navigation.navigate(screen);
+  };
   return (
     <View style={styles.container}>
         <View style={styles.content}>
-          <Text style={styles.title}>Help and Support</Text>
           <View style={styles.infoContainer}>
             <Text style={styles.infoTitle}>FAQs</Text>
             <Text style={styles.infoContent}>Find answers to frequently asked questions.</Text>
@@ -22,8 +24,8 @@ function HelpAndSupportScreen({ navigation }) {
           <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('ContactUs')}>
             <Text style={styles.buttonText}>Contact Us</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('ReportProblem')}>
-            <Text style={styles.buttonText}>Report a Problem</Text>
+          <TouchableOpacity style={styles.button} onPress={() => handleNavigate('Report Problem')}>
+            <Text style={styles.buttonText}>Report Problem</Text>
           </TouchableOpacity>
         </View>
     </View>

@@ -508,7 +508,7 @@ function ProfileScreen({ route, navigation }) {
             <AntDesign name="plus" size={20} color="black" />
             <Text style={styles.sidebarText}>Post Item</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Settingscreen')}>
+          <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Settings')}>
             <AntDesign name="setting" size={20} color="black" />
             <Text style={styles.sidebarText}>Settings</Text>
           </TouchableOpacity>

@@ -31,7 +31,7 @@ const FeedbackScreen = ({ navigation }) => {
       })
       .then((responseData) => {
         alert(responseData.msg);
-        setMessage(''); // Clear the input field after successful submission
+        setMessage(''); 
       })
       .catch((error) => {
         console.error('Feedback error:', error);
