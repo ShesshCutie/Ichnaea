@@ -120,7 +120,7 @@ function FounderScreen({ route }) {
       </TouchableOpacity>
       <Text style={{ fontSize: 24 }}>{UploadStatus}</Text>
       <TouchableOpacity style={styles.button} onPress={UploadHandler}>
-          <Text style={styles.buttonText}>Publish</Text>
+          <Text style={styles.buttonText}>Upload</Text>
       </TouchableOpacity>
       </View>   );
 }

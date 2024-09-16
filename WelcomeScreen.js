@@ -1147,6 +1147,9 @@ const WelcomeScreen = () => {
 
   return (
     <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.headerText}>Home</Text>
+      </View>
       <View style={[styles.sidebar, { left: showSidebar ? 0 : -200 }]}>
         <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Home')}>
           <AntDesign name="home" size={20} color="black" />
@@ -1282,7 +1285,7 @@ const styles = StyleSheet.create({
     width: 200,
     height: '100%',
     backgroundColor: '#fff',
-    paddingTop: 10,
+    paddingTop: 30,
     paddingLeft: 10,
     zIndex: 2,
     transition: 'left 0.3s',
@@ -1300,7 +1303,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   sidebarText: {
-    fontSize: 14,
+    fontSize: 18,
     marginLeft: 8,
     color: '#000',
   },
@@ -1351,7 +1354,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   sidebarToggle: {
-    marginLeft: 10,
+    position: 'absolute',
+    top: -43,
+    left: 20,
+    zIndex: 3,
   },
   container1: {
     paddingHorizontal: 15,
@@ -1409,6 +1415,17 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#000',
     marginBottom: 2,
+  },
+  header: {
+    backgroundColor: '#FFFFFF',
+    padding: 20,
+    alignItems: 'center',
+  },
+  headerText: {
+    color: '#3E4A59',
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginTop: 15,
   },
 });
 

@@ -494,6 +494,9 @@ function ProfileScreen({ route, navigation }) {
 
   return (
     <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.headerText}>Profile</Text>
+      </View>
       <View style={styles.navigation}>
         <View style={[styles.sidebar, { left: showSidebar ? 0 : -200 }]}>
           <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Home')}>
@@ -558,22 +561,33 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   sidebar: {
-    width: 200,
-    backgroundColor: '#f0f0f0',
-    paddingTop: 40,
     position: 'absolute',
     top: 0,
-    bottom: 0,
+    left: 0,
+    width: 200,
+    height: '100%',
+    backgroundColor: '#fff',
+    paddingTop: 30,
+    paddingLeft: 10,
     zIndex: 2,
+    transition: 'left 0.3s',
+    shadowColor: '#000',
+    shadowOffset: { width: 2, height: 0 },
+    shadowOpacity: 0.8,
+    shadowRadius: 5,
+    elevation: 10,
   },
   sidebarItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 10,
+    paddingVertical: 15,
+    marginBottom: -10,
     marginLeft: 10,
   },
   sidebarText: {
-    marginLeft: 10,
+    fontSize: 18,
+    marginLeft: 8,
+    color: '#000',
   },
   content: {
     flex: 1,
@@ -581,7 +595,7 @@ const styles = StyleSheet.create({
   },
   sidebarToggle: {
     position: 'absolute',
-    top: 20,
+    top: -43,
     left: 20,
     zIndex: 3,
   },
@@ -631,6 +645,17 @@ const styles = StyleSheet.create({
     width: 330,
     borderBottomWidth: 2,
     borderBottomColor: 'black',
+  },
+  header: {
+    backgroundColor: '#FFFFFF',
+    padding: 20,
+    alignItems: 'center',
+  },
+  headerText: {
+    color: '#3E4A59',
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginTop: 15,
   },
 });
 

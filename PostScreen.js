@@ -22,7 +22,9 @@ const PostScreen = () => { // Rename PostScreen to WelcomeScreen
 
   return (
     <View style={styles.container}>
-      {/* Sidebar */}
+      <View style={styles.header}>
+        <Text style={styles.headerText}>Post Item</Text>
+      </View>
       <View style={[styles.sidebar, { left: showSidebar ? 0 : -200 }]}>
         <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Home')}>
           <AntDesign name="home" size={20} color="black" />
@@ -110,7 +112,7 @@ const styles = StyleSheet.create({
   },
   sidebarToggle: {
     position: 'absolute',
-    top: 20,
+    top: 40,
     left: 20,
     zIndex: 3,
   },
@@ -126,6 +128,17 @@ const styles = StyleSheet.create({
   post1: {
     color: 'black',
     fontSize: 42,
+  },
+  header: {
+    backgroundColor: '#FFFFFF',
+    padding: 20,
+    alignItems: 'center',
+  },
+  headerText: {
+    color: '#3E4A59',
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginTop: 15,
   },
 });
 

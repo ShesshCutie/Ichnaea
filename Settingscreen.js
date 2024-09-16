@@ -11,6 +11,9 @@ function Settingscreen({ navigation }) {
 
   return (
     <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.headerText}>Settings</Text>
+      </View>
       <View style={[styles.sidebar, { left: showSidebar ? 0 : -200 }]}>
         <TouchableOpacity style={styles.sidebarItem} onPress={() => handleNavigate('Home')}>
           <AntDesign name="home" size={20} color="black" />
@@ -113,8 +116,8 @@ const styles = StyleSheet.create({
   },
   sidebarToggle: {
     position: 'absolute',
-    top: 20,
-    left: 10,
+    top: -43,
+    left: 20,
     zIndex: 3,
   },
   optionsContainer: {
@@ -138,6 +141,17 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#00072D',
   },
+  header: {
+    backgroundColor: '#FFFFFF',
+    padding: 20,
+    alignItems: 'center',
+  },
+  headerText: {
+    color: '#3E4A59',
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginTop: 15,
+  }, 
 });
 
 export default Settingscreen;

@@ -48,17 +48,17 @@ export default function App() {
             headerShown: false
           }}
         />
-        <Stack.Screen name="Home" component={WelcomeScreen} />
-        <Stack.Screen name="Profile" component={ProfileScreen} />
+        <Stack.Screen name="Home" component={WelcomeScreen} options={{headerShown: false}}/>
+        <Stack.Screen name="Profile" component={ProfileScreen} options={{headerShown: false}}/>
         <Stack.Screen name="SignUpPrompt" component={SignUpPrompt} />
-        <Stack.Screen name="Post" component={PostScreen} />
-        <Stack.Screen name="Admin" component={AdminScreen} />
+        <Stack.Screen name="Post" component={PostScreen} options={{headerShown: false}}/>
+        <Stack.Screen name="Admin" component={AdminScreen} options={{headerShown: false}}/>
         <Stack.Screen name="MatchingResults" component={MatchingResults} />
         <Stack.Screen name="Archives" component={Archives} />
         <Stack.Screen name="Finder" component={FinderScreen} />
         <Stack.Screen name="Founder" component={FounderScreen} />
         <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Settings" component={Settingscreen} />
+        <Stack.Screen name="Settings" component={Settingscreen} options={{headerShown: false}}/>
         <Stack.Screen name="Login1" component={Login1} options={{headerShown: false}} />
         <Stack.Screen name="Feedback" component={FeedbackScreen} />
         <Stack.Screen name="Privacy & Security" component={PrivacySecurity} />
