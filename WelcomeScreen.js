@@ -1072,10 +1072,6 @@ const WelcomeScreen = () => {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    checkForMatches(); // Call this whenever data is updated
-  }, [finderData, founderData]);
-
   const fetchData = async () => {
     try {
       const [finderResponse, founderResponse] = await Promise.all([
@@ -1125,23 +1121,6 @@ const WelcomeScreen = () => {
     setFilteredData(filtered);
   };
 
-  const checkForMatches = async () => {
-    try {
-      const response = await axios.post('http://192.168.11.188:3000/api/match-items', {
-        foundItems: finderData.filter(item => item && item.found_item), 
-        lostItems: founderData.filter(item => item && item.seek_item),  
-      });
-  
-      if (response.status === 200) {
-        console.log('Matching process completed:', response.data);
-      } else {
-        console.error('Unexpected response status:', response.status);
-      }
-    } catch (error) {
-      console.error('Error checking for matches:', error.response ? error.response.data : error.message);
-    }
-  };
-  
 
   const navigation = useNavigation();
 
@@ -1151,26 +1130,43 @@ const WelcomeScreen = () => {
         <Text style={styles.headerText}>Home</Text>
       </View>
       <View style={[styles.sidebar, { left: showSidebar ? 0 : -200 }]}>
-        <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Home')}>
-          <AntDesign name="home" size={20} color="black" />
-          <Text style={styles.sidebarText}>Home</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Profile')}>
-          <AntDesign name="user" size={20} color="black" />
-          <Text style={styles.sidebarText}>Profile</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Post')}>
-          <AntDesign name="plus" size={20} color="black" />
-          <Text style={styles.sidebarText}>Post Item</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Settings')}>
-          <AntDesign name="setting" size={20} color="black" />
-          <Text style={styles.sidebarText}>Settings</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('front')}>
-          <AntDesign name="logout" size={20} color="black" />
-          <Text style={styles.sidebarText}>Logout</Text>
-        </TouchableOpacity>
+        <View style={styles.ICHNAEA}>
+        <Text style={styles.Text}>Ichnaea</Text>
+        <Image
+            source={require("./assets/logo.png")}
+            style={{
+                height: 80,
+                width: 80,
+                borderRadius: 20,
+                position: "absolute",
+                top: 10,
+                marginTop: 20,
+                marginLeft: 10,
+            }}
+          />
+          </View>
+        <View style={styles.SIDEBARALL}>
+          <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Home')}>
+            <AntDesign name="home" size={20} color="black" />
+            <Text style={styles.sidebarText}>Home</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Profile')}>
+            <AntDesign name="user" size={20} color="black" />
+            <Text style={styles.sidebarText}>Profile</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Post')}>
+            <AntDesign name="plus" size={20} color="black" />
+            <Text style={styles.sidebarText}>Post Item</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Settings')}>
+            <AntDesign name="setting" size={20} color="black" />
+            <Text style={styles.sidebarText}>Settings</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('front')}>
+            <AntDesign name="logout" size={20} color="black" />
+            <Text style={styles.sidebarText}>Logout</Text>
+          </TouchableOpacity>
+        </View>
       </View>
 
       <View style={styles.searchBarContainer}>
@@ -1278,6 +1274,9 @@ const styles = StyleSheet.create({
     flexGrow: 0,
     backgroundColor: '#F0F4F7',
   },
+  SIDEBARALL: {
+    marginTop: 110,
+  },
   sidebar: {
     position: 'absolute',
     top: 0,
@@ -1286,7 +1285,7 @@ const styles = StyleSheet.create({
     height: '100%',
     backgroundColor: '#fff',
     paddingTop: 30,
-    paddingLeft: 10,
+    paddingLeft: 20,
     zIndex: 2,
     transition: 'left 0.3s',
     shadowColor: '#000',
@@ -1298,14 +1297,17 @@ const styles = StyleSheet.create({
   sidebarItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 15,
-    marginBottom: -10,
-    marginLeft: 10,
+    paddingVertical: 20,
+    paddingHorizontal: 15,
+    borderRadius: 10,
+    marginBottom: 10,
+    marginLeft: -15,
   },
   sidebarText: {
     fontSize: 18,
-    marginLeft: 8,
-    color: '#000',
+    marginLeft: 10,
+    color: '#181818',
+    fontWeight: '600',
   },
   searchBarContainer: {
     flexDirection: 'row',
@@ -1427,6 +1429,17 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: 15,
   },
+  Text: {
+    fontSize: 24,
+    marginLeft: 90,
+    marginTop: 55,
+  },
+  ICHNAEA: {
+    backgroundColor: '#FAA500',
+    width: 200,
+    height: 130,
+    position: 'absolute',
+  }
 });
 
 export default WelcomeScreen;

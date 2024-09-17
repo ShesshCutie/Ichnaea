@@ -13,19 +13,19 @@ export const styles = StyleSheet.create({
     marginBottom: 20,
   },
   input: {
-    width: '60%', // Reduced width
+    width: '60%', 
     height: 40,
     borderColor: 'gray',
     borderWidth: 1,
     borderRadius: 5,
     marginBottom: 10,
-    paddingHorizontal: 10, // Reduced padding
+    paddingHorizontal: 10, 
   },
   passwordContainer: {
     width: '60%',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center', // Center horizontally
+    justifyContent: 'center', 
     marginBottom: 10,
   },
   passwordInput: {
@@ -34,7 +34,7 @@ export const styles = StyleSheet.create({
     borderColor: 'gray',
     borderWidth: 1,
     borderRadius: 5,
-    paddingHorizontal: 10, // Reduced padding
+    paddingHorizontal: 10,
   },
   toggleButton: {
     position: 'absolute',
@@ -44,15 +44,15 @@ export const styles = StyleSheet.create({
     backgroundColor: '#00072D',
     padding: 10,
     borderRadius: 5,
-    width: '60%', // Reduced width
+    width: '60%', 
     alignItems: 'center',
     marginTop: 10,
   },
   buttonText: {
     color: '#fff',
   },
-  signupButton: { // Style for the sign-up button
-    backgroundColor: '#00072D', // Green color
+  signupButton: { 
+    backgroundColor: '#00072D', 
     padding: 10,
     borderRadius: 5,
     width: '60%',

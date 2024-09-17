@@ -2,9 +2,9 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Modal } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native'; // Import useNavigation hook
+import { useNavigation } from '@react-navigation/native';
 
-const PostScreen = () => { // Rename PostScreen to WelcomeScreen
+const PostScreen = () => { 
   const [showSidebar, setShowSidebar] = useState(false);
   const [showFilterOptions, setShowFilterOptions] = useState(false);
   
@@ -18,7 +18,7 @@ const PostScreen = () => { // Rename PostScreen to WelcomeScreen
     navigation.navigate('Founder');
   };
 
-  const navigation = useNavigation(); // Initialize navigation
+  const navigation = useNavigation(); 
 
   return (
     <View style={styles.container}>
@@ -47,8 +47,10 @@ const PostScreen = () => { // Rename PostScreen to WelcomeScreen
           <Text style={styles.sidebarText}>Logout</Text>
         </TouchableOpacity>
       </View>
+      {/* <TouchableOpacity style={styles.sidebarToggle} onPress={() => setShowSidebar(!showSidebar)}>
+        <AntDesign name={showSidebar ? "close" : "menu-fold"} size={24} color="black" />
+      </TouchableOpacity> */}
 
-      {/* Content */}
       <View style={styles.content}>
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
           <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center', padding: 10, backgroundColor: '#ECECEC', borderRadius: 8, marginBottom: 10, borderColor: 'black', borderWidth: 3, marginBottom: 25,}} onPress={handlefinder}>
@@ -62,12 +64,10 @@ const PostScreen = () => { // Rename PostScreen to WelcomeScreen
         </View>
       </View>
       
-      {/* Sidebar Toggle Button */}
       <TouchableOpacity style={styles.sidebarToggle} onPress={() => setShowSidebar(!showSidebar)}>
         <AntDesign name={showSidebar ? "close" : "menu-fold"} size={24} color="black" />
       </TouchableOpacity>
 
-      {/* Filter Options Modal */}
       <Modal
         animationType="slide"
         transparent={true}
@@ -89,22 +89,33 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   sidebar: {
-    width: 200,
-    backgroundColor: '#f0f0f0',
-    paddingTop: 40,
     position: 'absolute',
     top: 0,
-    bottom: 0,
+    left: 0,
+    width: 200,
+    height: '100%',
+    backgroundColor: '#fff',
+    paddingTop: 30,
+    paddingLeft: 10,
     zIndex: 2,
+    transition: 'left 0.3s',
+    shadowColor: '#000',
+    shadowOffset: { width: 2, height: 0 },
+    shadowOpacity: 0.8,
+    shadowRadius: 5,
+    elevation: 10,
   },
   sidebarItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 10,
+    paddingVertical: 15,
+    marginBottom: -10,
     marginLeft: 10,
   },
   sidebarText: {
-    marginLeft: 10,
+    fontSize: 18,
+    marginLeft: 8,
+    color: '#000',
   },
   content: {
     flex: 1,
@@ -143,3 +154,6 @@ const styles = StyleSheet.create({
 });
 
 export default PostScreen;
+
+
+

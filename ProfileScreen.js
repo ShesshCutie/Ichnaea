@@ -520,12 +520,14 @@ function ProfileScreen({ route, navigation }) {
             <Text style={styles.sidebarText}>Logout</Text>
           </TouchableOpacity>
         </View>
+        <TouchableOpacity style={styles.sidebarToggle} onPress={() => setShowSidebar(!showSidebar)}>
+          <AntDesign name={showSidebar ? "close" : "menu-fold"} size={24} color="black" />
+        </TouchableOpacity>
 
         <View style={styles.content}>
-          <TouchableOpacity style={styles.sidebarToggle} onPress={() => setShowSidebar(!showSidebar)}>
+          {/* <TouchableOpacity style={styles.sidebarToggle} onPress={() => setShowSidebar(!showSidebar)}>
             <AntDesign name={showSidebar ? "close" : "menu-fold"} size={24} color="black" />
-          </TouchableOpacity>
-
+          </TouchableOpacity> */}
           {userData && (
             <View style={styles.cardContainer}>
               <View style={styles.card}>
