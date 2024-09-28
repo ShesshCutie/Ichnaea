@@ -1,6 +1,6 @@
 // WelcomeScreen.js
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Modal } from 'react-native';
+import { Image, View, Text, StyleSheet, TextInput, TouchableOpacity, Modal } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
@@ -26,30 +26,49 @@ const PostScreen = () => {
         <Text style={styles.headerText}>Post Item</Text>
       </View>
       <View style={[styles.sidebar, { left: showSidebar ? 0 : -200 }]}>
-        <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Home')}>
-          <AntDesign name="home" size={20} color="black" />
-          <Text style={styles.sidebarText}>Home</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Profile')}>
-          <AntDesign name="user" size={20} color="black" />
-          <Text style={styles.sidebarText}>Profile</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Post')}>
-          <AntDesign name="plus" size={20} color="black" />
-          <Text style={styles.sidebarText}>Post Item</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Settings')}>
+        <View style={styles.ICHNAEA}>
+        <Text style={styles.Text}>Ichnaea</Text>
+        <Image
+            source={require("./assets/logo.png")}
+            style={{
+                height: 80,
+                width: 80,
+                borderRadius: 20,
+                position: "absolute",
+                top: 10,
+                marginTop: -6,
+                marginLeft: 10,
+            }}
+          />
+          </View>
+        <View style={styles.SIDEBARALL}>
+          <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Home')}>
+            <AntDesign name="home" size={20} color="black" />
+            <Text style={styles.sidebarText}>Home</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Profile')}>
+            <AntDesign name="user" size={20} color="black" />
+            <Text style={styles.sidebarText}>Profile</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Post')}>
+            <AntDesign name="plus" size={20} color="black" />
+            <Text style={styles.sidebarText}>Post Item</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Settings')}>
             <AntDesign name="setting" size={20} color="black" />
             <Text style={styles.sidebarText}>Settings</Text>
           </TouchableOpacity>
-        <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('front')}>
-          <AntDesign name="logout" size={20} color="black" />
-          <Text style={styles.sidebarText}>Logout</Text>
+          <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('front')}>
+            <AntDesign name="logout" size={20} color="black" />
+            <Text style={styles.sidebarText}>Logout</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+      <View>
+        <TouchableOpacity style={styles.sidebarToggle} onPress={() => setShowSidebar(!showSidebar)}>
+          <AntDesign name={showSidebar ? "close" : "menu-fold"} size={24} color="black" />
         </TouchableOpacity>
       </View>
-      {/* <TouchableOpacity style={styles.sidebarToggle} onPress={() => setShowSidebar(!showSidebar)}>
-        <AntDesign name={showSidebar ? "close" : "menu-fold"} size={24} color="black" />
-      </TouchableOpacity> */}
 
       <View style={styles.content}>
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -61,13 +80,11 @@ const PostScreen = () => {
             <AntDesign name="search1" size={52} color="white" style={{ marginRight: 10 }} />  
             <Text style={styles.post}>Founder</Text>
           </TouchableOpacity>
+          <View style={styles.reminder}>
+            <Text style={styles.reminderText}>Reminder: Be specific in the detailes that you provided (eg. Item: Cellphone Infinix G96)</Text>
+          </View>
         </View>
       </View>
-      
-      <TouchableOpacity style={styles.sidebarToggle} onPress={() => setShowSidebar(!showSidebar)}>
-        <AntDesign name={showSidebar ? "close" : "menu-fold"} size={24} color="black" />
-      </TouchableOpacity>
-
       <Modal
         animationType="slide"
         transparent={true}
@@ -88,6 +105,9 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
   },
+  SIDEBARALL: {
+    marginTop: 90,
+  },
   sidebar: {
     position: 'absolute',
     top: 0,
@@ -96,7 +116,7 @@ const styles = StyleSheet.create({
     height: '100%',
     backgroundColor: '#fff',
     paddingTop: 30,
-    paddingLeft: 10,
+    paddingLeft: 20,
     zIndex: 2,
     transition: 'left 0.3s',
     shadowColor: '#000',
@@ -104,18 +124,33 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.8,
     shadowRadius: 5,
     elevation: 10,
+    marginTop: 35,
   },
   sidebarItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 15,
-    marginBottom: -10,
-    marginLeft: 10,
+    paddingVertical: 20,
+    paddingHorizontal: 15,
+    borderRadius: 10,
+    marginBottom: 10,
+    marginLeft: -15,
   },
   sidebarText: {
     fontSize: 18,
-    marginLeft: 8,
-    color: '#000',
+    marginLeft: 10,
+    color: '#181818',
+    fontWeight: '600',
+  },
+  Text: {
+    fontSize: 24,
+    marginLeft: 90,
+    marginTop: 25,
+  },
+  ICHNAEA: {
+    backgroundColor: '#FAA500',
+    width: 200,
+    height: 90,
+    position: 'absolute',
   },
   content: {
     flex: 1,
@@ -150,6 +185,13 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: 'bold',
     marginTop: 15,
+  },
+  reminder: {
+    alignItems: 'center',
+  },
+  reminderText: {
+    fontSize: 14,
+    marginBottom: 50,
   },
 });
 

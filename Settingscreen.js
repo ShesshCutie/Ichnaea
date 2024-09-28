@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { Image, View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
 
 function Settingscreen({ navigation }) {
@@ -15,33 +15,50 @@ function Settingscreen({ navigation }) {
         <Text style={styles.headerText}>Settings</Text>
       </View>
       <View style={[styles.sidebar, { left: showSidebar ? 0 : -200 }]}>
-        <TouchableOpacity style={styles.sidebarItem} onPress={() => handleNavigate('Home')}>
-          <AntDesign name="home" size={20} color="black" />
-          <Text style={styles.sidebarText}>Home</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.sidebarItem} onPress={() => handleNavigate('Profile')}>
-          <AntDesign name="user" size={20} color="black" />
-          <Text style={styles.sidebarText}>Profile</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.sidebarItem} onPress={() => handleNavigate('Post')}>
-          <AntDesign name="plus" size={20} color="black" />
-          <Text style={styles.sidebarText}>Post Item</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.sidebarItem} onPress={() => handleNavigate('Settings')}>
-          <AntDesign name="setting" size={20} color="black" />
-          <Text style={styles.sidebarText}>Settings</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.sidebarItem} onPress={() => handleNavigate('front')}>
-          <AntDesign name="logout" size={20} color="black" />
-          <Text style={styles.sidebarText}>Logout</Text>
-        </TouchableOpacity>
+        <View style={styles.ICHNAEA}>
+        <Text style={styles.Text}>Ichnaea</Text>
+        <Image
+            source={require("./assets/logo.png")}
+            style={{
+                height: 80,
+                width: 80,
+                borderRadius: 20,
+                position: "absolute",
+                top: 10,
+                marginTop: -6,
+                marginLeft: 10,
+            }}
+          />
+          </View>
+        <View style={styles.SIDEBARALL}>
+          <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Home')}>
+            <AntDesign name="home" size={20} color="black" />
+            <Text style={styles.sidebarText}>Home</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Profile')}>
+            <AntDesign name="user" size={20} color="black" />
+            <Text style={styles.sidebarText}>Profile</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Post')}>
+            <AntDesign name="plus" size={20} color="black" />
+            <Text style={styles.sidebarText}>Post Item</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Settings')}>
+            <AntDesign name="setting" size={20} color="black" />
+            <Text style={styles.sidebarText}>Settings</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('front')}>
+            <AntDesign name="logout" size={20} color="black" />
+            <Text style={styles.sidebarText}>Logout</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-
-      <View style={styles.content}>
+      <View>
         <TouchableOpacity style={styles.sidebarToggle} onPress={() => setShowSidebar(!showSidebar)}>
           <AntDesign name={showSidebar ? "close" : "menu-fold"} size={24} color="black" />
         </TouchableOpacity>
-
+      </View>
+      <View style={styles.content}>
         <View style={styles.optionsContainer}>
           <TouchableOpacity style={styles.optionButton} onPress={() => handleNavigate('Account')}>
             <FontAwesome name="user" size={24} color="black" />
@@ -83,31 +100,56 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#F0F0F0',
   },
+  navigation: {
+    flex: 1,
+    flexDirection: 'row',
+  },
+  SIDEBARALL: {
+    marginTop: 90,
+  },
   sidebar: {
-    width: 200,
-    backgroundColor: '#FFFFFF',
-    paddingTop: 40,
     position: 'absolute',
     top: 0,
-    bottom: 0,
+    left: 0,
+    width: 200,
+    height: '100%',
+    backgroundColor: '#fff',
+    paddingTop: 30,
+    paddingLeft: 20,
     zIndex: 2,
+    transition: 'left 0.3s',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
-    elevation: 5,
+    shadowOffset: { width: 2, height: 0 },
+    shadowOpacity: 0.8,
+    shadowRadius: 5,
+    elevation: 10,
+    marginTop: 35,
   },
   sidebarItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 15,
-    paddingHorizontal: 20,
+    paddingVertical: 20,
+    paddingHorizontal: 15,
+    borderRadius: 10,
     marginBottom: 10,
+    marginLeft: -15,
   },
   sidebarText: {
+    fontSize: 18,
     marginLeft: 10,
-    fontSize: 16,
-    color: '#000',
+    color: '#181818',
+    fontWeight: '600',
+  },
+  Text: {
+    fontSize: 24,
+    marginLeft: 90,
+    marginTop: 25,
+  },
+  ICHNAEA: {
+    backgroundColor: '#FAA500',
+    width: 200,
+    height: 90,
+    position: 'absolute',
   },
   content: {
     flex: 1,

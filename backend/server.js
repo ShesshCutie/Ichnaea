@@ -295,21 +295,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const express = require('express');
 const multer = require('multer');
 const cors = require('cors');
@@ -320,10 +305,7 @@ const app = express();
 const cron = require('node-cron');
 const fs = require('fs');
 
-
-
-// app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-app.use('/uploads', express.static('uploads'));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(cors({
   origin: ['http://192.168.11.188:3000', 'http://192.168.11.188:19006', '*'],
   methods: ["GET", "POST"],
@@ -339,7 +321,6 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
-// Configure the email transporter
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
@@ -347,12 +328,11 @@ const transporter = nodemailer.createTransport({
     pass: 'aoli lzpw wezn sowr'
   },
   tls: {
-    rejectUnauthorized: false // Allow self-signed certificates
+    rejectUnauthorized: false 
   }
 });
 
 
-// Configure multer storage settings
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, 'uploads/');
@@ -362,7 +342,7 @@ const storage = multer.diskStorage({
   },
 });
 
-// Filter for image files only
+
 const fileFilter = (req, file, cb) => {
   if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/gif') {
     cb(null, true);
@@ -371,7 +351,6 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-// Get file extension from mimetype
 const GetExtension = (mimetype) => {
   switch (mimetype) {
     case 'image/jpeg':
@@ -385,10 +364,7 @@ const GetExtension = (mimetype) => {
   }
 };
 
-// Initialize multer middleware
 const upload = multer({ storage, fileFilter });
-
-// Connect to MySQL database
 const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
@@ -423,7 +399,7 @@ app.post('/api/login', (req, res) => {
   });
 });
 
-// Endpoint for finder
+//post finder
 app.post('/api/upload', upload.single('image'), (req, res) => {
   const { id, firstname, lastname, email, location, description, seek_item } = req.body;
   const imagePath = `/uploads/${req.file.filename}`; // Corrected file path for static usage
@@ -439,10 +415,10 @@ app.post('/api/upload', upload.single('image'), (req, res) => {
   });
 });
 
-// Endpoint for founder
+//post founder
 app.post('/api/founder', upload.single('image'), (req, res) => {
   const { id, firstname, lastname, email, location, description, found_item } = req.body;
-  const imagePath = `/uploads/${req.file.filename}`; // Corrected file path for static usage
+  const imagePath = `/uploads/${req.file.filename}`;
   const sql = 'INSERT INTO founders (id, firstname, lastname, email, image, location, description, found_item) VALUES (?,?,?,?,?,?,?,?)';
   const imageUrl = req.protocol + '://' + req.get('host') + imagePath;
   connection.query(sql, [id, firstname, lastname, email, imagePath, location, description, found_item], (err, result) => {
@@ -501,6 +477,68 @@ const matchItems = () => {
 };
 cron.schedule('*/1 * * * *', matchItems);
 
+
+//unmatched items
+const insertUnmatchedItems = () => {
+  const sql = `
+    INSERT INTO unmatched (id, name, item, location, description, email, item_type, image, date)
+    SELECT 
+        f.finder_id AS id,
+        CONCAT(f.firstname, ' ', f.lastname) AS name,
+        f.seek_item AS item,
+        f.location AS location, 
+        f.description AS description,
+        f.email AS email,
+        'finder' AS item_type,
+        f.image AS image,
+        f.created_at AS date
+    FROM finder f
+    LEFT JOIN matches m ON f.finder_id = m.finder_id
+    WHERE m.finder_id IS NULL
+    AND f.created_at < NOW() - INTERVAL 1 DAY
+    AND NOT EXISTS (SELECT 1 FROM unmatched u WHERE u.id = f.finder_id)
+    
+    UNION ALL
+    
+    SELECT 
+        fo.founder_id AS id,
+        CONCAT(fo.firstname, ' ', fo.lastname) AS name,
+        fo.found_item AS item,
+        fo.location AS location, 
+        fo.description AS description,
+        fo.email AS email,
+        'founder' AS item_type,
+        fo.image AS image,
+        fo.created_at AS date
+    FROM founders fo
+    LEFT JOIN matches m ON fo.founder_id = m.founder_id
+    WHERE m.founder_id IS NULL
+    AND fo.created_at < NOW() - INTERVAL 1 DAY
+    AND NOT EXISTS (SELECT 1 FROM unmatched u WHERE u.id = fo.founder_id);
+  `;
+  connection.query(sql, (err, results) => {
+    if (err) {
+      console.error('Error inserting unmatched items:', err);
+    } else {
+      console.log('Unmatched items inserted successfully');
+    }
+  });
+};
+cron.schedule('*/1 * * * *', insertUnmatchedItems);
+
+//unmatched result
+app.get('/api/unmatchedresults', (req, res) => {
+  const sql = 'SELECT * FROM unmatched';
+  connection.query(sql, (err, results) => {
+    if (err) {
+      console.error('Error fetching unmatched:', err);
+      res.status(500).json({ message: 'Error fetching unmatched' });
+    } else {
+      res.status(200).json(results);
+    }
+  });
+});
+
 //send email notifications
 const notifyUsers = () => {
   const sql = 'SELECT * FROM matches WHERE notified = FALSE';
@@ -509,23 +547,18 @@ const notifyUsers = () => {
       console.error('Error fetching matches:', err);
     } else {
       results.forEach(match => {
-        // Email to finder
         const mailOptionsFinder = {
           from: 'Ichnaea.lostandFound@gmail.com',
           to: match.finder_email,
           subject: 'Match Found!',
           text: `Dear ${match.finder_name},\n\nYour item "${match.finder_item}" has been matched with an item "${match.founder_item}" found by ${match.founder_name}. Location: ${match.finder_location}. Description: ${match.finder_description}.\n\nBest regards,\nYour Matching Service`
         };
-
-        // Email to founder
         const mailOptionsFounder = {
           from: 'Ichnaea.lostandFound@gmail.com',
           to: match.founder_email,
           subject: 'Match Found!',
           text: `Dear ${match.founder_name},\n\nYour item "${match.founder_item}" has been matched with an item "${match.finder_item}" sought by ${match.finder_name}. Location: ${match.founder_location}. Description: ${match.finder_description}.\n\nBest regards,\nYour Matching Service`
         };
-
-        // Send emails
         transporter.sendMail(mailOptionsFinder, (error, info) => {
           if (error) {
             console.error('Error sending email to finder:', error);
@@ -533,7 +566,6 @@ const notifyUsers = () => {
             console.log('Email sent to finder:', info.response);
           }
         });
-
         transporter.sendMail(mailOptionsFounder, (error, info) => {
           if (error) {
             console.error('Error sending email to founder:', error);
@@ -541,8 +573,6 @@ const notifyUsers = () => {
             console.log('Email sent to founder:', info.response);
           }
         });
-
-        // Update the match as notified
         const updateSql = 'UPDATE matches SET notified = TRUE WHERE finder_id = ? AND founder_id = ?';
         connection.query(updateSql, [match.finder_id, match.founder_id], (updateErr) => {
           if (updateErr) {
@@ -555,7 +585,6 @@ const notifyUsers = () => {
     }
   });
 };
-
 
 //matching result
 app.get('/api/matchingresults', (req, res) => {
@@ -570,9 +599,7 @@ app.get('/api/matchingresults', (req, res) => {
   });
 });
 
-
-
-
+//settings feedback
 app.post('/feedback', (req, res) => {
   const { message } = req.body;
   connection.query('INSERT INTO feedback (message) VALUES (?)', [message], (error, results, fields) => {
@@ -586,18 +613,7 @@ app.post('/feedback', (req, res) => {
   });
 });  
 
-// app.get('/api/home', (req, res) => {
-//   connection.query('SELECT * FROM finder', (error, results, fields) => {
-//     if (error) {
-//       console.error('Error fetching data:', error);
-//       res.status(500).json({ message: 'Please try again.' });
-//       return;
-//     }
-//     console.log('Data fetched successfully');
-//     res.status(200).json(results);
-//   });
-// });
-
+//archives data
 app.get('/api/home', (req, res) => {
   connection.query('SELECT * FROM finder', (error, results, fields) => {
     if (error) {
@@ -618,7 +634,7 @@ app.get('/api/home', (req, res) => {
   });
 });
 
-
+//archives data
 app.get('/api/datas', (req, res) => {
   connection.query('SELECT * FROM founders', (error, results, fields) => {
     if (error) {
@@ -700,6 +716,6 @@ app.get('/api/users/:userId', (req, res) => {
       return;
     }
     console.log('User data fetched successfully');
-    res.status(200).json(results[0]); // Return only the first user data (assuming user ID is unique)
+    res.status(200).json(results[0]); 
   });
 });

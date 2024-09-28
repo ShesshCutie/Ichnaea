@@ -463,7 +463,7 @@
 
 
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Modal, ScrollView } from 'react-native';
+import { Image, View, Text, StyleSheet, TouchableOpacity, Modal, ScrollView } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import axios from 'axios'; 
 import { FontAwesome } from '@expo/vector-icons'; 
@@ -497,13 +497,28 @@ function ProfileScreen({ route, navigation }) {
       <View style={styles.header}>
         <Text style={styles.headerText}>Profile</Text>
       </View>
-      <View style={styles.navigation}>
-        <View style={[styles.sidebar, { left: showSidebar ? 0 : -200 }]}>
+      <View style={[styles.sidebar, { left: showSidebar ? 0 : -200 }]}>
+        <View style={styles.ICHNAEA}>
+        <Text style={styles.Text}>Ichnaea</Text>
+        <Image
+            source={require("./assets/logo.png")}
+            style={{
+                height: 80,
+                width: 80,
+                borderRadius: 20,
+                position: "absolute",
+                top: 10,
+                marginTop: -6,
+                marginLeft: 10,
+            }}
+          />
+          </View>
+        <View style={styles.SIDEBARALL}>
           <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Home')}>
             <AntDesign name="home" size={20} color="black" />
             <Text style={styles.sidebarText}>Home</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Profile', { user: userData })}>
+          <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Profile')}>
             <AntDesign name="user" size={20} color="black" />
             <Text style={styles.sidebarText}>Profile</Text>
           </TouchableOpacity>
@@ -520,14 +535,14 @@ function ProfileScreen({ route, navigation }) {
             <Text style={styles.sidebarText}>Logout</Text>
           </TouchableOpacity>
         </View>
+      </View>
+      <View>
         <TouchableOpacity style={styles.sidebarToggle} onPress={() => setShowSidebar(!showSidebar)}>
           <AntDesign name={showSidebar ? "close" : "menu-fold"} size={24} color="black" />
         </TouchableOpacity>
-
+      </View>
+      <ScrollView contentContainerStyle={styles.container1}>
         <View style={styles.content}>
-          {/* <TouchableOpacity style={styles.sidebarToggle} onPress={() => setShowSidebar(!showSidebar)}>
-            <AntDesign name={showSidebar ? "close" : "menu-fold"} size={24} color="black" />
-          </TouchableOpacity> */}
           {userData && (
             <View style={styles.cardContainer}>
               <View style={styles.card}>
@@ -548,7 +563,7 @@ function ProfileScreen({ route, navigation }) {
           </View>
           </ScrollView>
         </View>
-      </View>
+      </ScrollView>
     </View>
   );
 }
@@ -562,6 +577,9 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
   },
+  SIDEBARALL: {
+    marginTop: 90,
+  },
   sidebar: {
     position: 'absolute',
     top: 0,
@@ -570,7 +588,7 @@ const styles = StyleSheet.create({
     height: '100%',
     backgroundColor: '#fff',
     paddingTop: 30,
-    paddingLeft: 10,
+    paddingLeft: 20,
     zIndex: 2,
     transition: 'left 0.3s',
     shadowColor: '#000',
@@ -578,18 +596,33 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.8,
     shadowRadius: 5,
     elevation: 10,
+    marginTop: 35,
   },
   sidebarItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 15,
-    marginBottom: -10,
-    marginLeft: 10,
+    paddingVertical: 20,
+    paddingHorizontal: 15,
+    borderRadius: 10,
+    marginBottom: 10,
+    marginLeft: -15,
   },
   sidebarText: {
     fontSize: 18,
-    marginLeft: 8,
-    color: '#000',
+    marginLeft: 10,
+    color: '#181818',
+    fontWeight: '600',
+  },
+  Text: {
+    fontSize: 24,
+    marginLeft: 90,
+    marginTop: 25,
+  },
+  ICHNAEA: {
+    backgroundColor: '#FAA500',
+    width: 200,
+    height: 90,
+    position: 'absolute',
   },
   content: {
     flex: 1,

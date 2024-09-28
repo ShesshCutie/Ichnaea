@@ -34,7 +34,6 @@ const Archives = () => {
       console.error('Error fetching data:', error);
     }
   };
-
   const handleFilter = (type) => {
     setFilterType(type);
     if (type) {
@@ -69,9 +68,7 @@ const Archives = () => {
     });
     setFilteredData(filtered);
   };
-
   const navigation = useNavigation();
-
   return (
     <View style={styles.container}>
       <View style={styles.searchBarContainer}>
@@ -135,7 +132,6 @@ const Archives = () => {
           </View>
         )}
       </View>
-
       <ScrollView contentContainerStyle={styles.container1}>
         <View style={styles.content}>
           <View style={styles.cardsContainer}>
@@ -143,7 +139,7 @@ const Archives = () => {
               <TouchableOpacity key={index} style={styles.cardContainer} onPress={() => {}}>
                 <Text style={styles.lostLabel}>{item.seek_item ? 'LOST' : 'FIND'}</Text>
                 <Image
-                  source={{ uri: `http://192.168.11.188:3000/uploads/${item.image}` }}
+                  source={{ uri: `http://192.168.11.188:3000${item.image}` }}
                   style={styles.cardImage}
                   onError={() => console.log('Error loading image')}
                 />
@@ -158,7 +154,6 @@ const Archives = () => {
           </View>
         </View>
       </ScrollView>
-
       {showDatePicker && (
         <DateTimePicker
           value={selectedDate || new Date()}
