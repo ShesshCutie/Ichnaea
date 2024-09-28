@@ -171,6 +171,37 @@ INSERT INTO `matches` VALUES (77,5,3,'2024-09-16 04:48:00','Lorenz Lucio','Phone
 UNLOCK TABLES;
 
 --
+-- Table structure for table `unmatched`
+--
+
+DROP TABLE IF EXISTS `unmatched`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `unmatched` (
+  `id` int NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `item` varchar(255) DEFAULT NULL,
+  `location` varchar(255) DEFAULT NULL,
+  `description` text,
+  `email` varchar(255) DEFAULT NULL,
+  `item_type` enum('finder','founder') DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `unmatched`
+--
+
+LOCK TABLES `unmatched` WRITE;
+/*!40000 ALTER TABLE `unmatched` DISABLE KEYS */;
+INSERT INTO `unmatched` VALUES (10,'Jsjs Jeje','Bag','Canteen ','Green','llorenz.10022002@gmail.com','finder','/uploads/image-1726449114641.jpg','2024-09-16 09:11:54'),(12,'Lor Lo','Jacket','In CAH building','Brown','llorenz.10022002@gmail.com','finder','/uploads/image-1726465021910.jpg','2024-09-16 13:37:01');
+/*!40000 ALTER TABLE `unmatched` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `users`
 --
 
@@ -208,4 +239,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-09-19  8:05:47
+-- Dump completed on 2024-09-28 15:23:06
