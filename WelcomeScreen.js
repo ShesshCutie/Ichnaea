@@ -1,5 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Image, Platform } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  ScrollView,
+  Image,
+  Platform,
+  Pressable,
+} from 'react-native';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 import { MaterialIcons, AntDesign } from '@expo/vector-icons';
@@ -22,7 +32,7 @@ const WelcomeScreen = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://192.168.11.188:3000/api/unmatchedresults');
+      const response = await axios.get('http://192.168.1.66:3000/api/unmatchedresults');
       setUnmatchedData(response.data);
       setFilteredData(response.data);
     } catch (error) {
@@ -72,8 +82,14 @@ const WelcomeScreen = () => {
     setShowDatePicker(true);
   };
 
+  const handleOutsidePress = () => {
+    if (showSidebar) {
+      setShowSidebar(false);
+    }
+  };
+
   return (
-    <View style={styles.container}>
+    <Pressable onPress={handleOutsidePress} style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerText}>Home</Text>
       </View>
@@ -109,6 +125,11 @@ const WelcomeScreen = () => {
           </TouchableOpacity>
         </View>
       </View>
+      <View>
+        <TouchableOpacity style={styles.sidebarToggle} onPress={() => setShowSidebar(!showSidebar)}>
+          <AntDesign name={showSidebar ? "close" : "menu-fold"} size={24} color="black" />
+        </TouchableOpacity>
+      </View>
 
       <View style={styles.searchBarContainer}>
         <TextInput
@@ -129,9 +150,6 @@ const WelcomeScreen = () => {
             ))}
           </View>
         )}
-        <TouchableOpacity style={styles.sidebarToggle} onPress={() => setShowSidebar(!showSidebar)}>
-          <AntDesign name={showSidebar ? "close" : "menu-fold"} size={24} color="black" />
-        </TouchableOpacity>
       </View>
       
       <ScrollView contentContainerStyle={styles.container1}>
@@ -144,7 +162,7 @@ const WelcomeScreen = () => {
               <TouchableOpacity key={index} style={styles.cardContainer}>
                 <Text style={styles.lostLabel}>{item.item_type === 'finder' ? 'LOST' : 'FOUND'}</Text>
                 <Image
-                  source={{ uri: `http://192.168.11.188:3000${item.image}` }}
+                  source={{ uri: `http://192.168.1.66:3000${item.image}` }}
                   style={styles.cardImage}
                   onError={() => console.log('Error loading image')}
                 />
@@ -168,9 +186,10 @@ const WelcomeScreen = () => {
           onChange={handleDateChange}
         />
       )}
-    </View>
+    </Pressable>
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {
@@ -193,7 +212,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 10,
     backgroundColor: '#FFFFFF',
-    zIndex: 2, 
+    zIndex: 1, 
   },
   searchBar: {
     flex: 1,
@@ -331,7 +350,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   sidebarToggle: {
-    marginLeft: 10,
+    position: 'absolute',
+    top: -43,
+    left: 20,
+    // zIndex: 3,
   },
   reminder: {
     alignItems: 'center',
@@ -339,6 +361,11 @@ const styles = StyleSheet.create({
   reminderText: {
     fontSize: 14,
     marginBottom: 10,
+  },
+  Text: {
+    fontSize: 24,
+    marginLeft: 90,
+    marginTop: 25,
   },
 });
 

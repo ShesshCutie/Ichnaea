@@ -1,6 +1,6 @@
 // WelcomeScreen.js
 import React, { useState, useEffect } from 'react';
-import { Image, View, Text, StyleSheet, TextInput, TouchableOpacity, Modal } from 'react-native';
+import { Image, View, Text, StyleSheet, TextInput, TouchableOpacity, Modal, Pressable } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
@@ -18,10 +18,16 @@ const PostScreen = () => {
     navigation.navigate('Founder');
   };
 
+  const handleOutsidePress = () => {
+    if (showSidebar) {
+      setShowSidebar(false);
+    }
+  };
+
   const navigation = useNavigation(); 
 
   return (
-    <View style={styles.container}>
+    <Pressable onPress={handleOutsidePress} style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerText}>Post Item</Text>
       </View>
@@ -92,7 +98,7 @@ const PostScreen = () => {
         onRequestClose={() => setShowFilterOptions(false)}
       >
       </Modal>
-    </View>
+    </Pressable>
   );
 };
 
@@ -158,9 +164,9 @@ const styles = StyleSheet.create({
   },
   sidebarToggle: {
     position: 'absolute',
-    top: 40,
+    top: -40,
     left: 20,
-    zIndex: 3,
+    // zIndex: 3,
   },
   textStyle: {
     color: 'white',

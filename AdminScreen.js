@@ -1,7 +1,7 @@
+
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { FontAwesome } from '@expo/vector-icons';
-import { LinearGradient } from 'expo-linear-gradient'; 
+import { View, Text, TouchableOpacity, StyleSheet, ImageBackground, Image } from 'react-native';
+import { FontAwesome } from '@expo/vector-icons'; 
 
 const AdminScreen = ({ navigation }) => {
   const handleManageUsers = () => {
@@ -12,46 +12,68 @@ const AdminScreen = ({ navigation }) => {
     navigation.navigate('MatchingResults');
   };
 
+  const handleAccounts = () => {
+    navigation.navigate('Accounts');
+  };
+  
+
   const handleLogout = () => {
     navigation.navigate('front');
   };
 
   return (
     <View style={styles.container}>
-      <View style={styles.menuContainer}>
+      {/* Background Image for Sidebar */}
+      <View style={styles.picture}>
+      <ImageBackground
+        source={require("./assets/back.png")} // Add your background image here
+        style={{
+          width: '100%',
+          height: 210,
+          resizeMode: 'cover',
+          alignItems: "absolute",
+          zIndex: 1,
+          transform: [
+              { translateX: 0 },
+              { translateY: 35 },
+          ]
+      }}
+      >
+        <Image
+          source={require("./assets/logo1.png")}
+          style={styles.logo1}
+        />
+      </ImageBackground>
+      <Image
+          source={require("./assets/shapess.png")}
+          style={styles.logo}
+        />
+      <View style={styles.Admin}>
+          <Text style={styles.Text}>Admin</Text>
+        </View>
+      </View>
+      <View style={styles.content}>
         <TouchableOpacity style={styles.menuItem} onPress={handleManageUsers}>
-          <LinearGradient
-            colors={['#4e67eb', '#6a9cfb']}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-            style={styles.gradient}
-          >
-            <FontAwesome name="archive" size={24} color="white" style={styles.icon} />
-            <Text style={styles.menuText}>Archives</Text>
-          </LinearGradient>
+          <FontAwesome name="archive" size={24} color="black" />
+          <Text style={styles.menuText}>Archives</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.menuItem} onPress={handleManageContent}>
-          <LinearGradient
-            colors={['#34eb83', '#58eb95']}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-            style={styles.gradient}
-          >
-            <FontAwesome name="list-alt" size={24} color="white" style={styles.icon} />
-            <Text style={styles.menuText}>Matching Results</Text>
-          </LinearGradient>
+          <FontAwesome name="list-alt" size={24} color="black" />
+          <Text style={styles.menuText}>Matched Items</Text>
         </TouchableOpacity>
-      </View>
 
+         {/* Navigate to Accounts Screen */}
+        <TouchableOpacity style={styles.menuItem} onPress={handleAccounts}>
+          <FontAwesome name="user" size={24} color="black" />
+          <Text style={styles.menuText}>Accounts</Text>
+        </TouchableOpacity>
+
+
+      {/* Logout Button */}
       <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
-        <Text style={styles.logoutText}>Logout</Text>
+        <Text style={styles.logoutText}>LOG OUT</Text>
       </TouchableOpacity>
-
-      <View style={styles.topLeftIcon}>
-        <TouchableOpacity onPress={handleLogout}>
-          <FontAwesome name="envelope" size={28} color="#FAA500" />
-        </TouchableOpacity>
       </View>
     </View>
   );
@@ -60,64 +82,82 @@ const AdminScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    backgroundColor: '#f5f5f5',
-    paddingHorizontal: 20,
+    backgroundColor: '#ffff',
   },
-  menuContainer: {
-    width: '100%',
+  content: {
+    flex: 1,
+    backgroundColor: '#ffff',
+    marginTop: -250,
+    zIndex: 3,
+  },
+  picture:{
+    alignContent: 'absolute',
+  },
+  sidebar: {
+    width: '90%',
+    marginLeft: 20,
+    marginTop: 30,
+    paddingVertical: 20,
+    paddingHorizontal: 10,
+    borderRadius: 10,
     alignItems: 'center',
+    overflow: 'hidden', // To ensure content stays within rounded borders
+  },
+  logo: {
+    height: 260,
+    width: '100%',
+    marginTop: -20,
+    zIndex: 2,
+  },
+  logo1: {
+    height: 100,
+    width: 100,
+    marginTop: 25,
+    zIndex: 2,
+    marginLeft: 120,
   },
   menuItem: {
-    width: '90%',
-    marginBottom: 20,
-    borderRadius: 15,
-    elevation: 4, 
-    shadowColor: '#000', 
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-  },
-  gradient: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 15,
-    paddingHorizontal: 20,
-    borderRadius: 15,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    width: '70%',
+    borderRadius: 10,
+    marginBottom: 15,
+    backgroundColor: '#fff',
+    elevation: 3,
+    marginLeft: 55,
   },
   menuText: {
-    color: 'white',
-    fontSize: 20,
-    marginLeft: 15,
-    fontWeight: '500',
-  },
-  icon: {
-    marginRight: 10,
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginLeft: 10,
+    color: '#333',
   },
   logoutButton: {
+    backgroundColor: '#ff6b6b',
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 20,
     position: 'absolute',
     bottom: 30,
-    alignSelf: 'center',
-    paddingVertical: 15,
-    paddingHorizontal: 40,
-    backgroundColor: '#ff6b6b',
-    borderRadius: 30,
-    elevation: 6,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.3,
-    shadowRadius: 6,
+    right: 20,
+    elevation: 4,
   },
   logoutText: {
-    color: 'white',
-    fontSize: 18,
-    fontWeight: '600',
+    color: '#fff',
+    fontWeight: 'bold',
   },
-  topLeftIcon: {
-    position: 'absolute',
-    top: 10,
-    right: 10,
-    zIndex: 2,
+  Admin: {
+    width: 200,
+    height: 90,
+    position: 'Center',
+    zIndex: 3,
+  },
+  Text: {
+    fontSize: 24,
+    marginLeft: 130,
+    marginTop: -230, 
   },
 });
 

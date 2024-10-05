@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Image, View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { Image, View, Text, StyleSheet, TouchableOpacity, Pressable} from 'react-native';
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
 
 function Settingscreen({ navigation }) {
@@ -9,8 +9,14 @@ function Settingscreen({ navigation }) {
     navigation.navigate(screen);
   };
 
+  const handleOutsidePress = () => {
+    if (showSidebar) {
+      setShowSidebar(false);
+    }
+  };
+
   return (
-    <View style={styles.container}>
+    <Pressable onPress={handleOutsidePress} style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerText}>Settings</Text>
       </View>
@@ -91,7 +97,7 @@ function Settingscreen({ navigation }) {
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </Pressable>
   );
 }
 
@@ -160,7 +166,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: -43,
     left: 20,
-    zIndex: 3,
+    // zIndex: 3,
   },
   optionsContainer: {
     marginTop: 60,

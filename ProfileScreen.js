@@ -463,7 +463,7 @@
 
 
 import React, { useState, useEffect } from 'react';
-import { Image, View, Text, StyleSheet, TouchableOpacity, Modal, ScrollView } from 'react-native';
+import { Image, View, Text, StyleSheet, TouchableOpacity, Modal, ScrollView, Platform, Pressable, } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import axios from 'axios'; 
 import { FontAwesome } from '@expo/vector-icons'; 
@@ -481,7 +481,7 @@ function ProfileScreen({ route, navigation }) {
 
   const fetchUserData = async () => {
     try {
-      const response = await axios.get(`http://192.168.11.188:3000/api/users/${user.id}`);
+      const response = await axios.get(`http://192.168.1.66:3000/api/users/${user.id}`);
       setUserData(response.data);
     } catch (error) {
       console.error('Error fetching user data:', error);
@@ -491,9 +491,14 @@ function ProfileScreen({ route, navigation }) {
   const handleFinder = () => {
     navigation.navigate('Finder');
   };
+  const handleOutsidePress = () => {
+    if (showSidebar) {
+      setShowSidebar(false);
+    }
+  };
 
   return (
-    <View style={styles.container}>
+    <Pressable onPress={handleOutsidePress} style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerText}>Profile</Text>
       </View>
@@ -564,7 +569,7 @@ function ProfileScreen({ route, navigation }) {
           </ScrollView>
         </View>
       </ScrollView>
-    </View>
+    </Pressable>
   );
 }
 
@@ -632,7 +637,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: -43,
     left: 20,
-    zIndex: 3,
+    // zIndex: 3,
   },
   cardContainer: {
     alignItems: 'center',

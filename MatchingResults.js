@@ -11,7 +11,7 @@ const MatchingResults = () => {
 
   const fetchMatches = async () => {
     try {
-      const response = await axios.get('http://192.168.11.188:3000/api/matchingresults');
+      const response = await axios.get('http://192.168.1.66:3000/api/matchingresults');
       setMatches(response.data);
     } catch (error) {
       console.error('Error fetching matches:', error);

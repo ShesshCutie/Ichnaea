@@ -307,7 +307,7 @@ const fs = require('fs');
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(cors({
-  origin: ['http://192.168.11.188:3000', 'http://192.168.11.188:19006', '*'],
+  origin: ['http://192.168.1.66:3000', 'http://192.168.1.66:19006', '*'],
   methods: ["GET", "POST"],
   credentials: true,
 }));
@@ -368,7 +368,7 @@ const upload = multer({ storage, fileFilter });
 const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: 'root',
+  password: 'root1',
   database: 'ichnaea',
 });
 
@@ -695,6 +695,18 @@ app.post('/feedback', (req, res) => {
   });
 });
 
+//Accounts
+app.get('/api/accounts', (req, res) => {
+  connection.query('SELECT * FROM users', (error, results, fields) => {
+    if (error) {
+      console.error('Error fetching data:', error);
+      res.status(500).json({ message: 'Please try again.' });
+      return;
+    }
+    console.log('Data fetched successfully');
+    res.status(200).json(results);
+  });
+});
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000');

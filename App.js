@@ -25,6 +25,7 @@ import TermsService from './settings/TermsService';
 import ReportProblem from './settings/reportproblemcontent/ReportProblem';
 import IncludeProblem from './settings/reportproblemcontent/IncludeProblem';
 import SendReport from './settings/reportproblemcontent/SendReport';
+import AccountsScreen from './AccountsScreen';
 const Stack = createStackNavigator();
 
 
@@ -69,6 +70,7 @@ export default function App() {
         <Stack.Screen name="Report Problem" component={ReportProblem} />
         <Stack.Screen name="Include Problem" component={IncludeProblem} />
         <Stack.Screen name="Send Report" component={SendReport} />
+        <Stack.Screen name="Accounts" component={AccountsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
