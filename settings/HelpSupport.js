@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
 function HelpAndSupportScreen({ navigation }) {
@@ -9,6 +9,8 @@ function HelpAndSupportScreen({ navigation }) {
   return (
     <View style={styles.container}>
         <View style={styles.content}>
+        <Text style={styles.title}>Help and Support</Text>
+        <ScrollView style={styles.scrollContainer}>
           <View style={styles.infoContainer}>
             <Text style={styles.infoTitle}>FAQs</Text>
             <Text style={styles.infoContent}>Find answers to frequently asked questions.</Text>
@@ -27,6 +29,7 @@ function HelpAndSupportScreen({ navigation }) {
           <TouchableOpacity style={styles.button} onPress={() => handleNavigate('Report Problem')}>
             <Text style={styles.buttonText}>Report Problem</Text>
           </TouchableOpacity>
+        </ScrollView>
         </View>
     </View>
   );
@@ -37,6 +40,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     flexDirection: 'row',
+    zIndex: 1,
+    marginTop: 55
   },
   content: {
     flex: 1,
@@ -54,7 +59,9 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 20,
+    marginBottom: 40,
+    marginTop: -15,
+    marginLeft: 60
   },
   infoContainer: {
     marginBottom: 15,

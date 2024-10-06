@@ -463,7 +463,7 @@
 
 
 import React, { useState, useEffect } from 'react';
-import { Image, View, Text, StyleSheet, TouchableOpacity, Modal, ScrollView, Platform, Pressable, } from 'react-native';
+import { Image, View, Text, StyleSheet, TouchableOpacity, Modal, ScrollView, Platform, Pressable, ImageBackground } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import axios from 'axios'; 
 import { FontAwesome } from '@expo/vector-icons'; 
@@ -481,7 +481,7 @@ function ProfileScreen({ route, navigation }) {
 
   const fetchUserData = async () => {
     try {
-      const response = await axios.get(`http://192.168.1.66:3000/api/users/${user.id}`);
+      const response = await axios.get(`http://192.168.11.188:3000/api/users/${user.id}`);
       setUserData(response.data);
     } catch (error) {
       console.error('Error fetching user data:', error);
@@ -504,20 +504,16 @@ function ProfileScreen({ route, navigation }) {
       </View>
       <View style={[styles.sidebar, { left: showSidebar ? 0 : -200 }]}>
         <View style={styles.ICHNAEA}>
-        <Text style={styles.Text}>Ichnaea</Text>
-        <Image
-            source={require("./assets/logo.png")}
-            style={{
-                height: 80,
-                width: 80,
-                borderRadius: 20,
-                position: "absolute",
-                top: 10,
-                marginTop: -6,
-                marginLeft: 10,
-            }}
+        <ImageBackground
+          source={require('./assets/back.png')}
+          style={styles.back}
+            />
+          <Text style={styles.Text}>Ichnaea</Text>
+          <Image
+            source={require("./assets/logo1.png")}
+            style={styles.logo}
           />
-          </View>
+        </View>
         <View style={styles.SIDEBARALL}>
           <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Home')}>
             <AntDesign name="home" size={20} color="black" />
@@ -620,8 +616,10 @@ const styles = StyleSheet.create({
   },
   Text: {
     fontSize: 24,
-    marginLeft: 90,
-    marginTop: 25,
+    marginLeft: 80,
+    marginTop: -70,
+    zIndex: 2,
+    color: '#fff'
   },
   ICHNAEA: {
     backgroundColor: '#FAA500',
@@ -696,6 +694,21 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: 'bold',
     marginTop: 15,
+  },
+  back:{
+    width: '100%',
+    height: 100,
+    zIndex: 1
+  },
+  logo: {
+    height: 60,
+    width: 60,
+    borderRadius: 20,
+    position: 'absolute',
+    top: 10,
+    marginTop: 8,
+    marginLeft: 10,
+    zIndex: 4,
   },
 });
 

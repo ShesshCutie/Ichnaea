@@ -1,6 +1,6 @@
 // WelcomeScreen.js
 import React, { useState, useEffect } from 'react';
-import { Image, View, Text, StyleSheet, TextInput, TouchableOpacity, Modal, Pressable } from 'react-native';
+import { Image, View, Text, StyleSheet, TextInput, TouchableOpacity, Modal, Pressable, ImageBackground } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
@@ -33,20 +33,16 @@ const PostScreen = () => {
       </View>
       <View style={[styles.sidebar, { left: showSidebar ? 0 : -200 }]}>
         <View style={styles.ICHNAEA}>
-        <Text style={styles.Text}>Ichnaea</Text>
-        <Image
-            source={require("./assets/logo.png")}
-            style={{
-                height: 80,
-                width: 80,
-                borderRadius: 20,
-                position: "absolute",
-                top: 10,
-                marginTop: -6,
-                marginLeft: 10,
-            }}
+        <ImageBackground
+          source={require('./assets/back.png')}
+          style={styles.back}
+            />
+          <Text style={styles.Text}>Ichnaea</Text>
+          <Image
+            source={require("./assets/logo1.png")}
+            style={styles.logo}
           />
-          </View>
+        </View>
         <View style={styles.SIDEBARALL}>
           <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Home')}>
             <AntDesign name="home" size={20} color="black" />
@@ -72,7 +68,7 @@ const PostScreen = () => {
       </View>
       <View>
         <TouchableOpacity style={styles.sidebarToggle} onPress={() => setShowSidebar(!showSidebar)}>
-          <AntDesign name={showSidebar ? "close" : "menu-fold"} size={24} color="black" />
+          <AntDesign name={showSidebar ? "close" : "menu-fold"} size={28} color="white" />
         </TouchableOpacity>
       </View>
 
@@ -105,7 +101,9 @@ const PostScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ECECEC',
+    backgroundColor: '#fff',
+    zIndex: 1,
+    marginTop: 53
   },
   navigation: {
     flex: 1,
@@ -119,7 +117,7 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     width: 200,
-    height: '100%',
+    height: '120%',
     backgroundColor: '#fff',
     paddingTop: 30,
     paddingLeft: 20,
@@ -130,7 +128,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.8,
     shadowRadius: 5,
     elevation: 10,
-    marginTop: 35,
+    marginTop: -110,
   },
   sidebarItem: {
     flexDirection: 'row',
@@ -161,12 +159,14 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     padding: 20,
+    marginTop: -80
   },
   sidebarToggle: {
     position: 'absolute',
     top: -40,
     left: 20,
     // zIndex: 3,
+    marginTop: -90
   },
   textStyle: {
     color: 'white',
@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
     color: '#3E4A59',
     fontSize: 22,
     fontWeight: 'bold',
-    marginTop: 15,
+    marginTop: -20,
   },
   reminder: {
     alignItems: 'center',
@@ -198,6 +198,28 @@ const styles = StyleSheet.create({
   reminderText: {
     fontSize: 14,
     marginBottom: 50,
+  },
+  back:{
+    width: '100%',
+    height: 100,
+    zIndex: 1
+  },
+  logo: {
+    height: 60,
+    width: 60,
+    borderRadius: 20,
+    position: 'absolute',
+    top: 10,
+    marginTop: 8,
+    marginLeft: 10,
+    zIndex: 4,
+  },
+  Text: {
+    fontSize: 24,
+    marginLeft: 80,
+    marginTop: -70,
+    zIndex: 2,
+    color: '#fff'
   },
 });
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Text, TextInput, TouchableOpacity, View, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { styles } from './style'; 
@@ -52,25 +52,435 @@ export default function App() {
         <Stack.Screen name="Home" component={WelcomeScreen} options={{headerShown: false}}/>
         <Stack.Screen name="Profile" component={ProfileScreen} options={{headerShown: false}}/>
         <Stack.Screen name="SignUpPrompt" component={SignUpPrompt} />
-        <Stack.Screen name="Post" component={PostScreen} options={{headerShown: false}}/>
+        <Stack.Screen 
+        name="Post" 
+        component={PostScreen} 
+        options={{
+          headerTintColor: '#fff', 
+          headerBackground: () => (
+            <Image
+              source={require('./assets/back.png')} 
+              style={{ width: '100%', height: 170 }} 
+            />
+          ),
+          headerTitle: () => (
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Image
+                source={require('./assets/logo1.png')}
+                style={{ width: 65, height: 65, marginLeft: 130, marginTop: 30 }}
+              />
+              <Image
+                source={require('./assets/shapess.png')} 
+                style={{ width: 400, height: 400, marginLeft: -212, marginTop: 400 }} 
+              />
+            </View>
+          ),
+          headerStyle: {
+            backgroundColor: '#f4511e', 
+          },
+          headerTitleAlign: 'left',
+          headerLeft: false,
+        }}
+        />
+
+
         <Stack.Screen name="Admin" component={AdminScreen} options={{headerShown: false}}/>
-        <Stack.Screen name="MatchingResults" component={MatchingResults} />
-        <Stack.Screen name="Archives" component={Archives} />
-        <Stack.Screen name="Finder" component={FinderScreen} />
-        <Stack.Screen name="Founder" component={FounderScreen} />
+        
+        <Stack.Screen 
+        name="MatchingResults" 
+        component={MatchingResults} 
+        options={{
+          headerTintColor: '#fff', 
+          headerBackground: () => (
+            <Image
+              source={require('./assets/back.png')} 
+              style={{ width: '100%', height: 170 }} 
+            />
+          ),
+          headerTitle: () => (
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Image
+                source={require('./assets/logo1.png')}
+                style={{ width: 65, height: 65, marginLeft: 80, marginTop: 30 }}
+              />
+              <Image
+                source={require('./assets/shapess.png')} 
+                style={{ width: 400, height: 400, marginLeft: -214, marginTop: 400 }} 
+              />
+            </View>
+          ),
+          headerStyle: {
+            backgroundColor: '#f4511e', 
+          },
+          headerTitleAlign: 'left',
+        }}
+        />
+
+        <Stack.Screen
+         name="Archives" 
+         component={Archives} 
+         options={{
+          headerTintColor: '#fff', 
+          headerBackground: () => (
+            <Image
+              source={require('./assets/back.png')} 
+              style={{ width: '100%', height: 170 }} 
+            />
+          ),
+          headerTitle: () => (
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Image
+                source={require('./assets/logo1.png')}
+                style={{ width: 65, height: 65, marginLeft: 80, marginTop: 30 }}
+              />
+              <Image
+                source={require('./assets/shapess.png')} 
+                style={{ width: 400, height: 400, marginLeft: -214, marginTop: 400 }} 
+              />
+            </View>
+          ),
+          headerStyle: {
+            backgroundColor: '#f4511e', 
+          },
+          headerTitleAlign: 'left',
+        }}
+        />
+
+        <Stack.Screen 
+        name="Finder" 
+        component={FinderScreen}
+        options={{
+          headerTintColor: '#fff', 
+          headerBackground: () => (
+            <Image
+              source={require('./assets/back.png')} 
+              style={{ width: '100%', height: 170 }} 
+            />
+          ),
+          headerTitle: () => (
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Image
+                source={require('./assets/logo1.png')}
+                style={{ width: 65, height: 65, marginLeft: 80, marginTop: 30 }}
+              />
+              <Image
+                source={require('./assets/shapess.png')} 
+                style={{ width: 400, height: 400, marginLeft: -214, marginTop: 400 }} 
+              />
+            </View>
+          ),
+          headerStyle: {
+            backgroundColor: '#f4511e', 
+          },
+          headerTitleAlign: 'left',
+        }} 
+        />
+
+        <Stack.Screen 
+        name="Founder" 
+        component={FounderScreen}
+        options={{
+          headerTintColor: '#fff', 
+          headerBackground: () => (
+            <Image
+              source={require('./assets/back.png')} 
+              style={{ width: '100%', height: 170 }} 
+            />
+          ),
+          headerTitle: () => (
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Image
+                source={require('./assets/logo1.png')}
+                style={{ width: 65, height: 65, marginLeft: 80, marginTop: 30 }}
+              />
+              <Image
+                source={require('./assets/shapess.png')} 
+                style={{ width: 400, height: 400, marginLeft: -214, marginTop: 400 }} 
+              />
+            </View>
+          ),
+          headerStyle: {
+            backgroundColor: '#f4511e', 
+          },
+          headerTitleAlign: 'left',
+        }} 
+        />
+
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Settings" component={Settingscreen} options={{headerShown: false}}/>
         <Stack.Screen name="Login1" component={Login1} options={{headerShown: false}} />
-        <Stack.Screen name="Feedback" component={FeedbackScreen} />
-        <Stack.Screen name="Privacy & Security" component={PrivacySecurity} />
-        <Stack.Screen name="Account" component={AccountSettings} />
-        <Stack.Screen name="Help and Support" component={HelpSupport} />
-        <Stack.Screen name="About" component={AboutScreen} />
-        <Stack.Screen name="Terms of Service" component={TermsService} />
-        <Stack.Screen name="Report Problem" component={ReportProblem} />
-        <Stack.Screen name="Include Problem" component={IncludeProblem} />
+
+
+        <Stack.Screen 
+        name="Feedback" 
+        component={FeedbackScreen} 
+        options={{
+          headerTintColor: '#fff', 
+          headerBackground: () => (
+            <Image
+              source={require('./assets/back.png')} 
+              style={{ width: '100%', height: 170 }} 
+            />
+          ),
+          headerTitle: () => (
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Image
+                source={require('./assets/logo1.png')}
+                style={{ width: 65, height: 65, marginLeft: 80, marginTop: 30 }}
+              />
+              <Image
+                source={require('./assets/shapess.png')} 
+                style={{ width: 400, height: 400, marginLeft: -214, marginTop: 400 }} 
+              />
+            </View>
+          ),
+          headerStyle: {
+            backgroundColor: '#f4511e', 
+          },
+          headerTitleAlign: 'left',
+        }} 
+        />
+
+        <Stack.Screen 
+        name="Privacy & Security" 
+        component={PrivacySecurity} 
+        options={{
+          headerTintColor: '#fff', 
+          headerBackground: () => (
+            <Image
+              source={require('./assets/back.png')} 
+              style={{ width: '100%', height: 170 }} 
+            />
+          ),
+          headerTitle: () => (
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Image
+                source={require('./assets/logo1.png')}
+                style={{ width: 65, height: 65, marginLeft: 80, marginTop: 30 }}
+              />
+              <Image
+                source={require('./assets/shapess.png')} 
+                style={{ width: 400, height: 400, marginLeft: -214, marginTop: 400 }} 
+              />
+            </View>
+          ),
+          headerStyle: {
+            backgroundColor: '#f4511e', 
+          },
+          headerTitleAlign: 'left',
+        }} 
+        />
+
+        <Stack.Screen 
+        name="Account" 
+        component={AccountSettings} 
+        options={{
+          headerTintColor: '#fff', 
+          headerBackground: () => (
+            <Image
+              source={require('./assets/back.png')} 
+              style={{ width: '100%', height: 170 }} 
+            />
+          ),
+          headerTitle: () => (
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Image
+                source={require('./assets/logo1.png')}
+                style={{ width: 65, height: 65, marginLeft: 80, marginTop: 30 }}
+              />
+              <Image
+                source={require('./assets/shapess.png')} 
+                style={{ width: 400, height: 400, marginLeft: -214, marginTop: 400 }} 
+              />
+            </View>
+          ),
+          headerStyle: {
+            backgroundColor: '#f4511e', 
+          },
+          headerTitleAlign: 'left',
+        }} 
+        />
+
+        <Stack.Screen 
+        name="Help and Support" 
+        component={HelpSupport} 
+        options={{
+          headerTintColor: '#fff', 
+          headerBackground: () => (
+            <Image
+              source={require('./assets/back.png')} 
+              style={{ width: '100%', height: 170 }} 
+            />
+          ),
+          headerTitle: () => (
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Image
+                source={require('./assets/logo1.png')}
+                style={{ width: 65, height: 65, marginLeft: 80, marginTop: 30 }}
+              />
+              <Image
+                source={require('./assets/shapess.png')} 
+                style={{ width: 400, height: 400, marginLeft: -214, marginTop: 400 }} 
+              />
+            </View>
+          ),
+          headerStyle: {
+            backgroundColor: '#f4511e', 
+          },
+          headerTitleAlign: 'left',
+        }} 
+        />
+
+        <Stack.Screen 
+        name="About" 
+        component={AboutScreen} 
+        options={{
+          headerTintColor: '#fff', 
+          headerBackground: () => (
+            <Image
+              source={require('./assets/back.png')} 
+              style={{ width: '100%', height: 170 }} 
+            />
+          ),
+          headerTitle: () => (
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Image
+                source={require('./assets/logo1.png')}
+                style={{ width: 65, height: 65, marginLeft: 80, marginTop: 30 }}
+              />
+              <Image
+                source={require('./assets/shapess.png')} 
+                style={{ width: 400, height: 400, marginLeft: -214, marginTop: 400 }} 
+              />
+            </View>
+          ),
+          headerStyle: {
+            backgroundColor: '#f4511e', 
+          },
+          headerTitleAlign: 'left',
+        }} 
+        />
+
+        <Stack.Screen 
+        name="Terms of Service" 
+        component={TermsService} 
+        options={{
+          headerTintColor: '#fff', 
+          headerBackground: () => (
+            <Image
+              source={require('./assets/back.png')} 
+              style={{ width: '100%', height: 170 }} 
+            />
+          ),
+          headerTitle: () => (
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Image
+                source={require('./assets/logo1.png')}
+                style={{ width: 65, height: 65, marginLeft: 80, marginTop: 30 }}
+              />
+              <Image
+                source={require('./assets/shapess.png')} 
+                style={{ width: 400, height: 400, marginLeft: -214, marginTop: 400 }} 
+              />
+            </View>
+          ),
+          headerStyle: {
+            backgroundColor: '#f4511e', 
+          },
+          headerTitleAlign: 'left',
+        }} 
+        />
+
+        <Stack.Screen 
+        name="Report Problem" 
+        component={ReportProblem} 
+        options={{
+          headerTintColor: '#fff', 
+          headerBackground: () => (
+            <Image
+              source={require('./assets/back.png')} 
+              style={{ width: '100%', height: 170 }} 
+            />
+          ),
+          headerTitle: () => (
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Image
+                source={require('./assets/logo1.png')}
+                style={{ width: 65, height: 65, marginLeft: 80, marginTop: 30 }}
+              />
+              <Image
+                source={require('./assets/shapess.png')} 
+                style={{ width: 400, height: 400, marginLeft: -214, marginTop: 400 }} 
+              />
+            </View>
+          ),
+          headerStyle: {
+            backgroundColor: '#f4511e', 
+          },
+          headerTitleAlign: 'left',
+        }} 
+        />
+
+        <Stack.Screen 
+        name="Include Problem" 
+        component={IncludeProblem} 
+        options={{
+          headerTintColor: '#fff', 
+          headerBackground: () => (
+            <Image
+              source={require('./assets/back.png')} 
+              style={{ width: '100%', height: 170 }} 
+            />
+          ),
+          headerTitle: () => (
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Image
+                source={require('./assets/logo1.png')}
+                style={{ width: 65, height: 65, marginLeft: 80, marginTop: 30 }}
+              />
+              <Image
+                source={require('./assets/shapess.png')} 
+                style={{ width: 400, height: 400, marginLeft: -214, marginTop: 400 }} 
+              />
+            </View>
+          ),
+          headerStyle: {
+            backgroundColor: '#f4511e', 
+          },
+          headerTitleAlign: 'left',
+        }} 
+        />
+
         <Stack.Screen name="Send Report" component={SendReport} />
-        <Stack.Screen name="Accounts" component={AccountsScreen} />
+        <Stack.Screen 
+          name="Accounts" 
+          component={AccountsScreen} 
+          options={{
+            headerTintColor: '#fff', 
+            headerBackground: () => (
+              <Image
+                source={require('./assets/back.png')} 
+                style={{ width: '100%', height: 170 }} 
+              />
+            ),
+            headerTitle: () => (
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <Image
+                  source={require('./assets/logo1.png')}
+                  style={{ width: 65, height: 65, marginLeft: 80, marginTop: 40 }}
+                />
+                <Image
+                  source={require('./assets/shapess.png')} 
+                  style={{ width: 400, height: 400, marginLeft: -214, marginTop: 440 }} 
+                />
+              </View>
+            ),
+            headerStyle: {
+              backgroundColor: '#f4511e', 
+            },
+            headerTitleAlign: 'left',
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

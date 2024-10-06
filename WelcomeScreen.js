@@ -9,6 +9,7 @@ import {
   Image,
   Platform,
   Pressable,
+  ImageBackground
 } from 'react-native';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
@@ -32,7 +33,7 @@ const WelcomeScreen = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://192.168.1.66:3000/api/unmatchedresults');
+      const response = await axios.get('http://192.168.11.188:3000/api/unmatchedresults');
       setUnmatchedData(response.data);
       setFilteredData(response.data);
     } catch (error) {
@@ -96,9 +97,13 @@ const WelcomeScreen = () => {
       
       <View style={[styles.sidebar, { left: showSidebar ? 0 : -200 }]}>
         <View style={styles.ICHNAEA}>
+        <ImageBackground
+          source={require('./assets/back.png')}
+          style={styles.back}
+            />
           <Text style={styles.Text}>Ichnaea</Text>
           <Image
-            source={require("./assets/logo.png")}
+            source={require("./assets/logo1.png")}
             style={styles.logo}
           />
         </View>
@@ -162,7 +167,7 @@ const WelcomeScreen = () => {
               <TouchableOpacity key={index} style={styles.cardContainer}>
                 <Text style={styles.lostLabel}>{item.item_type === 'finder' ? 'LOST' : 'FOUND'}</Text>
                 <Image
-                  source={{ uri: `http://192.168.1.66:3000${item.image}` }}
+                  source={{ uri: `http://192.168.11.188:3000${item.image}` }}
                   style={styles.cardImage}
                   onError={() => console.log('Error loading image')}
                 />
@@ -200,6 +205,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     padding: 20,
     alignItems: 'center',
+  },
+  back:{
+    width: '100%',
+    height: 100,
+    zIndex: 1
   },
   headerText: {
     color: '#3E4A59',
@@ -326,13 +336,14 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
   logo: {
-    height: 80,
-    width: 80,
+    height: 60,
+    width: 60,
     borderRadius: 20,
     position: 'absolute',
     top: 10,
-    marginTop: -6,
+    marginTop: 8,
     marginLeft: 10,
+    zIndex: 4,
   },
   filterOptions: {
     position: 'absolute',
@@ -364,8 +375,10 @@ const styles = StyleSheet.create({
   },
   Text: {
     fontSize: 24,
-    marginLeft: 90,
-    marginTop: 25,
+    marginLeft: 80,
+    marginTop: -70,
+    zIndex: 2,
+    color: '#fff'
   },
 });
 

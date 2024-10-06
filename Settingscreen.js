@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Image, View, Text, StyleSheet, TouchableOpacity, Pressable} from 'react-native';
+import { Image, View, Text, StyleSheet, TouchableOpacity, Pressable, ImageBackground} from 'react-native';
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
 
 function Settingscreen({ navigation }) {
@@ -21,21 +21,17 @@ function Settingscreen({ navigation }) {
         <Text style={styles.headerText}>Settings</Text>
       </View>
       <View style={[styles.sidebar, { left: showSidebar ? 0 : -200 }]}>
-        <View style={styles.ICHNAEA}>
-        <Text style={styles.Text}>Ichnaea</Text>
-        <Image
-            source={require("./assets/logo.png")}
-            style={{
-                height: 80,
-                width: 80,
-                borderRadius: 20,
-                position: "absolute",
-                top: 10,
-                marginTop: -6,
-                marginLeft: 10,
-            }}
+      <View style={styles.ICHNAEA}>
+        <ImageBackground
+          source={require('./assets/back.png')}
+          style={styles.back}
+            />
+          <Text style={styles.Text}>Ichnaea</Text>
+          <Image
+            source={require("./assets/logo1.png")}
+            style={styles.logo}
           />
-          </View>
+        </View>
         <View style={styles.SIDEBARALL}>
           <TouchableOpacity style={styles.sidebarItem} onPress={() => navigation.navigate('Home')}>
             <AntDesign name="home" size={20} color="black" />
@@ -200,6 +196,28 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: 15,
   }, 
+  back:{
+    width: '100%',
+    height: 100,
+    zIndex: 1
+  },
+  logo: {
+    height: 60,
+    width: 60,
+    borderRadius: 20,
+    position: 'absolute',
+    top: 10,
+    marginTop: 8,
+    marginLeft: 10,
+    zIndex: 4,
+  },
+  Text: {
+    fontSize: 24,
+    marginLeft: 80,
+    marginTop: -70,
+    zIndex: 2,
+    color: '#fff'
+  },
 });
 
 export default Settingscreen;

@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
   container: {
     paddingVertical: 10,
     backgroundColor: '#fff',
+    marginTop: 55
   },
   title: {
     fontSize: 22,
@@ -55,6 +56,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
+    zIndex: 1,
   },
   listText: {
     fontSize: 18,

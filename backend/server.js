@@ -307,7 +307,7 @@ const fs = require('fs');
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(cors({
-  origin: ['http://192.168.1.66:3000', 'http://192.168.1.66:19006', '*'],
+  origin: ['http://192.168.11.188:3000', 'http://192.168.11.188:19006', '*'],
   methods: ["GET", "POST"],
   credentials: true,
 }));
@@ -368,7 +368,7 @@ const upload = multer({ storage, fileFilter });
 const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: 'root1',
+  password: 'root',
   database: 'ichnaea',
 });
 
@@ -696,17 +696,32 @@ app.post('/feedback', (req, res) => {
 });
 
 //Accounts
-app.get('/api/accounts', (req, res) => {
-  connection.query('SELECT * FROM users', (error, results, fields) => {
+app.get('/api/account', (req, res) => {
+  const sql = 'SELECT id, username, firstname, lastname, email FROM users';
+  connection.query(sql, (error, results) => {
     if (error) {
-      console.error('Error fetching data:', error);
-      res.status(500).json({ message: 'Please try again.' });
-      return;
+      console.error('Error fetching users:', error);
+      res.status(500).send('Error fetching users');
+    } else {
+      res.status(200).json(results);
     }
-    console.log('Data fetched successfully');
-    res.status(200).json(results);
   });
 });
+
+// Delete user
+app.delete('/api/account/:id', (req, res) => {
+  const { id } = req.params;
+  const sql = 'DELETE FROM users WHERE id = ?';
+  connection.query(sql, [id], (error, result) => {
+    if (error) {
+      console.error('Error deleting user:', error);
+      res.status(500).send('Error deleting user');
+    } else {
+      res.status(200).send({ message: 'User deleted successfully' });
+    }
+  });
+});
+
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000');

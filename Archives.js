@@ -24,8 +24,8 @@ const Archives = () => {
   const fetchData = async () => {
     try {
       const [finderResponse, founderResponse] = await Promise.all([
-        axios.get('http://192.168.1.66:3000/api/home'),
-        axios.get('http://192.168.1.66:3000/api/datas')
+        axios.get('http://192.168.11.188:3000/api/home'),
+        axios.get('http://192.168.11.188:3000/api/datas')
       ]);
       setFinderData(finderResponse.data);
       setFounderData(founderResponse.data);
@@ -139,7 +139,7 @@ const Archives = () => {
               <TouchableOpacity key={index} style={styles.cardContainer} onPress={() => {}}>
                 <Text style={styles.lostLabel}>{item.seek_item ? 'LOST' : 'FIND'}</Text>
                 <Image
-                  source={{ uri: `http://192.168.1.66:3000${item.image}` }}
+                  source={{ uri: `http://192.168.11.188:3000${item.image}` }}
                   style={styles.cardImage}
                   onError={() => console.log('Error loading image')}
                 />
@@ -169,7 +169,9 @@ const Archives = () => {
 const styles = StyleSheet.create({
   container: {
     flexGrow: 0,
-    backgroundColor: '#F0F4F7',
+    backgroundColor: '#fff',
+    zIndex: 1,
+    marginTop: 55
   },
   sidebar: {
     position: 'absolute',

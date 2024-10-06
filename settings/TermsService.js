@@ -42,6 +42,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     flexDirection: 'row',
+    zIndex: 1,
+    marginTop: 55
   },
   content: {
     flex: 1,
@@ -59,7 +61,9 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 20,
+    marginBottom: 40,
+    marginTop: -15,
+    marginLeft: 60
   },
   scrollContainer: {
     flex: 1,

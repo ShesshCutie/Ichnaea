@@ -3,9 +3,11 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ECECEC',
+    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    zIndex: 1,
+    marginTop: 55
   },
   welcomeText: {
     fontSize: 24,

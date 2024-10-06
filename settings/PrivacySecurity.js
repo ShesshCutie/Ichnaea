@@ -5,6 +5,8 @@ import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-nati
 function PrivacySecurity({ navigation }) {
   return (
     <View style={styles.container}>
+      <View style={styles.content}>
+      <Text style={styles.title}>Privacy & Security</Text>
       <ScrollView style={styles.content}>
         <Text style={styles.sectionTitle}>Privacy Settings</Text>
         <Text style={styles.sectionContent}>
@@ -31,6 +33,7 @@ function PrivacySecurity({ navigation }) {
           Change your password regularly and use a strong, unique password for your account.
         </Text>
       </ScrollView>
+      </View>
     </View>
   );
 }
@@ -41,6 +44,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     paddingHorizontal: 20,
     paddingVertical: 10,
+    zIndex: 1,
+    marginTop: 55
   },
   header: {
     flexDirection: 'row',
@@ -53,6 +58,13 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 30,
+    marginTop: -10,
+    marginLeft: 60
   },
   sectionTitle: {
     fontSize: 18,
