@@ -28,9 +28,6 @@ const PostScreen = () => {
 
   return (
     <Pressable onPress={handleOutsidePress} style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>Post Item</Text>
-      </View>
       <View style={[styles.sidebar, { left: showSidebar ? 0 : -200 }]}>
         <View style={styles.ICHNAEA}>
         <ImageBackground
@@ -166,7 +163,7 @@ const styles = StyleSheet.create({
     top: -40,
     left: 20,
     // zIndex: 3,
-    marginTop: -90
+    marginTop: -55
   },
   textStyle: {
     color: 'white',

@@ -49,8 +49,77 @@ export default function App() {
             headerShown: false
           }}
         />
-        <Stack.Screen name="Home" component={WelcomeScreen} options={{headerShown: false}}/>
-        <Stack.Screen name="Profile" component={ProfileScreen} options={{headerShown: false}}/>
+
+        <Stack.Screen 
+          name="Home" 
+          component={WelcomeScreen} 
+          options={{
+            headerTintColor: '#fff', 
+            headerBackground: () => (
+              <Image
+                source={require('./assets/back.png')} 
+                style={{ width: '100%', height: 170 }} 
+              />
+            ),
+            headerTitle: () => (
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                {/* Uncomment this if you want to include another image */}
+                {/* <Image
+                  source={require('./assets/logo1.png')}
+                  style={{ width: 65, height: 65, marginLeft: 130, marginTop: 30 }}
+                /> */}
+                <Image
+                  source={require('./assets/shapess.png')} 
+                  style={{ width: 380, height: 380, marginLeft: -21, marginTop: 340 }} 
+                />
+                <Text style={{ color: '#fff', fontSize: 24, marginLeft: -230, fontWeight: 'bold', marginTop: 1 }}>
+                  Home
+                </Text>
+              </View>
+            ),
+            headerStyle: {
+              backgroundColor: '#f4511e', 
+            },
+            headerTitleAlign: 'left',
+            headerLeft: false,
+          }}
+        />
+
+        <Stack.Screen 
+        name="Profile" 
+        component={ProfileScreen} 
+        options={{
+          headerTintColor: '#fff', 
+          headerBackground: () => (
+            <Image
+              source={require('./assets/back.png')} 
+              style={{ width: '100%', height: 170 }} 
+            />
+          ),
+          headerTitle: () => (
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              {/* Uncomment this if you want to include another image */}
+              {/* <Image
+                source={require('./assets/logo1.png')}
+                style={{ width: 65, height: 65, marginLeft: 130, marginTop: 30 }}
+              /> */}
+              <Image
+                source={require('./assets/shapess.png')} 
+                style={{ width: 380, height: 380, marginLeft: -21, marginTop: 340 }} 
+              />
+              <Text style={{ color: '#fff', fontSize: 24, marginLeft: -235, fontWeight: 'bold', marginTop: 1 }}>
+                Profile
+              </Text>
+            </View>
+          ),
+          headerStyle: {
+            backgroundColor: '#f4511e', 
+          },
+          headerTitleAlign: 'left',
+          headerLeft: false,
+        }}
+        />
+
         <Stack.Screen name="SignUpPrompt" component={SignUpPrompt} />
         <Stack.Screen 
         name="Post" 
@@ -65,14 +134,18 @@ export default function App() {
           ),
           headerTitle: () => (
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <Image
+              {/* Uncomment this if you want to include another image */}
+              {/* <Image
                 source={require('./assets/logo1.png')}
                 style={{ width: 65, height: 65, marginLeft: 130, marginTop: 30 }}
-              />
+              /> */}
               <Image
                 source={require('./assets/shapess.png')} 
-                style={{ width: 400, height: 400, marginLeft: -212, marginTop: 400 }} 
+                style={{ width: 380, height: 380, marginLeft: -21, marginTop: 340 }} 
               />
+              <Text style={{ color: '#fff', fontSize: 24, marginLeft: -235, fontWeight: 'bold', marginTop: 1 }}>
+                Post Item
+              </Text>
             </View>
           ),
           headerStyle: {
@@ -207,7 +280,42 @@ export default function App() {
         />
 
         <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Settings" component={Settingscreen} options={{headerShown: false}}/>
+
+        <Stack.Screen 
+        name="Settings" 
+        component={Settingscreen} 
+        options={{
+          headerTintColor: '#fff', 
+          headerBackground: () => (
+            <Image
+              source={require('./assets/back.png')} 
+              style={{ width: '100%', height: 170 }} 
+            />
+          ),
+          headerTitle: () => (
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              {/* Uncomment this if you want to include another image */}
+              {/* <Image
+                source={require('./assets/logo1.png')}
+                style={{ width: 65, height: 65, marginLeft: 130, marginTop: 30 }}
+              /> */}
+              <Image
+                source={require('./assets/shapess.png')} 
+                style={{ width: 380, height: 380, marginLeft: -21, marginTop: 340 }} 
+              />
+              <Text style={{ color: '#fff', fontSize: 24, marginLeft: -235, fontWeight: 'bold', marginTop: 1 }}>
+                Settings
+              </Text>
+            </View>
+          ),
+          headerStyle: {
+            backgroundColor: '#f4511e', 
+          },
+          headerTitleAlign: 'left',
+          headerLeft: false,
+        }}
+        />
+
         <Stack.Screen name="Login1" component={Login1} options={{headerShown: false}} />
 
 

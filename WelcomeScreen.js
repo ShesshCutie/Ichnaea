@@ -91,9 +91,9 @@ const WelcomeScreen = () => {
 
   return (
     <Pressable onPress={handleOutsidePress} style={styles.container}>
-      <View style={styles.header}>
+      {/* <View style={styles.header}>
         <Text style={styles.headerText}>Home</Text>
-      </View>
+      </View> */}
       
       <View style={[styles.sidebar, { left: showSidebar ? 0 : -200 }]}>
         <View style={styles.ICHNAEA}>
@@ -132,7 +132,7 @@ const WelcomeScreen = () => {
       </View>
       <View>
         <TouchableOpacity style={styles.sidebarToggle} onPress={() => setShowSidebar(!showSidebar)}>
-          <AntDesign name={showSidebar ? "close" : "menu-fold"} size={24} color="black" />
+          <AntDesign name={showSidebar ? "close" : "menu-fold"} size={28} color="white" />
         </TouchableOpacity>
       </View>
 
@@ -199,7 +199,9 @@ const WelcomeScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    backgroundColor: '#F0F4F7',
+    backgroundColor: '#fff',
+    zIndex: 1,
+    marginTop: 23
   },
   header: {
     backgroundColor: '#FFFFFF',
@@ -259,6 +261,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.8,
     shadowRadius: 5,
     elevation: 5,
+    
   },
   lostLabel: {
     position: 'absolute',
@@ -301,7 +304,7 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     width: 200,
-    height: '100%',
+    height: '120%',
     backgroundColor: '#fff',
     paddingTop: 30,
     paddingLeft: 20,
@@ -312,7 +315,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.8,
     shadowRadius: 5,
     elevation: 10,
-    marginTop: 35,
+    marginTop: -80,
   },
   sidebarItem: {
     flexDirection: 'row',
@@ -364,7 +367,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: -43,
     left: 20,
-    // zIndex: 3,
+    marginTop: -20
   },
   reminder: {
     alignItems: 'center',
